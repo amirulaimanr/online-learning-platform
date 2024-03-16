@@ -26,8 +26,7 @@ public class TestDBServlet extends HttpServlet {
             DatabaseConnection dbConnection = new DatabaseConnection();
 
             String query = "SELECT name, email FROM users";
-            try (
-                    ResultSet resultSet = dbConnection.executeQuery(query)) {
+            try (ResultSet resultSet = dbConnection.executeQuery(query)) {
 
                 out.println("<h2>Users:</h2>");
                 out.println("<ul>");

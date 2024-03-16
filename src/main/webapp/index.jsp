@@ -2,11 +2,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>JSP - Hello World</title>
+        <title>SkillSpark - Elearning Platform</title>
     </head>
     <body>
-        <h1><%= "Hello World!" %></h1>
-        <br/>
-        <a href="TestDBServlet">TestDB Servlet</a>
+        <%@ include file="/pages/MainPage.jsp"%>
+
     </body>
 </html>
