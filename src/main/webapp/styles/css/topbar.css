@@ -1,6 +1,10 @@
-.topbar {
-    padding: 0 100px 0 100px;
-    display: block;
-    height: 80px !important;
-    width: 100%;
+.navbar {
+    --bs-navbar-padding-x: 4.5rem;
+    --bs-navbar-padding-y: 0.8rem;
+}
+
+@media (max-width: 576px) {
+    .login-btn {
+        padding-bottom: 10px;
+    }
 }

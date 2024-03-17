@@ -1,0 +1,21 @@
+.signup-title {
+    text-align: left;
+    font-size: 25px;
+    font-weight: 600;
+    width: 100%;
+    color: #FFFFFF;
+    padding: 0 10%;
+    margin-bottom: 20px;
+}
+
+@media (min-width: 576px){
+    .carousel-img {
+        height: 320px;
+    }
+}
+
+@media (min-width: 768px){
+    .carousel-img {
+        height: 520px;
+    }
+}
