@@ -4,7 +4,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg bg-body-tertiary topbar">
-            <div class="container-fluid pt-3">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="/" >
                     <img src="/styles/img/logo/skillspark_logo.png" class="img-fluid" height="120" width="140">
                 </a>
@@ -25,7 +25,7 @@
                             <a class="nav-link" href="#">Resource</a>
                         </li>
                     </ul>
-                    <form class="d-flex pe-2" role="search">
+                    <form class="d-flex pe-2 login-btn" role="search">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
                     </form>
