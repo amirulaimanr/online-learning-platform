@@ -7,6 +7,11 @@
     background-image: linear-gradient(160deg, #004469 0%, #80D0C7 100%);
 }
 
+.layout-colour-gradient2 {
+    background-color: #004469;
+    background-image: linear-gradient(0deg, #004469 0%, #80D0C7 33%, #b7e8e2 66%, #d0d0d0 100%);
+}
+
 .layout-colour-dark-blue {
     background-color: #1B2331;
 }

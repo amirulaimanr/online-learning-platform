@@ -7,7 +7,7 @@
     <body>
         <%@ include file="/components/TopBarLogin.jsp"%>
 
-        <div class="layout-size">
+        <div class="layout-size layout-colour-gradient2">
             <div class="flex-box">
                 <div class="flex-column-auto">
                     <div class="login-skillspark-logo">
