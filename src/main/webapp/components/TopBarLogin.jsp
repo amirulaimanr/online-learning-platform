@@ -29,7 +29,7 @@
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
                     </form>
-                    <button class="btn btn-outline-success" type="submit">Login</button>
+                    <a class="btn btn-outline-success" href="/pages/LoginPage.jsp">Login</a>
                 </div>
             </div>
         </nav>

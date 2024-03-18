@@ -8,9 +8,9 @@
         <%@ include file="/styles/compile.jsp" %>
     </head>
     <body>
-        <%@ include file="/components/TopBar.jsp" %>
+        <%@ include file="/components/TopBarLogin.jsp" %>
 
-        <div class="container-l layout-size">
+        <div class="container-l layout-background-blue layout-size">
             <div class="flex-container-carousel">
                 <div class="container">
                     <%@include file="/components/Carousel.jsp" %>
