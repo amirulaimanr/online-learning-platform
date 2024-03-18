@@ -2,9 +2,19 @@
     background-color: #166AB8;
 }
 
+.layout-colour-gradient {
+    background-color: #004469;
+    background-image: linear-gradient(160deg, #004469 0%, #80D0C7 100%);
+}
+
+.layout-colour-dark-blue {
+    background-color: #1B2331;
+}
+
 .container-l {
     display: block;
-    height: 720px;
+    height: max-content;
+    padding-bottom: 40px;
     width: 100%;
 }
 
@@ -15,24 +25,33 @@
     height: 550px;
 }
 
-.flex-container {
+.flex-column-auto {
     display: flex;
-    padding-top: 45px;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    padding-bottom: 5rem;
+}
+
+.flex-container-carousel {
+    display: flex;
+    padding-top: 75px;
     flex-direction: column;
     width: 100%;
     gap: 40px;
 }
 
-.container-l {
-    display: block;
-    height: 980px;
+.flex-container {
+    display: flex;
+    padding-top: 75px;
+    flex-direction: column;
     width: 100%;
 }
 
+
 @media (min-width: 768px) {
     .container-l {
-        display: block;
-        height: 1300px;
+        height: auto;
         width: 100%;
     }
 
@@ -41,38 +60,46 @@
         flex-direction: column;
         padding-top: 75px;
         width: 100%;
-        gap: 40px;
+        height: 100%;
     }
 }
 
 @media (min-width: 916px) {
     .container-l {
-        display: block;
-        height: 720px;
+        height: auto;
         width: 100%;
     }
 
-    .flex-container {
+    .flex-container,
+    .flex-container-carousel {
         display: flex;
         flex-direction: row;
         padding-top: 75px;
+        justify-content: center;
     }
 
     .layout-size {
-        padding: 0 100px 0 100px;
+        padding: 0 100px 80px 100px;
     }
+
+    .flex-column-auto {
+        padding-bottom: 0;
+    }
+
 }
 
 @media (min-width: 1800px) {
     .container-l {
-        display: block;
-        height: 700px;
+        height: auto;
         width: 100%;
     }
 
     .layout-size {
         display: block;
-        padding: 0 300px 0 300px;
-        background-color: #166AB8;
+        padding: 0 300px 100px 300px;
+    }
+
+    .flex-column-auto {
+        padding-bottom: 0;
     }
 }
