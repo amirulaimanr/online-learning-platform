@@ -107,7 +107,7 @@
                             If you've made it this far, you must be at least a little curious. Sign up and take the
                             first step toward your goals.
                         </div>
-                        <button class="btn btn-outline-success mt-1" type="submit"><b>Sign Up</b></button>
+                        <a class="btn btn-outline-success mt-1" href="pages/SignUpPage.jsp"><b>Sign Up</b></a>
                     </div>
                 </div>
             </div>
