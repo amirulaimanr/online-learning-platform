@@ -1,4 +1,4 @@
-.layout-size {
+.layout-background-blue {
     background-color: #166AB8;
 }
 
@@ -46,6 +46,10 @@
     padding-top: 75px;
     flex-direction: column;
     width: 100%;
+}
+
+.flex-box {
+    padding-top: 60px;
 }
 
 
