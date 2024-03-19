@@ -13,10 +13,13 @@
         <div class="topbar-sticky">
             <%@ include file="/components/TopBarLogin.jsp" %>
         </div>
+        <div class="navbar-aside">
+            <%@ include file="/components/FilterBar.jsp" %>
+        </div>
         <div class="catalog-container">
-            <%@ include file="/pages/ExploreAllCatalog.jsp" %>
+            <%@ include file="/pages/ComputerScienceCatalog.jsp" %>
         </div>
 
-        <%--        <%@ include file="/components/Footer.jsp" %>--%>
+<%--        <%@ include file="/components/Footer.jsp" %>--%>
     </body>
 </html>

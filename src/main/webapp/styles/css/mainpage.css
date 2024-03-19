@@ -8,14 +8,76 @@
     margin-bottom: 20px;
 }
 
-@media (min-width: 576px){
+.popular-course-subtitle {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+/*.accordion {*/
+/*    width: 100%;*/
+/*    --bs-accordion-btn-padding-x: 2.5rem;*/
+/*    --bs-accordion-btn-padding-y: 2rem;*/
+/*}*/
+
+/*.accordion-button {*/
+/*    font-size: 1.2rem;*/
+/*}*/
+
+.card {
+    min-width: 100%;
+}
+
+.community-stories-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #FFFFFF;
+}
+
+.community-stories-subtitle {
+    padding: 0 30px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.img-card {
+    min-width: auto;
+    margin: auto;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,.2);
+    border: none;
+}
+
+.card-text {
+    font-weight: 200;
+}
+
+.start-title {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: left;
+    color: #FFFFFF;
+}
+
+.start-subtitle {
+    padding: 0 30px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+@media (min-width: 576px) {
     .carousel-img {
         height: 320px;
     }
 }
 
-@media (min-width: 768px){
+@media (min-width: 768px) {
     .carousel-img {
         height: 520px;
+    }
+}
+
+@media (min-width: 916px) {
+    .img-card {
+        min-width: auto;
+        margin: 0 20px;
     }
 }
