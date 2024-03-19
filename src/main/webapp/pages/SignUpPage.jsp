@@ -1,5 +1,6 @@
 <html>
     <head>
+        <link rel="icon" type="image/x-icon" href="/styles/img/favicon_io/favicon.ico" />
         <title>SignUp Page</title>
         <%@ include file="/styles/bootstrap.jsp" %>
         <%@ include file="/styles/compile.jsp" %>
