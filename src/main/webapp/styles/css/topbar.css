@@ -3,6 +3,12 @@
     --bs-navbar-padding-y: 0.8rem;
 }
 
+.topbar-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1040;
+}
+
 @media (max-width: 576px) {
     .login-btn {
         margin-bottom: 10px;
