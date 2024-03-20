@@ -11,7 +11,7 @@
     </head>
     <body>
         <div class="topbar-sticky">
-            <%@ include file="/components/TopBarLogin.jsp" %>
+            <%@ include file="/components/TopBarLoginSignUp.jsp" %>
         </div>
         <div class="catalog-container">
             <%@ include file="/pages/ExploreAllCatalog.jsp" %>
