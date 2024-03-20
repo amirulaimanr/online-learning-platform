@@ -2,15 +2,27 @@
     <body>
         <div class="screen">
             <div class="screen__content">
-                <form class="login">
+                <form action="/LoginServlet" method="post" class="login">
                     <div class="login__field">
                         <i class="login__icon fas fa-user"></i>
-                        <input type="text" class="login__input" placeholder="Email">
+                        <input type="text" class="login__input" placeholder="Email" name="email">
                     </div>
                     <div class="login__field">
                         <i class="login__icon fas fa-lock"></i>
-                        <input type="password" class="login__input" placeholder="Password">
+                        <input type="password" class="login__input" placeholder="Password" name="password">
                     </div>
+
+                    <%-- error message here if unsuccesful login --%>
+                    <%
+                        if (request.getAttribute("errorMessage") != null) {
+                    %>
+                    <p class="error-message" style="color: #d50000; font-size: 14px">
+                        <%= request.getAttribute("errorMessage") %>
+                    </p>
+                    <%
+                        }
+                    %>
+
                     <button class="button login__submit">
                         <span class="button__text">Log In Now</span>
                         <i class="button__icon fas fa-chevron-right"></i>
