@@ -9,7 +9,7 @@
 .screen__content {
     z-index: 1;
     position: relative;
-    height: 100%;
+    height: 400px;
 }
 
 .screen__background {
@@ -159,3 +159,39 @@
     transform: scale(1.5);
 }
 
+/* Login Page */
+
+.login-title {
+    padding-top: 10px;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #000000;
+}
+
+.login-skillspark-logo {
+    display: flex;
+    width: 100%;
+    margin: auto;
+    justify-content: center;
+}
+
+.login-skillspark-logo img{
+    margin: auto;
+}
+
+.login-size {
+    display: flex;
+    width: 100%;
+    padding: 5% 0;
+    justify-content: center;
+}
+
+@media(min-width: 768px) {
+    .login-size {
+        padding: 2% 20%;
+    }
+
+    .login-title {
+        font-size: 2rem;
+    }
+}

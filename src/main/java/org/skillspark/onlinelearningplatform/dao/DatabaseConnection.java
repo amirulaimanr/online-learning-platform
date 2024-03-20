@@ -17,7 +17,8 @@ public class DatabaseConnection {
 
     public ResultSet executeQuery(String sql) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql);
-        return statement.executeQuery();
+        ResultSet resultSet = statement.executeQuery();
+        return resultSet;
     }
 
     public void executeUpdate(String sql) throws SQLException {
@@ -25,11 +26,17 @@ public class DatabaseConnection {
         statement.executeUpdate();
     }
 
+    public Connection getConnection() {
+        return connection;
+    }
+
     public void close() throws SQLException {
         if (connection != null) {
             connection.close();
         }
     }
+
+
 }
 
 

@@ -3,8 +3,27 @@
     --bs-navbar-padding-y: 0.8rem;
 }
 
+.topbar-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1040;
+}
+
+.btn-color-bg {
+    margin-left: 10px;
+    --bs-btn-bg: #1bc475;
+    --bs-btn-color: #ffff;
+    --bs-btn-hover-bg: #198754;
+}
+
 @media (max-width: 576px) {
     .login-btn {
-        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .login-btn {
+        margin-bottom: 10px;
     }
 }

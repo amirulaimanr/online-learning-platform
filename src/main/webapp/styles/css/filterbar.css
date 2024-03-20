@@ -1,0 +1,8 @@
+.side-filter a {
+    text-decoration: none;
+    color: #626262;
+}
+
+.side-filter a:hover {
+    color: #000000;
+}
