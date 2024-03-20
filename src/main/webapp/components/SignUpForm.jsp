@@ -46,9 +46,9 @@
 
                 if (selectedValue === "") {
                     alert("Please select a role.");
-                    return false; // Prevent form submission
+                    return false;
                 }
-                return true; // Allow form submission
+                return true;
             }
         </script>
     </body>
