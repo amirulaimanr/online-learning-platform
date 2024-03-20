@@ -9,6 +9,13 @@
     z-index: 1040;
 }
 
+.btn-color-bg {
+    margin-left: 10px;
+    --bs-btn-bg: #1bc475;
+    --bs-btn-color: #ffff;
+    --bs-btn-hover-bg: #198754;
+}
+
 @media (max-width: 576px) {
     .login-btn {
         margin-bottom: 10px;
