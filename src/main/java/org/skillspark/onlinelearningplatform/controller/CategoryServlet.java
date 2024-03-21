@@ -35,29 +35,28 @@ public class CategoryServlet extends HttpServlet {
            String route = request.getParameter("route");
            try{
                 switch (route){
-                case "create" :
-                    showCreateForm(request,response);
-                   break;
-                case "store":
-                    storeCategory(request,response);
-                    break;
-                case "edit":
-                    showEditForm(request,response);
-                    break;
-                case "update":
-                    updateCategory(request,response);
-                    break;
-                case "delete":
-                    deleteCategory(request,response);
-                    break;
-                default:
-                    showListIndex(request,response);
-                    break;
-           }
+                    case "create" :
+                        showCreateForm(request,response);
+                       break;
+                    case "store":
+                        storeCategory(request,response);
+                        break;
+                    case "edit":
+                        showEditForm(request,response);
+                        break;
+                    case "update":
+                        updateCategory(request,response);
+                        break;
+                    case "delete":
+                        deleteCategory(request,response);
+                        break;
+                    default:
+                        showListIndex(request,response);
+                        break;
+                }
            }catch(SQLException ex){
                
            }
-          
     }
 
 
@@ -94,7 +93,7 @@ public class CategoryServlet extends HttpServlet {
 
             CategoryDao catDao = new CategoryDao(dbConnection);
             catDao.store(cat_name, cat_description);
-            request.getSession().setAttribute("success", "Category succesffull deleted");
+            request.getSession().setAttribute("success", "Category succesffully added");
             response.sendRedirect("/CategoryServlet?route=index");
 
         } catch (SQLException e) {
@@ -124,7 +123,7 @@ public class CategoryServlet extends HttpServlet {
         CategoryDao catDao = new CategoryDao(dbConnection);
         
         catDao.update(cat);
-        request.getSession().setAttribute("success", "Category succesffull updated");
+        request.getSession().setAttribute("success", "Category succesffully updated");
         response.sendRedirect("/CategoryServlet?route=index");
     }
 
@@ -136,7 +135,7 @@ public class CategoryServlet extends HttpServlet {
         Category cat = new Category(id);
         
         catDao.delete(cat);
-        request.getSession().setAttribute("success", "Category succesffull deleted");
+        request.getSession().setAttribute("success", "Category succesffully deleted");
         response.sendRedirect("/CategoryServlet?route=index");
     }
     

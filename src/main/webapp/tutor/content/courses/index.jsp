@@ -21,7 +21,7 @@
             <div class="flex-column explore-catalog p-5 align-items-start" id="content">
 
                 <div class="col-md-12 text-end">
-                    <a href="/CategoryServlet?route=create" class="btn btn-success">Add Category</a>
+                    <a href="/CourseServlet?route=create" class="btn btn-success">Add Courses</a>
                 </div>
 
                 <div class="col-md-12 mt-2 mb-2">
@@ -30,26 +30,34 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Description</th>
+                                <th scope="col">Category</th>
+                                <th scope="col" width="40%">Description</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col">Difficulties</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
+
                             <c:set var="count" value="0" scope="page" />
-                            <c:forEach var="category" items="${listCategory}" >
+                            <c:forEach var="course" items="${listCourse}" >
                                 <c:set var="count" value="${count + 1}" scope="page" />
                                 <tr>
                                     <th scope="row"><c:out value="${count}" /></th>
-                                    <td><c:out value="${category.name}" /></td>
-                                    <td><c:out value="${category.description}" /></td>
+                                    <td><c:out value="${course.name}" /></td>
+                                    <td><c:out value="${course.category_name}" /></td>
+                                    <td><c:out value="${course.description}" /></td>
+                                    <td><c:out value="${course.duration}" /></td>
+                                    <td><c:out value="${course.difficulties}" /></td>
                                     <td class="d-flex">
-                                        <a href="/CategoryServlet?route=edit&id=<c:out value='${category.id}' />" class="btn btn-sm btn-primary me-2">Edit</a>
-                                        <form action="/CategoryServlet?route=delete&id=<c:out value='${category.id}' />" method="post" id="delete-item-form-<c:out value='${count}' />"  >
+                                        <a href="/CourseServlet?route=edit&id=<c:out value='${course.id}' />" class="btn btn-sm btn-primary me-2">Edit</a>
+                                        <form action="/CourseServlet?route=delete&id=<c:out value='${course.id}' />" method="post" id="delete-item-form-<c:out value='${count}' />"  >
                                             <button class="btn btn-sm btn-danger" type="button" onclick="deleteItem(<c:out value='${count}' />)" id="delete-btn-<c:out value='${count}' />" >Delete</button>
                                         </form>
                                     </td>
                                 </tr>
                             </c:forEach>
+
                         </tbody>
                     </table>
                 </div>
@@ -60,10 +68,10 @@
                     %>
                     <script>
                         Swal.fire({
-                            title: "Success!",
-                            text: "  <%= session.getAttribute("success") %>",
-                            icon: "success"
-                        });
+                        title: "Success!",
+                                text: "  <%= session.getAttribute("success")%>",
+                                icon: "success"
+                        });                    
                     </script>
                     <%
                         }
@@ -78,16 +86,16 @@
     function deleteItem(index)
     {
         Swal.fire({
-            title: 'Are you sure?',
-            text: "This action cannot be revert!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes,Delete!'
-            }).then((result) => {
+        title: 'Are you sure?',
+                text: "This action cannot be revert!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes,Delete!'
+        }).then((result) => {
             if (result.isConfirmed) {
-                $('#delete-item-form-'+index).submit();
+                $('#delete-item-form-' + index).submit();
             }
         });
     }

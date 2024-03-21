@@ -5,8 +5,16 @@
         <servlet-name>CategoryServlet</servlet-name>
         <servlet-class>org.skillspark.onlinelearningplatform.controller.CategoryServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CourseServlet</servlet-name>
+        <servlet-class>org.skillspark.onlinelearningplatform.controller.CourseServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CategoryServlet</servlet-name>
         <url-pattern>/CategoryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CourseServlet</servlet-name>
+        <url-pattern>/CourseServlet</url-pattern>
     </servlet-mapping>
 </web-app>

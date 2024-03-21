@@ -30,7 +30,7 @@
                      aria-labelledby="panelsStayOpen-headingTwo">
                     <div class="accordion-body">
                         <div class="flex-column align-items-start side-filter">
-                            <a href="#">List of Courses</a>
+                            <a href="/CourseServlet?route=index">List of Courses</a>
                         </div>
                     </div>
                 </div>
