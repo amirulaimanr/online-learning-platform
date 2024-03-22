@@ -43,7 +43,8 @@ import org.skillspark.onlinelearningplatform.model.Course;
 @WebServlet(name = "ChapterServlet", value = "/ChapterServlet")
 @MultipartConfig
 public class ChapterServlet extends HttpServlet {
-
+    String globalPath =  "C:/Users/lolip/OneDrive/Documents/NetBeansProjects/OnlineLearningSystem/src/main/webapp/video/";
+             
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String route = request.getParameter("route");
@@ -173,7 +174,7 @@ public class ChapterServlet extends HttpServlet {
         
         if(video_path.getSize()>0){
             String filePath = request.getParameter("tempt_video");
-            deleteVideo("C:/Users/lolip/OneDrive/Documents/NetBeansProjects/OnlineLearningSystem/src/main/webapp" + filePath);
+            deleteVideo(globalPath + filePath);
             String path = fileUpload(video_path,course_id,id);
             chapterDao.updateVideoPath(id,path);
         }
@@ -198,7 +199,7 @@ public class ChapterServlet extends HttpServlet {
     }
     
     private String fileUpload(Part video_path,int course_id,int chapter_id) throws SQLException ,ServletException, IOException {
-        String path =  "C:/Users/lolip/OneDrive/Documents/NetBeansProjects/OnlineLearningSystem/src/main/webapp/video/";
+        String path =  globalPath;
         String system_path = "/video/";
         String fileName = chapter_id+"_"+getFileName(video_path); 
 

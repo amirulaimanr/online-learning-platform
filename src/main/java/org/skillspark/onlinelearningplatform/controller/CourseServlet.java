@@ -22,6 +22,7 @@ import org.skillspark.onlinelearningplatform.dao.CourseDao;
 import org.skillspark.onlinelearningplatform.dao.DatabaseConnection;
 import org.skillspark.onlinelearningplatform.model.Category;
 import org.skillspark.onlinelearningplatform.model.Course;
+import org.skillspark.onlinelearningplatform.model.Users;
 
 /**
  *
@@ -66,11 +67,13 @@ public class CourseServlet extends HttpServlet {
 
     private void showListIndexT(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/tutor/content/courses/index.jsp");
+        int id = Integer.parseInt(request.getParameter("tutor_id"));
+   
         
         DatabaseConnection dbConnection = new DatabaseConnection();
         CourseDao courseDao = new CourseDao(dbConnection);
             
-        List<Course> listCourse = courseDao.listAll();
+        List<Course> listCourse = courseDao.listAll(id);
         request.setAttribute("listCourse",listCourse);
         
         dispatcher.forward(request,response);
@@ -95,15 +98,16 @@ public class CourseServlet extends HttpServlet {
         String course_difficulties = request.getParameter("course_difficulties");
         int course_status = Integer.parseInt(request.getParameter("course_status"));
         String course_description = request.getParameter("course_description");
-
+        int tutor_id = Integer.parseInt(request.getParameter("tutor_id"));
+        
         try {
             DatabaseConnection dbConnection = new DatabaseConnection();
             HttpSession session = request.getSession();
 
             CourseDao courseDao = new CourseDao(dbConnection);
-            courseDao.store(course_name, course_category, course_duration, course_difficulties, course_status, course_description);
+            courseDao.store(course_name, course_category, course_duration, course_difficulties, course_status, course_description,tutor_id);
             request.getSession().setAttribute("success", "Category succesffully added");
-            response.sendRedirect("/CourseServlet?route=index");
+            response.sendRedirect("/CourseServlet?route=index&tutor_id="+tutor_id);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -137,15 +141,15 @@ public class CourseServlet extends HttpServlet {
         String course_description = request.getParameter("course_description");
         
         // hard_coded tutor id
-        int hard_coded_tutor_id = 1;
+        int tutor_id = Integer.parseInt(request.getParameter("tutor_id"));
         
-        Course course = new Course(course_id,course_category,hard_coded_tutor_id,course_name,course_duration,course_description,course_status,course_difficulties);
+        Course course = new Course(course_id,course_category,tutor_id,course_name,course_duration,course_description,course_status,course_difficulties);
         DatabaseConnection dbConnection = new DatabaseConnection();
         CourseDao courseDao = new CourseDao(dbConnection);
         
         courseDao.update(course);
         request.getSession().setAttribute("success", "Course succesffully updated");
-        response.sendRedirect("/CourseServlet?route=index");
+         response.sendRedirect("/CourseServlet?route=index&tutor_id="+tutor_id);
     }
 
     private void deleteCourse(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException  {

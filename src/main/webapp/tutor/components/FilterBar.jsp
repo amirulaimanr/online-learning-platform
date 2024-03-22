@@ -1,3 +1,4 @@
+<%@page import="org.skillspark.onlinelearningplatform.model.Users"%>
 <html>
     <body>
         <div class="accordion accordion-flush" id="accordionPanelsStayOpenExample">
@@ -30,7 +31,10 @@
                      aria-labelledby="panelsStayOpen-headingTwo">
                     <div class="accordion-body">
                         <div class="flex-column align-items-start side-filter">
-                            <a href="/CourseServlet?route=index">List of Courses</a>
+                               <%
+                                    Users userbar = (Users) session.getAttribute("user");
+                              %>
+                            <a href="/CourseServlet?route=index&tutor_id=<%= userbar.getId() %>">List of Courses</a>
                         </div>
                     </div>
                 </div>

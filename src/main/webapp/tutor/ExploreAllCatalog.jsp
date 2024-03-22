@@ -1,3 +1,5 @@
+
+<%@page import="org.skillspark.onlinelearningplatform.model.Users"%>
 <html>
     <body>
         <div class="vertical-nav" id="sidebar">
@@ -11,7 +13,10 @@
                     <small class="text-uppercase font-weight-bold">Catalog Menu</small>
                 </button>
             </div>
-            <h2 style="font-weight: 600">List Course</h2>
+            <%
+                  Users user = (Users) session.getAttribute("user");
+            %>
+            <h2 style="font-weight: 600">Hi,<%= user.getName() %> </h2>
             <h4 style="font-weight: 500; margin-top: 30px">Courses</h4>
             <%@ include file="/tutor/components/GridCatalog.jsp" %>
         </div>
