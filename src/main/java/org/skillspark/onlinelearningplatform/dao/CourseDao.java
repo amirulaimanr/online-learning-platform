@@ -119,7 +119,7 @@ public class CourseDao {
         return rowupdate;
     }
     
-     public boolean delete(Course course) throws SQLException {
+    public boolean delete(Course course) throws SQLException {
         boolean rowdelete = false;
         String sql = "DELETE FROM courses WHERE id=?";
         
