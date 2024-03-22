@@ -11,7 +11,7 @@
     </head>
     <body>
         <div class="topbar-sticky">
-            <%@ include file="/components/TopBarLoginSignUp.jsp" %>
+            <%@ include file="/components/TopBarLoggedIn.jsp" %>
         </div>
         <div class="catalog-container">
             <div class="vertical-nav" id="sidebar">
@@ -36,6 +36,8 @@
                                 <input type="hidden" class="form-control" id="chapter_id" name="chapter_id" value="${chapter.id}" />
                                 <input type="hidden" class="form-control" id="course_id" name="course_id" value="${course_id}" />
                                 <input type="hidden" class="form-control" id="course_name" name="course_name" value="${course_name}" />
+                                <input type="hidden" class="form-control" id="tempt_video" name="tempt_video" value="${chapter.videoPath}" />
+                                
                                 <div class="col-md-12 mb-3">
                                     <label for="chapter_title" class="form-label">Chapter Title</label>
                                     <input type="text" class="form-control" id="chapter_title" name="chapter_title" value="${chapter.title}" placeholder="Title" required>
@@ -81,7 +83,7 @@
                             </div>
                         </div>
                         <div class="card-footer text-end">
-                            <button type="submit" class="btn btn-primary">Add</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                             <a href="/ChapterServlet?route=index&id=${course_id}&name=${course_name}" class="btn btn-danger">Back</a>
                         </div>
                     </form>
