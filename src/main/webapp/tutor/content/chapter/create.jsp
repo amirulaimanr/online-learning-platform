@@ -19,24 +19,24 @@
                 <%@include file="/tutor/components/FilterBar.jsp"%>
             </div>
             <div class="flex-column explore-catalog p-5 align-items-start" id="content">
-                <nav aria-label="breadcrumb">
+                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a href="#">Home</a></li>
-                      <li class="breadcrumb-item " aria-current="page"><a href="/CourseServlet?route=index">Course</a></li>
-                       <li class="breadcrumb-item active" aria-current="page">Edit</li>
+                      <li class="breadcrumb-item " aria-current="page"><a href="/CourseServlet?route=index">${course_name}</a></li>
+                      <li class="breadcrumb-item" aria-current="page"><a href="/ChapterServlet?route=index&id=${course.id}&name=${course.name} ">Chapter</a></li>
+                       <li class="breadcrumb-item active" aria-current="page">Create</li>
                     </ol>
                 </nav>
                 <div class="card mt-4">
                     <div class="card-header">
                         Add Courses
                     </div>
-                    <form action="/CourseServlet?route=update" method="post" class="needs-validation" novalidate>
+                    <form action="/CourseServlet?route=store" method="post" class="needs-validation" novalidate>
                         <div class="card-body">
                             <div class="row">
-                                <input type="hidden" class="form-control" id="course_id" name="course_id" value="${course.id}" >
                                 <div class="col-md-12 mb-3">
                                     <label for="course_name" class="form-label">Course Name</label>
-                                    <input type="text" class="form-control" id="course_name" name="course_name" placeholder="Name" value="${course.name}" required>
+                                    <input type="text" class="form-control" id="course_name" name="course_name" placeholder="Name" required>
                                 </div>
                                 <div class="col-md-12 mb-3">
       
@@ -44,39 +44,39 @@
                                     <select class="form-select" id="course_category" name="course_category" required>
                                         <option selected disabled value="">Open this select menu</option>
                                         <c:forEach var="category" items="${listCategory}" >
-                                            <option value="<c:out value='${category.id}' />"  <c:if test="${course.category_id == category.id }">selected</c:if> ><c:out value="${category.name}" /></option>
+                                            <option value="<c:out value='${category.id}' />"><c:out value="${category.name}" /></option>
                                         </c:forEach>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="course_duration" class="form-label">Course Duration</label>
-                                    <input type="number" class="form-control" id="course_duration" name="course_duration" placeholder="Name" value="${course.duration}" required>
+                                    <input type="number" class="form-control" id="course_duration" name="course_duration" placeholder="Duration" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="course_difficulties" class="form-label">Course Difficulties</label>
                                     <select class="form-select" id="course_difficulties" name="course_difficulties" required>
                                         <option selected disabled value="">Open this select menu</option>
-                                        <option value="Easy" <c:if test="${course.difficulties.equals('Easy')}">selected</c:if> >Easy</option>
-                                        <option value="Medium" <c:if test="${course.difficulties.equals('Medium')}">selected</c:if> >Medium</option>
-                                        <option value="Hard" <c:if test="${course.difficulties.equals('Hard')}">selected</c:if> >Hard</option>
+                                        <option value="Easy">Easy</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Hard">Hard</option>
                                     </select>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <label for="course_status" class="form-label">Course Status</label>
                                     <select class="form-select" id="course_status" name="course_status" required=>
                                         <option selected disabled value="">Open this select menu</option>
-                                        <option value="1" <c:if test="${course.status == 1}">selected</c:if> >Active</option>
-                                        <option value="0" <c:if test="${course.status == 0}">selected</c:if> >Not Active</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">Not Active</option>
                                     </select>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <label for="course_description" class="form-label">Course Description</label>
-                                    <textarea class="form-control" id="course_description" name="course_description" rows="5">${course.description}</textarea>
+                                    <textarea class="form-control" id="course_description" name="course_description" rows="5"></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer text-end">
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary">Add</button>
                             <a href="/CourseServlet?route=index" class="btn btn-danger">Back</a>
                         </div>
                     </form>

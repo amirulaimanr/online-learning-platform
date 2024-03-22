@@ -18,7 +18,14 @@
                 <%@include file="/tutor/components/FilterBar.jsp"%>
             </div>
             <div class="flex-column explore-catalog p-5 align-items-start" id="content">
-                <div class="card">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#">Home</a></li>
+                      <li class="breadcrumb-item " aria-current="page"><a href="/CategoryServlet?route=index">Category</a></li>
+                       <li class="breadcrumb-item active" aria-current="page">Edit</li>
+                    </ol>
+                </nav>
+                <div class="card mt-4">
                     <div class="card-header">
                         Add Categories
                     </div>

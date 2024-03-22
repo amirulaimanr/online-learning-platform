@@ -19,7 +19,12 @@
                 <%@include file="/tutor/components/FilterBar.jsp"%>
             </div>
             <div class="flex-column explore-catalog p-5 align-items-start" id="content">
-
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#">Home</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Course</li>
+                    </ol>
+                </nav>
                 <div class="col-md-12 text-end">
                     <a href="/CourseServlet?route=create" class="btn btn-success">Add Courses</a>
                 </div>
@@ -51,6 +56,7 @@
                                     <td><c:out value="${course.difficulties}" /></td>
                                     <td class="d-flex">
                                         <a href="/CourseServlet?route=edit&id=<c:out value='${course.id}' />" class="btn btn-sm btn-primary me-2">Edit</a>
+                                         <a href="/ChapterServlet?route=index&id=<c:out value='${course.id}' />&name=<c:out value='${course.name}' />" " class="btn btn-sm btn-primary me-2">Chapter</a>
                                         <form action="/CourseServlet?route=delete&id=<c:out value='${course.id}' />" method="post" id="delete-item-form-<c:out value='${count}' />"  >
                                             <button class="btn btn-sm btn-danger" type="button" onclick="deleteItem(<c:out value='${count}' />)" id="delete-btn-<c:out value='${count}' />" >Delete</button>
                                         </form>

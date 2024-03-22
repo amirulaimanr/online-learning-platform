@@ -27,10 +27,6 @@ public class CourseDao {
         this.dbConnection = dbConnection;
     }
 
-    public CourseDao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public Optional<Course> find(int id) throws SQLException {
         String sql = "SELECT * FROM courses WHERE id=?";
         int course_id = 0, category_id = 0, tutor_id = 0, duration = 0, status = 0;

@@ -22,11 +22,12 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a href="#">Home</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">Category</li>
+                      <li class="breadcrumb-item " aria-current="page"><a href="/CourseServlet?route=index">${course_name}</a></li>
+                       <li class="breadcrumb-item active" aria-current="page">Chapter</li>
                     </ol>
-                 </nav>
+                </nav>
                 <div class="col-md-12 text-end">
-                    <a href="/CategoryServlet?route=create" class="btn btn-success">Add Category</a>
+                    <a href="/ChapterServlet?route=create&id=${course_id}&name=${course_name}" class="btn btn-success">Add Chapter</a>
                 </div>
 
                 <div class="col-md-12 mt-2 mb-2">
@@ -34,29 +35,42 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
+                                <th scope="col">Course Name</th>
+                                <th scope="col">Title</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Description</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Level</th>
+                                <th scope="col" width="40%">Description</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
+
                             <c:set var="count" value="0" scope="page" />
-                            <c:forEach var="category" items="${listCategory}" >
+                            <c:forEach var="chapter" items="${listChapter}" >
                                 <c:set var="count" value="${count + 1}" scope="page" />
                                 <tr>
                                     <th scope="row"><c:out value="${count}" /></th>
-                                    <td><c:out value="${category.name}" /></td>
-                                    <td><c:out value="${category.description}" /></td>
+                                    <td><c:out value="${chapter.course_name}" /></td>
+                                    <td><c:out value="${chapter.title}" /></td>
+                                    <td><c:out value="${chapter.name}" /></td>
+                                    <td><c:out value="${chapter.status}" /></td>
+                                    <td><c:out value="${chapter.level}" /></td>
+                                     <td><c:out value="${chapter.description}" /></td>
                                     <td class="d-flex">
-                                        <a href="/CategoryServlet?route=edit&id=<c:out value='${category.id}' />" class="btn btn-sm btn-primary me-2">Edit</a>
-                                        <form action="/CategoryServlet?route=delete&id=<c:out value='${category.id}' />" method="post" id="delete-item-form-<c:out value='${count}' />"  >
+                                        <a href="/CahpterServlet?route=edit&id=<c:out value='${chapter.id}' />" class="btn btn-sm btn-primary me-2">Edit</a>
+                                        <form action="/CahpterServlet?route=delete&id=<c:out value='${chapter.id}' />" method="post" id="delete-item-form-<c:out value='${count}' />"  >
                                             <button class="btn btn-sm btn-danger" type="button" onclick="deleteItem(<c:out value='${count}' />)" id="delete-btn-<c:out value='${count}' />" >Delete</button>
                                         </form>
                                     </td>
                                 </tr>
                             </c:forEach>
+
                         </tbody>
                     </table>
+                </div>
+                <div class="col-md-12 mt-2 mb-2 text-end">
+                    <a href="/CourseServlet?route=index" class="btn btn-danger" >Back</a>
                 </div>
                 <div>
                     <%-- error message here if unsuccesful login --%>
@@ -64,12 +78,11 @@
                         if (session.getAttribute("success") != null) {
                     %>
                     <script>
-                        Swal.fire({
-                            title: "Success!",
-                            text: "  <%= session.getAttribute("success") %>",
-                            icon: "success"
-                        });
-                    </script>
+                                Swal.fire({
+                                title: "Success!",
+                                        text: "  <%= session.getAttribute("success")%>",
+                                        icon: "success"
+                                });                    </script>
                     <%
                         }
                         session.removeAttribute("success");
@@ -80,21 +93,21 @@
     </body>
 </html>
 <script>
-    function deleteItem(index)
-    {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "This action cannot be revert!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes,Delete!'
-            }).then((result) => {
-            if (result.isConfirmed) {
-                $('#delete-item-form-'+index).submit();
+            function deleteItem(index)
+            {
+                Swal.fire({
+                title: 'Are you sure?',
+                        text: "This action cannot be revert!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes,Delete!'
+                }).then((result) = > {
+                    if (result.isConfirmed) {
+                        $('#delete-item-form-' + index).submit();
+                    }
+                });
             }
-        });
-    }
 </script>
 
