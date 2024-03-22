@@ -8,7 +8,6 @@ import java.sql.SQLException;
 
 public class UsersDao {
     private DatabaseConnection dbConnection;
-
     public UsersDao(DatabaseConnection dbConnection) {
         this.dbConnection = dbConnection;
     }
