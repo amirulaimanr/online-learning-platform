@@ -108,7 +108,23 @@ public class ChapterDao {
             return 0;
     }
     
-     public boolean updateVideoPath(int chapter_id,String video_path) throws SQLException {
+    public boolean update(Chapter chapter) throws SQLException {
+        boolean rowupdate = false;
+        String sql = "UPDATE chapters SET title=? ,name=? ,description=? ,status=? ,level=? WHERE id=?";
+         
+        PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
+        statement.setString(1, chapter.getTitle());
+        statement.setString(2, chapter.getName());
+        statement.setString(3, chapter.getDescription());
+        statement.setInt(4, chapter.getStatus());
+        statement.setString(5, chapter.getLevel());
+        statement.setInt(6, chapter.getId());
+        rowupdate = statement.executeUpdate() > 0;
+
+        return rowupdate;
+    }
+    
+    public boolean updateVideoPath(int chapter_id,String video_path) throws SQLException {
         boolean rowupdate = false;
         String sql = "UPDATE chapters SET video_path=? WHERE id=?";
          
@@ -118,6 +134,17 @@ public class ChapterDao {
         rowupdate = statement.executeUpdate() > 0;
 
         return rowupdate;
+    }
+    
+    public boolean delete(Chapter chapter) throws SQLException {
+        boolean rowdelete = false;
+        String sql = "DELETE FROM chapters WHERE id=?";
+        
+        PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
+        statement.setInt(1, chapter.getId());
+        rowdelete = statement.executeUpdate() > 0;
+        
+        return rowdelete;
     }
 
 }

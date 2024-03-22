@@ -30,9 +30,10 @@
                     <div class="card-header">
                         Add Chapter
                     </div>
-                    <form action="/ChapterServlet?route=store" method="post" class="needs-validation" novalidate  enctype="multipart/form-data">
+                    <form action="/ChapterServlet?route=update" method="post" class="needs-validation" novalidate  enctype="multipart/form-data">
                         <div class="card-body">
                             <div class="row">
+                                <input type="hidden" class="form-control" id="chapter_id" name="chapter_id" value="${chapter.id}" />
                                 <input type="hidden" class="form-control" id="course_id" name="course_id" value="${course_id}" />
                                 <input type="hidden" class="form-control" id="course_name" name="course_name" value="${course_name}" />
                                 <div class="col-md-12 mb-3">
@@ -45,11 +46,13 @@
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <label for="formFile" class="form-label">Chapter Video</label>
-                                    <input class="form-control" type="file" id="video_path" name="video_path" required/>
+                                    <input class="form-control" type="file" id="video_path" name="video_path" />
                                 </div>
-                                <video width="500" height="500" controls>
-                                    <source src="${chapter.videoPath}" type="video/mp4">
-                                </video>
+                                <div class="col-md-12 mb-3 text-center">
+                                    <video controls>
+                                        <source src="${chapter.videoPath}" type="video/mp4">
+                                    </video>
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <a href="${chapter.videoPath}" target="_blank" class="">${chapter.videoPath}</a>
                                 </div>

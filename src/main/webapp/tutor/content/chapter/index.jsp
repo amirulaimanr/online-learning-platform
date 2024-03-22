@@ -56,8 +56,8 @@
                                     <td><c:out value="${chapter.level}" /></td>
                                      <td><c:out value="${chapter.description}" /></td>
                                     <td class="d-flex">
-                                        <a href="/ChapterServlet?route=edit&id=<c:out value='${chapter.id}' />&name=<c:out value='${chapter.name}' />" class="btn btn-sm btn-primary me-2">Edit</a>
-                                        <form action="/ChapterServlet?route=delete&id=<c:out value='${chapter.id}' />" method="post" id="delete-item-form-<c:out value='${count}' />"  >
+                                        <a href="/ChapterServlet?route=edit&id=<c:out value='${chapter.id}' />&name=<c:out value='${chapter.name}' />&course_id=${course_id}" class="btn btn-sm btn-primary me-2">Edit</a>
+                                        <form action="/ChapterServlet?route=delete&id=<c:out value='${chapter.id}' />&course_id=${course_id}&course_name=${course_name}"" method="post" id="delete-item-form-<c:out value='${count}' />"  >
                                             <button class="btn btn-sm btn-danger" type="button" onclick="deleteItem(<c:out value='${count}' />)" id="delete-btn-<c:out value='${count}' />" >Delete</button>
                                         </form>
                                     </td>

@@ -59,8 +59,10 @@ public class ChapterServlet extends HttpServlet {
                         showEditForm(request,response);
                         break;
                     case "update":
+                        updateChapter(request,response);
                         break;
                     case "delete":
+                        deleteChapter(request,response);
                         break;
                     default:
                         showListIndex(request,response);
@@ -102,7 +104,7 @@ public class ChapterServlet extends HttpServlet {
         dispatcher.forward(request,response);
     }
 
-    private void storeChapter(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException  {
+    private void storeChapter(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException {
         int course_id = Integer.parseInt(request.getParameter("course_id"));
         String course_name = request.getParameter("course_name");
         String chapter_title = request.getParameter("chapter_title");
@@ -134,46 +136,85 @@ public class ChapterServlet extends HttpServlet {
             
     }
     
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException   {
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
+        int course_id = Integer.parseInt(request.getParameter("course_id"));
         String course_name = request.getParameter("name");
         DatabaseConnection dbConnection = new DatabaseConnection();
         ChapterDao chapterDao = new ChapterDao(dbConnection);
-    
         
         Optional<Chapter> chapter = chapterDao.find(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/tutor/content/chapter/edit.jsp");
         chapter.ifPresent(s->request.setAttribute("chapter",s));
         
+        request.setAttribute("course_id",course_id);
         request.setAttribute("course_name",course_name);
         dispatcher.forward(request,response);
+    }
+    
+    private void updateChapter(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("chapter_id"));
+        int course_id = Integer.parseInt(request.getParameter("course_id"));
+        String course_name = request.getParameter("course_name");
+        String chapter_title = request.getParameter("chapter_title");
+        String chapter_name = request.getParameter("chapter_name");
+      
+        int chapter_status = Integer.parseInt(request.getParameter("chapter_status"));
+        String chapter_level = request.getParameter("chapter_level");
+        String chapter_description = request.getParameter("chapter_description");
+        
+        Chapter chapter = new Chapter(id,course_id,chapter_title,chapter_name,chapter_description,chapter_status,chapter_level);
+        DatabaseConnection dbConnection = new DatabaseConnection();
+        ChapterDao chapterDao = new ChapterDao(dbConnection);
+        
+        chapterDao.update(chapter);
+        
+        Part video_path = request.getPart("video_path");
+        
+        if(video_path.getSize()>0){
+            String path = fileUpload(video_path,course_id,id);
+            chapterDao.updateVideoPath(id,path);
+        }
+        
+        request.getSession().setAttribute("success", "Category succesffully updated");
+        response.sendRedirect("/ChapterServlet?route=index&id="+course_id+"&name="+course_name);
+    }
+    
+    private void deleteChapter(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        int course_id = Integer.parseInt(request.getParameter("course_id"));
+        String course_name = request.getParameter("name");
+        
+        DatabaseConnection dbConnection = new DatabaseConnection();
+        ChapterDao chapterDao = new ChapterDao(dbConnection);
+            
+        Chapter chapter = new Chapter(id);
+        
+        chapterDao.delete(chapter);
+        request.getSession().setAttribute("success", "Chapter succesffully deleted");
+         response.sendRedirect("/ChapterServlet?route=index&id="+course_id+"&name="+course_name);
     }
     
     private String fileUpload(Part video_path,int course_id,int chapter_id) throws SQLException ,ServletException, IOException {
         String path = "C:/Users/lolip/OneDrive/Documents/NetBeansProjects/OnlineLearningSystem/src/main/webapp/video/";
         String system_path = "/video/";
-        
         String fileName = chapter_id+"_"+getFileName(video_path); 
 
         OutputStream otpStream = null;  
         InputStream iptStream = null;  
-
         
         Files.createDirectories(Paths.get(path));
           
         try {  
-
             otpStream = new FileOutputStream(new File(path + File.separator + fileName));  
             iptStream = video_path.getInputStream();  
   
             int read = 0;  
-              
             final byte[] bytes = new byte[1024];  
               
             while ((read = iptStream.read(bytes)) != -1) {  
                 otpStream.write(bytes, 0, read);  
             }  
-
         }  
         
         catch (FileNotFoundException fne){  
@@ -187,7 +228,6 @@ public class ChapterServlet extends HttpServlet {
                 iptStream.close();  
             }  
         }  
-        
         return system_path + fileName;
     }
     

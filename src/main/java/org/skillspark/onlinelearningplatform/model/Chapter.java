@@ -47,6 +47,22 @@ public class Chapter {
         this.status = status;
         this.level = level;
     }
+    
+    public Chapter(int id ,int course_id ,String title ,String name ,String description ,int status ,String level)
+    {
+        this.id = id;
+        this.course_id = course_id;
+        this.title = title;
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.level = level;
+    }
+    
+    public Chapter(int id )
+    {
+        this.id = id;
+    }
 
     /**
      * @return the id
