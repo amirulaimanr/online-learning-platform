@@ -5,16 +5,29 @@
  */
 package org.skillspark.onlinelearningplatform.controller;
 
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
+import java.util.logging.Level;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import org.skillspark.onlinelearningplatform.dao.CategoryDao;
 import org.skillspark.onlinelearningplatform.dao.ChapterDao;
 import org.skillspark.onlinelearningplatform.dao.CourseDao;
@@ -28,6 +41,7 @@ import org.skillspark.onlinelearningplatform.model.Course;
  * @author lolip
  */
 @WebServlet(name = "ChapterServlet", value = "/ChapterServlet")
+@MultipartConfig
 public class ChapterServlet extends HttpServlet {
 
     @Override
@@ -39,8 +53,10 @@ public class ChapterServlet extends HttpServlet {
                        showCreateForm(request,response);
                        break;
                     case "store":
+                        storeChapter(request,response);
                         break;
                     case "edit":
+                        showEditForm(request,response);
                         break;
                     case "update":
                         break;
@@ -85,5 +101,108 @@ public class ChapterServlet extends HttpServlet {
         request.setAttribute("course_name",course_name);
         dispatcher.forward(request,response);
     }
+
+    private void storeChapter(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException  {
+        int course_id = Integer.parseInt(request.getParameter("course_id"));
+        String course_name = request.getParameter("course_name");
+        String chapter_title = request.getParameter("chapter_title");
+        String chapter_name = request.getParameter("chapter_name");
+      
+        int chapter_status = Integer.parseInt(request.getParameter("chapter_status"));
+        String chapter_level = request.getParameter("chapter_level");
+        String chapter_description = request.getParameter("chapter_description");
+        
+         try {
+            DatabaseConnection dbConnection = new DatabaseConnection();
+            HttpSession session = request.getSession();
+            
+            Part video_path = request.getPart("video_path");
+
+            ChapterDao chapterDao = new ChapterDao(dbConnection);
+            int chapter_id = chapterDao.store(course_id, chapter_title, chapter_name, null, null, chapter_description, chapter_status, chapter_level);
+            
+            String path = fileUpload(video_path,course_id,chapter_id);
+            chapterDao.updateVideoPath(chapter_id,path);
+            
+            request.getSession().setAttribute("success", "Category succesffully added");
+            response.sendRedirect("/ChapterServlet?route=index&id="+course_id+"&name="+course_name);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.sendRedirect("error.jsp");
+        }
+            
+    }
+    
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException   {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String course_name = request.getParameter("name");
+        DatabaseConnection dbConnection = new DatabaseConnection();
+        ChapterDao chapterDao = new ChapterDao(dbConnection);
+    
+        
+        Optional<Chapter> chapter = chapterDao.find(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/tutor/content/chapter/edit.jsp");
+        chapter.ifPresent(s->request.setAttribute("chapter",s));
+        
+        request.setAttribute("course_name",course_name);
+        dispatcher.forward(request,response);
+    }
+    
+    private String fileUpload(Part video_path,int course_id,int chapter_id) throws SQLException ,ServletException, IOException {
+        String path = "C:/Users/lolip/OneDrive/Documents/NetBeansProjects/OnlineLearningSystem/src/main/webapp/video/";
+        String system_path = "/video/";
+        
+        String fileName = chapter_id+"_"+getFileName(video_path); 
+
+        OutputStream otpStream = null;  
+        InputStream iptStream = null;  
+
+        
+        Files.createDirectories(Paths.get(path));
+          
+        try {  
+
+            otpStream = new FileOutputStream(new File(path + File.separator + fileName));  
+            iptStream = video_path.getInputStream();  
+  
+            int read = 0;  
+              
+            final byte[] bytes = new byte[1024];  
+              
+            while ((read = iptStream.read(bytes)) != -1) {  
+                otpStream.write(bytes, 0, read);  
+            }  
+
+        }  
+        
+        catch (FileNotFoundException fne){  
+            LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}", new Object[]{fne.getMessage()});  
+        }  
+        finally {  
+            if (otpStream != null) {  
+                otpStream.close();  
+            }  
+            if (iptStream != null) {  
+                iptStream.close();  
+            }  
+        }  
+        
+        return system_path + fileName;
+    }
+    
+    private String getFileName(final Part part) {  
+        final String partHeader = part.getHeader("content-disposition");  
+        LOGGER.log(Level.INFO, "Part Header = {0}", partHeader);  
+          
+        // code to get file name from the header  
+        for (String content : part.getHeader("content-disposition").split(";")) {  
+            if (content.trim().startsWith("filename")) {  
+                return content.substring(content.indexOf('=') + 1).trim().replace("\"", "");  
+            }  
+        }  
+
+        return null;  
+    }  
 
 }

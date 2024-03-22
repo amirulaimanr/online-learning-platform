@@ -34,6 +34,19 @@ public class Chapter {
         this.level = level;
         this.course_name = course_name;
     }
+    
+    public Chapter(int id ,int course_id ,String title ,String name ,String videoPath ,String attachmentPath ,String description ,int status ,String level)
+    {
+        this.id = id;
+        this.course_id = course_id;
+        this.title = title;
+        this.name = name;
+        this.videoPath = videoPath;
+        this.attachmentPath = attachmentPath;
+        this.description = description;
+        this.status = status;
+        this.level = level;
+    }
 
     /**
      * @return the id

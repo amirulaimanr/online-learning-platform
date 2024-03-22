@@ -8,7 +8,6 @@
         <title>Catalog Page</title>
         <%@ include file="/styles/bootstrap.jsp" %>
         <%@ include file="/styles/compile.jsp" %>
-
     </head>
     <body>
         <div class="topbar-sticky">
@@ -24,7 +23,7 @@
                       <li class="breadcrumb-item"><a href="#">Home</a></li>
                       <li class="breadcrumb-item " aria-current="page"><a href="/CourseServlet?route=index">${course_name}</a></li>
                       <li class="breadcrumb-item" aria-current="page"><a href="/ChapterServlet?route=index&id=${course_id}&name=${course_name}">Chapter</a></li>
-                       <li class="breadcrumb-item active" aria-current="page">Create</li>
+                       <li class="breadcrumb-item active" aria-current="page">Edit</li>
                     </ol>
                 </nav>
                 <div class="card mt-4">
@@ -38,39 +37,43 @@
                                 <input type="hidden" class="form-control" id="course_name" name="course_name" value="${course_name}" />
                                 <div class="col-md-12 mb-3">
                                     <label for="chapter_title" class="form-label">Chapter Title</label>
-                                    <input type="text" class="form-control" id="chapter_title" name="chapter_title" placeholder="Title" required>
+                                    <input type="text" class="form-control" id="chapter_title" name="chapter_title" value="${chapter.title}" placeholder="Title" required>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <label for="chapter_name" class="form-label">Chapter Name</label>
-                                    <input type="text" class="form-control" id="chapter_name" name="chapter_name" placeholder="Name" required>
+                                    <input type="text" class="form-control" id="chapter_name" name="chapter_name" placeholder="Name" value="${chapter.name}" required>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <label for="formFile" class="form-label">Chapter Video</label>
-                                    <input class="form-control" type="file" id="video_path" name="video_path" accept="video/*" required/>
+                                    <input class="form-control" type="file" id="video_path" name="video_path" required/>
                                 </div>
+                                <video width="500" height="500" controls>
+                                    <source src="${chapter.videoPath}" type="video/mp4">
+                                </video>
                                 <div class="col-md-12 mb-3">
-                                  
+                                    <a href="${chapter.videoPath}" target="_blank" class="">${chapter.videoPath}</a>
                                 </div>
+ 
                                 <div class="col-md-6 mb-3">
                                     <label for="chapter_status" class="form-label">Chapter Status</label>
                                     <select class="form-select" id="chapter_status" name="chapter_status" required>
                                         <option selected disabled value="">Open this select menu</option>
-                                        <option value="1">Active</option>
-                                        <option value="0">Not Active</option>
+                                        <option value="1" <c:if test="${chapter.status == 1}">selected</c:if> >Active</option>
+                                        <option value="0" <c:if test="${chapter.status == 0}">selected</c:if> >Not Active</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="chapter_level" class="form-label">Chapter Level</label>
                                     <select class="form-select" id="chapter_level" name="chapter_level" required>
                                         <option selected disabled value="">Open this select menu</option>
-                                        <option value="Beginner">Beginner</option>
-                                        <option value="Intermediate">Intermediate</option>
-                                        <option value="Expert">Expert</option>
+                                        <option value="Beginner" <c:if test="${chapter.level.equals('Beginner')}">selected</c:if> >Beginner</option>
+                                        <option value="Intermediate" <c:if test="${chapter.level.equals('Intermediate')}">selected</c:if> >Intermediate</option>
+                                        <option value="Expert" <c:if test="${chapter.level.equals('Expert')}">selected</c:if> >Expert</option>
                                     </select>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <label for="chapter_description" class="form-label">Chapter Description</label>
-                                    <textarea class="form-control" id="chapter_description" name="chapter_description" rows="5"></textarea>
+                                    <textarea class="form-control" id="chapter_description" name="chapter_description" rows="5">${chapter.description}</textarea>
                                 </div>
                             </div>
                         </div>

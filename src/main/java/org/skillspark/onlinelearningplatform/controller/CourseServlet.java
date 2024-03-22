@@ -39,7 +39,7 @@ public class CourseServlet extends HttpServlet {
                         showCreateForm(request,response);
                        break;
                     case "store":
-                        storeCategory(request,response);
+                        storeCourse(request,response);
                         break;
                     case "edit":
                         showEditForm(request,response);
@@ -88,7 +88,7 @@ public class CourseServlet extends HttpServlet {
         dispatcher.forward(request,response);
     }
 
-    private void storeCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException {
+    private void storeCourse(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException {
         String course_name = request.getParameter("course_name");
         int course_category = Integer.parseInt(request.getParameter("course_category"));
         int course_duration = Integer.parseInt(request.getParameter("course_duration"));
