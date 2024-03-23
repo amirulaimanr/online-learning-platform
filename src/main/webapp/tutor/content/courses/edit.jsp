@@ -12,7 +12,7 @@
     </head>
     <body>
         <div class="topbar-sticky">
-            <%@ include file="/components/TopBarLoginSignUp.jsp" %>
+          <%@ include file="/components/TopBarLoggedIn.jsp" %>
         </div>
         <div class="catalog-container">
             <div class="vertical-nav" id="sidebar">
@@ -34,6 +34,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <input type="hidden" class="form-control" id="course_id" name="course_id" value="${course.id}" >
+                                <input type="hidden" id="tutor_id" name="tutor_id" value="<%= userbar.getId() %>">
                                 <div class="col-md-12 mb-3">
                                     <label for="course_name" class="form-label">Course Name</label>
                                     <input type="text" class="form-control" id="course_name" name="course_name" placeholder="Name" value="${course.name}" required>

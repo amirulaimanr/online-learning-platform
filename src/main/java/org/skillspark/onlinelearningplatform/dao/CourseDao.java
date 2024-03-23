@@ -40,7 +40,7 @@ public class CourseDao {
         return Optional.of(new Course(course_id, category_id, tutor_id, name, duration, description, status, difficulties));
     }
 
-    public List<Course> listAll() throws SQLException {
+    public List<Course> listAll(int harcoded_tutor_id) throws SQLException {
         List<Course> listCourse = new ArrayList();
         String sql = "SELECT cs.id ,cs.category_id,cs.tutor_id,cs.name,cs.durations,cs.description,cs.status,cs.difficulties,cat.name as category_name "
                 + "FROM courses cs "
@@ -49,8 +49,6 @@ public class CourseDao {
                 + "WHERE cs.tutor_id=? "
                 + "ORDER BY cs.id ASC";
 
-        //hard coded tutor_id
-        int harcoded_tutor_id = 1;
 
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
         statement.setInt(1, harcoded_tutor_id);
@@ -74,11 +72,8 @@ public class CourseDao {
         return listCourse;
     }
 
-    public void store(String course_name, int course_category, int course_duration, String course_difficulties, int course_status, String course_description) throws SQLException {
+    public void store(String course_name, int course_category, int course_duration, String course_difficulties, int course_status, String course_description,int harcoded_tutor_id) throws SQLException {
         String sql = "INSERT INTO courses (category_id,tutor_id,name,durations,description,status,difficulties) VALUES (?,?,?,?,?,?,?)";
-
-        //hard coded tutor_id
-        int harcoded_tutor_id = 1;
 
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
         statement.setInt(1, course_category);

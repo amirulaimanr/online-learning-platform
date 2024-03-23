@@ -3,6 +3,7 @@ package org.skillspark.onlinelearningplatform.model;
 import java.util.Date;
 
 public class Users {
+    private int id;
     private int role_id;
     private String name;
     private String email;
@@ -17,6 +18,14 @@ public class Users {
         this.name = name;
         this.email = email;
     }
+    
+    public Users(int id, int role_id, String name, String email) {
+        this.id = id;
+        this.role_id = role_id;
+        this.name = name;
+        this.email = email;
+    }
+
 
     public int getRole_id() {
         return role_id;
@@ -64,5 +73,19 @@ public class Users {
 
     public void setJoin_date(Date join_date) {
         this.join_date = join_date;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 }

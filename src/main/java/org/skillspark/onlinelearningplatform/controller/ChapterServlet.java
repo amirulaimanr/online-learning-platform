@@ -43,7 +43,8 @@ import org.skillspark.onlinelearningplatform.model.Course;
 @WebServlet(name = "ChapterServlet", value = "/ChapterServlet")
 @MultipartConfig
 public class ChapterServlet extends HttpServlet {
-
+    String globalPath =  "C:/Users/lolip/OneDrive/Documents/NetBeansProjects/OnlineLearningSystem/src/main/webapp/video/";
+             
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String route = request.getParameter("route");
@@ -133,7 +134,7 @@ public class ChapterServlet extends HttpServlet {
             e.printStackTrace();
             response.sendRedirect("error.jsp");
         }
-            
+         
     }
     
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException {
@@ -172,6 +173,8 @@ public class ChapterServlet extends HttpServlet {
         Part video_path = request.getPart("video_path");
         
         if(video_path.getSize()>0){
+            String filePath = request.getParameter("tempt_video");
+            deleteVideo(globalPath + filePath);
             String path = fileUpload(video_path,course_id,id);
             chapterDao.updateVideoPath(id,path);
         }
@@ -196,7 +199,7 @@ public class ChapterServlet extends HttpServlet {
     }
     
     private String fileUpload(Part video_path,int course_id,int chapter_id) throws SQLException ,ServletException, IOException {
-        String path = "C:/Users/lolip/OneDrive/Documents/NetBeansProjects/OnlineLearningSystem/src/main/webapp/video/";
+        String path =  globalPath;
         String system_path = "/video/";
         String fileName = chapter_id+"_"+getFileName(video_path); 
 
@@ -244,5 +247,25 @@ public class ChapterServlet extends HttpServlet {
 
         return null;  
     }  
+    
+    private void deleteVideo(String filePath)
+    {
+        File file = new File(filePath);
+        try{
+            // Check if the file exists
+            if (file.exists()) {
+                // Attempt to delete the file
+                if (file.delete()) {
+                    System.out.println("Video deleted successfully.");
+                } else {
+                    System.out.println("Failed to delete video.");
+                }
+            } else {
+                System.out.println("Video does not exist.");
+            }
+        } catch (Exception e) {
+            System.err.println("Error deleting video: " + e.getMessage());
+        }
+    }
 
 }
