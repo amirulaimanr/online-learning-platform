@@ -52,6 +52,13 @@ public class Course {
         this.id = id;
     }
 
+    public Course(String categoryName, int duration, String difficulties) {
+    }
+
+    public Course() {
+
+    }
+
 
     /**
      * @return the id
