@@ -69,7 +69,6 @@ public class CourseServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/tutor/content/courses/index.jsp");
         int id = Integer.parseInt(request.getParameter("tutor_id"));
    
-        
         DatabaseConnection dbConnection = new DatabaseConnection();
         CourseDao courseDao = new CourseDao(dbConnection);
             
@@ -149,11 +148,13 @@ public class CourseServlet extends HttpServlet {
         
         courseDao.update(course);
         request.getSession().setAttribute("success", "Course succesffully updated");
-         response.sendRedirect("/CourseServlet?route=index&tutor_id="+tutor_id);
+        response.sendRedirect("/CourseServlet?route=index&tutor_id="+tutor_id);
     }
 
     private void deleteCourse(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException  {
         int id = Integer.parseInt(request.getParameter("id"));
+        int tutor_id = Integer.parseInt(request.getParameter("tutor_id"));
+        
         DatabaseConnection dbConnection = new DatabaseConnection();
         CourseDao courseDao = new CourseDao(dbConnection);
             
@@ -161,6 +162,6 @@ public class CourseServlet extends HttpServlet {
         
         courseDao.delete(course);
         request.getSession().setAttribute("success", "Course succesffully deleted");
-        response.sendRedirect("/CourseServlet?route=index");
+        response.sendRedirect("/CourseServlet?route=index&tutor_id="+tutor_id);
     }
 }

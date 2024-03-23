@@ -39,7 +39,7 @@
                     <div class="container pt-5" id="contentContainer">
                         <%@ include file="/components/Tabs.jsp"%>
                     </div>
-                    <a class="btn btn-outline-success mt-1" href="/pages/CatalogPage.jsp"><b>Explore More</b></a>
+                    <a class="btn btn-outline-success mt-4" href="/pages/CatalogPage.jsp"><b>Explore More</b></a>
                 </div>
             </div>
         </div>

@@ -16,7 +16,5 @@
         <div class="catalog-container">
             <%@ include file="/tutor/ExploreAllCatalog.jsp" %>
         </div>
-
-        <%--        <%@ include file="/components/Footer.jsp" %>--%>
     </body>
 </html>
