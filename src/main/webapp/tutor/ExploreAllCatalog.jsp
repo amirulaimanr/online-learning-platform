@@ -14,10 +14,16 @@
                     <small class="text-uppercase font-weight-bold">Catalog Menu</small>
                 </button>
             </div>
-            <%               
+             <%
                 Users user = (Users) session.getAttribute("user");
+                String userusername = "";
+                try{
+                    userusername = user.getName();
+                    } catch (NullPointerException e) {
+                        response.sendRedirect("/pages/LoginPage.jsp");
+                }
             %>
-            <h2 style="font-weight: 600">Hi,<%= user.getName()%> </h2>
+            <h2 style="font-weight: 600">Hi,<%= userusername %> </h2>
             <h4 class="my-4" style="font-weight: 500; margin-top: 30px">Courses that you make</h4>
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">

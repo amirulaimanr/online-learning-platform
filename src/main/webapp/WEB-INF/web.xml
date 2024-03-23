@@ -26,6 +26,10 @@
         <servlet-name>TutorMainPageServlet</servlet-name>
         <servlet-class>org.skillspark.onlinelearningplatform.controller.TutorMainPageServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TutorEnrollServlet</servlet-name>
+        <servlet-class>org.skillspark.onlinelearningplatform.controller.TutorEnrollServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CategoryServlet</servlet-name>
         <url-pattern>/CategoryServlet</url-pattern>
@@ -48,5 +52,9 @@
     <servlet-mapping>
         <servlet-name>TutorMainPageServlet</servlet-name>
         <url-pattern>/TutorMainPageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TutorEnrollServlet</servlet-name>
+        <url-pattern>/TutorEnrollServlet</url-pattern>
     </servlet-mapping>
 </web-app>

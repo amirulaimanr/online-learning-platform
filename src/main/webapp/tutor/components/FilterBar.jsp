@@ -7,7 +7,7 @@
             try{
                 user_id = userbar.getId();
             }catch (NullPointerException e){
-//                 response.sendRedirect("/pages/LoginPage.jsp");
+                 response.sendRedirect("/pages/LoginPage.jsp");
             }
         %>
         <div class="accordion accordion-flush" id="accordionPanelsStayOpenExample">
@@ -62,7 +62,7 @@
                 <div id="item4" class="accordion-collapse collapse" aria-labelledby="header4">
                     <div class="accordion-body">
                         <div class="flex-column align-items-start side-filter">
-                            <a href="SignUpPage.jsp">List of Enroll Student</a>
+                            <a href="/TutorEnrollServlet?route=index&tutor_id=<%= user_id %>">List of Enroll Student</a>
                         </div>
                     </div>
                 </div>
