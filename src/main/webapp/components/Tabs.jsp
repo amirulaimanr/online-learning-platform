@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>My Page</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
                 fetchData();
-                console.log(fetchData());
             });
 
             function fetchData() {
                 $.ajax({
-                    url: "/FetchCategoryServlet",
+                    url: "/FetchCategoryCourseServlet",
                     dataType: "json",
                     success: function(data) {
-                        // Process the fetched data and populate tab buttons
-                        $("#nav-tab").empty(); // Clear existing tab buttons
-                        for (var i = 0; i < data.length; i++) {
-                            var button = createTabButton(data[i], i); // Pass the index 'i'
+                        $("#nav-tab").empty();
+                        $("#nav-tabContent").empty();
+
+                        var index = 0;
+                        for (var category in data) {
+                            var button = createTabButton(category, index);
+                            var content = createTabContent(category, data[category], index);
                             $("#nav-tab").append(button);
+                            $("#nav-tabContent").append(content);
+                            index++;
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -27,15 +29,56 @@
                 });
             }
 
-            function createTabButton(category, i) {
-                // Construct the tab button HTML using the category name
+            function createTabButton(category, index) {
                 var buttonHtml = '<button class="nav-link';
-                if (i === 0) {
-                    buttonHtml += ' active'; // Set the first tab as active
+                if (index === 0) {
+                    buttonHtml += ' active';
                 }
-                buttonHtml += '" id="nav-' + category.toLowerCase() + '-tab" data-bs-toggle="tab" data-bs-target="#nav-' + category.toLowerCase() + '" type="button" role="tab" aria-controls="nav-' + category.toLowerCase() + '" aria-selected="' + (i === 0) + '">' + category + '</button>';
+                buttonHtml += '" id="nav-' + category.toLowerCase().replace(" ", "-") + '-tab" data-bs-toggle="tab" data-bs-target="#nav-' + category.toLowerCase().replace(" ", "-") + '" type="button" role="tab" aria-controls="nav-' + category.toLowerCase().replace(" ", "-") + '" aria-selected="' + (index === 0) + '">' + category + '</button>';
                 return buttonHtml;
             }
+
+            function createTabContent(category, courses, index) {
+                var contentHtml = '<div class="tab-pane fade';
+                if (index === 0) {
+                    contentHtml += ' show active';
+                }
+                contentHtml += '" id="nav-' + category.toLowerCase().replace(" ", "-") + '" role="tabpanel" aria-labelledby="nav-' + category.toLowerCase().replace(" ", "-") + '-tab">';
+                contentHtml += '<div class="album py-5">';
+                contentHtml += '<div class="container">';
+                contentHtml += '<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">';
+
+                for (var i = 0; i < 3; i++) {
+                    if (i < courses.length) {
+                        var course = courses[i];
+                        contentHtml += '<div class="col">';
+                        contentHtml += '<div class="card shadow-sm card-box">';
+                        contentHtml += '<div class="card-fix-size">';
+                        contentHtml += '<div>';
+                        contentHtml += '<div class="card-header"> Free course </div>';
+                        contentHtml += '<div class="card-body flex-column d-flex justify-content-between">';
+                        contentHtml += '<h5 class="card-title">' + course.name + '</h5>';
+                        contentHtml += '<p class="card-text">' + course.description + '</p>';
+                        contentHtml += '<div class="flex-row d-flex justify-content-between">';
+                        contentHtml += '<div class="" style="font-weight: 400"><i class="fa-solid fa-signal me-2"></i>' + course.difficulties + '</div>';
+                        contentHtml += '<div class="" style="font-weight: 400"><b>' + course.duration + '</b> hours</div>';
+                        contentHtml += '</div>';
+                        contentHtml += '</div>';
+                        contentHtml += '</div>';
+                        contentHtml += '</div>';
+                        contentHtml += '</div>';
+                        contentHtml += '</div>';
+                    } else {
+                        break;
+                    }
+                }
+                contentHtml += '</div>';
+                contentHtml += '</div>';
+                contentHtml += '</div>';
+                contentHtml += '</div>';
+                return contentHtml;
+            }
+
         </script>
     </head>
     <body>
@@ -44,19 +87,9 @@
                 <!-- Tab buttons will be appended here -->
             </div>
         </nav>
+
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-                <%@ include file="/components/GridCatalog3.jsp" %>
-            </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-                <%@ include file="/components/GridCatalog3.jsp" %>
-            </div>
-            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
-                <%@ include file="/components/GridCatalog3.jsp" %>
-            </div>
-            <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">
-                <%@ include file="/components/GridCatalog3.jsp" %>
-            </div>
+            <!-- Tab contents will be appended here -->
         </div>
     </body>
 </html>
