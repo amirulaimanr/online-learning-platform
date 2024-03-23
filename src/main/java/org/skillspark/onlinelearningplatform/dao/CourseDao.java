@@ -8,6 +8,7 @@ import java.util.*;
 
 import org.skillspark.onlinelearningplatform.model.Category;
 import org.skillspark.onlinelearningplatform.model.Course;
+import org.skillspark.onlinelearningplatform.repository.CourseRepository;
 
 public class CourseDao {
 
@@ -72,7 +73,7 @@ public class CourseDao {
         return listCourse;
     }
 
-    public void store(String course_name, int course_category, int course_duration, String course_difficulties, int course_status, String course_description,int harcoded_tutor_id) throws SQLException {
+    public void store(String course_name, int course_category, int course_duration, String course_difficulties, int course_status, String course_description, int harcoded_tutor_id) throws SQLException {
         String sql = "INSERT INTO courses (category_id,tutor_id,name,durations,description,status,difficulties) VALUES (?,?,?,?,?,?,?)";
 
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
@@ -115,23 +116,14 @@ public class CourseDao {
         return rowdelete;
     }
 
-    public Map<String, List<Course>> listAllByCategory() throws SQLException {
+
+    /*amirul method*/
+    public Map<String, List<Course>> listAllByCategory3() throws SQLException {
         Map<String, List<Course>> coursesByCategory = new HashMap<>();
-        String sql = "SELECT cs.id, cs.category_id, cs.tutor_id, cs.name, cs.durations, cs.description, cs.status, cs.difficulties, cat.name as category_name "
-                + "FROM courses cs "
-                + "INNER JOIN categories cat ON cs.category_id = cat.id "
-                + "WHERE cs.id IN ( "
-                + "    SELECT c2.id "
-                + "    FROM courses c2 "
-                + "    WHERE c2.category_id = cs.category_id "
-                + "    ORDER BY c2.id ASC "
-                + "    LIMIT 3 "
-                + ") "
-                + "ORDER BY cs.category_id ASC, cs.id ASC";
+        String sql = CourseRepository.LIST_3_COURSE_PER_CATEGORY;
 
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
-
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
@@ -155,5 +147,73 @@ public class CourseDao {
         return coursesByCategory;
     }
 
+
+    public List<Course> getAllCourses() throws SQLException {
+        List<Course> courses = new ArrayList<>();
+        String sql = CourseRepository.LIST_ALL_COURSE;
+
+        PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            int categoryId = resultSet.getInt("category_id");
+            int tutorId = resultSet.getInt("tutor_id");
+            String name = resultSet.getString("name");
+            int duration = resultSet.getInt("durations");
+            String description = resultSet.getString("description");
+            int status = resultSet.getInt("status");
+            String difficulties = resultSet.getString("difficulties");
+
+            Course course = new Course(id, categoryId, tutorId, name, duration, description, status, difficulties);
+            courses.add(course);
+
+        }
+        return courses;
+    }
+
+    public List<Course> getCoursesByCategory(String category) throws SQLException {
+        List<Course> courses = new ArrayList<>();
+        String sql = CourseRepository.LIST_ALL_COURSE_BY_CATEGORY;
+
+        PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
+        statement.setString(1, category);
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            int category_id = resultSet.getInt("category_id");
+            int tutor_id = resultSet.getInt("tutor_id");
+            String name = resultSet.getString("name");
+            int duration = resultSet.getInt("durations");
+            String description = resultSet.getString("description");
+            int status = resultSet.getInt("status");
+            String difficulties = resultSet.getString("difficulties");
+            String category_name = resultSet.getString("category_name");
+
+            Course course = new Course(id, category_id, tutor_id, name, duration, description, status, difficulties, category_name);
+            courses.add(course);
+        }
+
+        return courses;
+    }
+
+    public Map<String, List<String>> listDistinctCourseNames() throws SQLException {
+        Map<String, List<String>> courseNamesMap = new HashMap<>();
+        String sql = CourseRepository.LIST_UNIQUE_COURSE_NAME;
+
+        PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            String categoryName = resultSet.getString("category_name");
+            if (!courseNamesMap.containsKey(categoryName)) {
+                courseNamesMap.put(categoryName, new ArrayList<>());
+            }
+            courseNamesMap.get(categoryName).add(categoryName);
+        }
+
+        return courseNamesMap;
+    }
 
 }
