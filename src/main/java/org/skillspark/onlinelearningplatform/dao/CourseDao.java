@@ -248,4 +248,26 @@ public class CourseDao {
         return courseNamesMap;
     }
 
+    public Course getCourseById(Integer courseId) throws SQLException {
+        String sql = CourseRepository.ALL_COURSE_BY_SELECTED_ID;
+        try (PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql)) {
+            statement.setInt(1, courseId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    int categoryId = resultSet.getInt("category_id");
+                    int tutorId = resultSet.getInt("tutor_id");
+                    String name = resultSet.getString("name");
+                    int duration = resultSet.getInt("durations");
+                    String description = resultSet.getString("description");
+                    int status = resultSet.getInt("status");
+                    String difficulties = resultSet.getString("difficulties");
+
+                    return new Course(id, categoryId, tutorId, name, duration, description, status, difficulties);
+                } else {
+                    return null;
+                }
+            }
+        }
+    }
 }
