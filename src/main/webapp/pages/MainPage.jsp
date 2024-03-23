@@ -20,7 +20,7 @@
                 <div class="container">
                     <div class="flex-column align-items-center" style="height: 550px">
                         <div class="signup-title">
-                            Join the millions learning to code with SkillSpark for free
+                            Join millions on SkillSpark, where learning knows no bounds
                         </div>
                         <%@ include file="/components/SignUpForm.jsp" %>
                     </div>
