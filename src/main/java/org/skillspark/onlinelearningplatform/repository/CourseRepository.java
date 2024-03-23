@@ -6,4 +6,5 @@ public interface CourseRepository {
     String LIST_ALL_COURSE = "SELECT * FROM courses";
     String LIST_ALL_COURSE_BY_CATEGORY = "SELECT cs.id, cs.category_id, cs.tutor_id, cs.name, cs.durations, cs.description, cs.status, cs.difficulties, cat.name AS category_name FROM courses cs INNER JOIN categories cat ON cs.category_id = cat.id WHERE cat.name = ? ORDER BY cs.id ASC";
     String LIST_UNIQUE_COURSE_NAME = "SELECT DISTINCT cat.name AS category_name FROM courses cs INNER JOIN categories cat ON cs.category_id = cat.id";
+    String ALL_COURSE_BY_SELECTED_ID = "SELECT * FROM courses WHERE id = ?";
 }
