@@ -1,24 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.skillspark.onlinelearningplatform.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
 import org.skillspark.onlinelearningplatform.model.Category;
 import org.skillspark.onlinelearningplatform.model.Course;
 
-/**
- *
- * @author lolip
- */
 public class CourseDao {
 
     private DatabaseConnection dbConnection;
@@ -46,7 +36,7 @@ public class CourseDao {
             description = resultSet.getString("description");
             difficulties = resultSet.getString("difficulties");
         }
-        
+
         return Optional.of(new Course(course_id, category_id, tutor_id, name, duration, description, status, difficulties));
     }
 
@@ -100,11 +90,11 @@ public class CourseDao {
         statement.setString(7, course_difficulties);
         statement.executeUpdate();
     }
-    
+
     public boolean update(Course course) throws SQLException {
         boolean rowupdate = false;
         String sql = "UPDATE courses SET category_id=? ,tutor_id=? ,name=? ,durations=? ,description=? ,status=? ,difficulties=? WHERE id=?";
-         
+
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
         statement.setInt(1, course.getCategory_id());
         statement.setInt(2, course.getTutor_id());
@@ -118,16 +108,57 @@ public class CourseDao {
 
         return rowupdate;
     }
-    
+
     public boolean delete(Course course) throws SQLException {
         boolean rowdelete = false;
         String sql = "DELETE FROM courses WHERE id=?";
-        
+
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
         statement.setInt(1, course.getId());
         rowdelete = statement.executeUpdate() > 0;
-        
+
         return rowdelete;
     }
+
+    public Map<String, List<Course>> listAllByCategory() throws SQLException {
+        Map<String, List<Course>> coursesByCategory = new HashMap<>();
+        String sql = "SELECT cs.id, cs.category_id, cs.tutor_id, cs.name, cs.durations, cs.description, cs.status, cs.difficulties, cat.name as category_name "
+                + "FROM courses cs "
+                + "INNER JOIN categories cat ON cs.category_id = cat.id "
+                + "WHERE cs.id IN ( "
+                + "    SELECT c2.id "
+                + "    FROM courses c2 "
+                + "    WHERE c2.category_id = cs.category_id "
+                + "    ORDER BY c2.id ASC "
+                + "    LIMIT 3 "
+                + ") "
+                + "ORDER BY cs.category_id ASC, cs.id ASC";
+
+        PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery();
+
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            int category_id = resultSet.getInt("category_id");
+            int tutor_id = resultSet.getInt("tutor_id");
+            String name = resultSet.getString("name");
+            int duration = resultSet.getInt("durations");
+            String description = resultSet.getString("description");
+            int status = resultSet.getInt("status");
+            String difficulties = resultSet.getString("difficulties");
+            String category_name = resultSet.getString("category_name");
+
+            Course course = new Course(id, category_id, tutor_id, name, duration, description, status, difficulties, category_name);
+
+            if (!coursesByCategory.containsKey(category_name)) {
+                coursesByCategory.put(category_name, new ArrayList<>());
+            }
+            coursesByCategory.get(category_name).add(course);
+        }
+
+        return coursesByCategory;
+    }
+
 
 }
