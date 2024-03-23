@@ -2,7 +2,7 @@
 <html>
     <head>
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 fetchData();
             });
 
@@ -10,7 +10,7 @@
                 $.ajax({
                     url: "/FetchCategoryCourseServlet?action=category_course",
                     dataType: "json",
-                    success: function(data) {
+                    success: function (data) {
                         $("#nav-tab").empty();
                         $("#nav-tabContent").empty();
 
@@ -28,7 +28,7 @@
                             categoryCount++;
                         }
                     },
-                    error: function(jqXHR, textStatus, errorThrown) {
+                    error: function (jqXHR, textStatus, errorThrown) {
                         console.error("Error fetching data:", textStatus, errorThrown);
                     }
                 });
@@ -86,4 +86,15 @@
 
         </script>
     </head>
+    <body>
+        <nav>
+            <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+                <!-- Tab buttons -->
+            </div>
+        </nav>
+
+        <div class="tab-content" id="nav-tabContent">
+            <!-- Tab contents -->
+        </div>
+    </body>
 </html>
