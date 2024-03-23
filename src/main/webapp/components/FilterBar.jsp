@@ -33,9 +33,7 @@
                         var targetElement = $("#" + targetElementId);
                         targetElement.empty();
                         for (var key in data) {
-                            // Generate URL based on category name
                             var categoryUrl = "/pages/CatalogPage.jsp?category=" + encodeURIComponent(key);
-                            // Append category link with the generated URL
                             targetElement.append("<a href='" + categoryUrl + "'>" + key + "</a>");
                         }
                     },
