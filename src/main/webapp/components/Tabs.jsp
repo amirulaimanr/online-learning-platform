@@ -8,19 +8,24 @@
 
             function fetchData() {
                 $.ajax({
-                    url: "/FetchCategoryCourseServlet",
+                    url: "/FetchCategoryCourseServlet?action=category_course",
                     dataType: "json",
                     success: function(data) {
                         $("#nav-tab").empty();
                         $("#nav-tabContent").empty();
 
                         var index = 0;
+                        var categoryCount = 0;
                         for (var category in data) {
+                            if (categoryCount >= 5) {
+                                break;
+                            }
                             var button = createTabButton(category, index);
                             var content = createTabContent(category, data[category], index);
                             $("#nav-tab").append(button);
                             $("#nav-tabContent").append(content);
                             index++;
+                            categoryCount++;
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -84,12 +89,12 @@
     <body>
         <nav>
             <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
-                <!-- Tab buttons will be appended here -->
+                <!-- Tab buttons -->
             </div>
         </nav>
 
         <div class="tab-content" id="nav-tabContent">
-            <!-- Tab contents will be appended here -->
+            <!-- Tab contents -->
         </div>
     </body>
 </html>
