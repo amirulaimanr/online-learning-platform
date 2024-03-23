@@ -124,5 +124,37 @@ public class CourseDao {
         
         return rowdelete;
     }
+    
+     public Course getInfo(int id) throws SQLException {
+        String sql = "SELECT cs.id,cs.category_id,cs.tutor_id,cs.durations,cs.status,cs.name,cs.description,cs.difficulties,cat.name as category_name,usr.name as username "
+                + "FROM courses cs "
+                + "INNER JOIN categories cat "
+                + "ON cs.category_id = cat.id "
+                + "INNER JOIN users usr "
+                + "ON cs.tutor_id = usr.id "
+                + "WHERE cs.id=?";
+        
+        int course_id = 0, category_id = 0, tutor_id = 0, duration = 0, status = 0;
+        String name = "", description = "", difficulties = "", category_name="", username="test";
+
+        PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            course_id = resultSet.getInt("id");
+            category_id = resultSet.getInt("category_id");
+            tutor_id = resultSet.getInt("tutor_id");
+            duration = resultSet.getInt("durations");
+            status = resultSet.getInt("status");
+            name = resultSet.getString("name");
+            description = resultSet.getString("description");
+            difficulties = resultSet.getString("difficulties");
+            category_name = resultSet.getString("category_name");
+            username = resultSet.getString("username");
+            
+        }
+          return new Course(course_id, category_id, tutor_id, name, duration, description, status, difficulties, category_name, username);
+    }
 
 }

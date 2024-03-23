@@ -33,7 +33,7 @@
                     <form action="/CourseServlet?route=store" method="post" class="needs-validation" novalidate>
                         <div class="card-body">
                             <div class="row">
-                                <input type="hidden" id="tutor_id" name="tutor_id" value="<%= userbar.getId() %>">
+                                <input type="hidden" id="tutor_id" name="tutor_id" value="<%= user_id %>">
                                 <div class="col-md-12 mb-3">
                                     <label for="course_name" class="form-label">Course Name</label>
                                     <input type="text" class="form-control" id="course_name" name="course_name" placeholder="Name" required>
@@ -77,7 +77,7 @@
                         </div>
                         <div class="card-footer text-end">
                             <button type="submit" class="btn btn-primary">Add</button>
-                            <a href="/CourseServlet?route=index" class="btn btn-danger">Back</a>
+                            <a href="/CourseServlet?route=index&tutor_id=<%= user_id %>" class="btn btn-danger">Back</a>
                         </div>
                     </form>
                 </div>

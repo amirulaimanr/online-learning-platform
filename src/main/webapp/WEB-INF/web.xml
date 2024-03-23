@@ -22,6 +22,10 @@
         <servlet-name>ChapterServlet</servlet-name>
         <servlet-class>org.skillspark.onlinelearningplatform.controller.ChapterServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TutorMainPageServlet</servlet-name>
+        <servlet-class>org.skillspark.onlinelearningplatform.controller.TutorMainPageServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CategoryServlet</servlet-name>
         <url-pattern>/CategoryServlet</url-pattern>
@@ -38,7 +42,11 @@
         <servlet-name>ChapterServlet</servlet-name>
         <url-pattern>/ChapterServlet</url-pattern>
     </servlet-mapping>
-<!--    <welcome-file-list>
+    <!--    <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>-->
+    <servlet-mapping>
+        <servlet-name>TutorMainPageServlet</servlet-name>
+        <url-pattern>/TutorMainPageServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

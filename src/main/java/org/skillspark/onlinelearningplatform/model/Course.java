@@ -21,6 +21,22 @@ public class Course {
     private int status;
     private String difficulties;
     private String category_name;
+    private String username;
+    
+    public Course(int id,int category_id, int tutor_id, String name, int duration, String description, int status, String difficulties, String category_name, String username)
+    {
+        this.id = id;
+        this.category_id = category_id;
+        this.tutor_id = tutor_id;
+        this.name = name;
+        this.duration = duration;
+        this.description = description;
+        this.status = status;
+        this.difficulties = difficulties;
+        this.category_name = category_name;
+        this.username = username;
+    }
+    
     
     public Course(int id,int category_id, int tutor_id, String name, int duration, String description, int status, String difficulties, String category_name)
     {
@@ -177,6 +193,20 @@ public class Course {
      */
     public void setCategory_name(String category_name) {
         this.category_name = category_name;
+    }
+
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 }

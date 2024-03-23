@@ -57,7 +57,7 @@
                                     <td class="d-flex">
                                         <a href="/CourseServlet?route=edit&id=<c:out value='${course.id}' />" class="btn btn-sm btn-primary me-2">Edit</a>
                                         <a href="/ChapterServlet?route=index&id=<c:out value='${course.id}' />&name=<c:out value='${course.name}' />" " class="btn btn-sm btn-success me-2">Chapter</a>
-                                        <form action="/CourseServlet?route=delete&id=<c:out value='${course.id}' />" method="post" id="delete-item-form-<c:out value='${count}' />"  >
+                                        <form action="/CourseServlet?route=delete&id=<c:out value='${course.id}' />&tutor_id=<%= user_id %>" method="post" id="delete-item-form-<c:out value='${count}' />"  >
                                             <button class="btn btn-sm btn-danger" type="button" onclick="deleteItem(<c:out value='${count}' />)" id="delete-btn-<c:out value='${count}' />" >Delete</button>
                                         </form>
                                     </td>

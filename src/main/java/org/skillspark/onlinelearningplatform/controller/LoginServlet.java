@@ -32,11 +32,14 @@ public class LoginServlet extends HttpServlet {
 
         if (authService.authenticate(email, password)) {
             HttpSession session = request.getSession();
+            Users user = null;
+            DatabaseConnection dbConnection = null;
+            
+            // set session timmer
             int timeOut = 60 * 60 * 24;
             session.setMaxInactiveInterval(timeOut);
-            Users user = null;
-
-            DatabaseConnection dbConnection = null;
+            
+            // get info from users and store it in session
             try {
                 dbConnection = new DatabaseConnection();
                 UsersDao userDao = new UsersDao(dbConnection);
@@ -48,8 +51,10 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("user", user);
 
             if (user.getId() == 1) {
-                response.sendRedirect("/tutor/CatalogPage.jsp");
+                //tutor
+                response.sendRedirect("/TutorMainPageServlet?route=index&tutor_id="+user.getId());
             } else {
+                //students
                 response.sendRedirect("/pages/UserDashboardPage.jsp");
             }
             
