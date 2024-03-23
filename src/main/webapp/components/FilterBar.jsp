@@ -29,7 +29,7 @@
                 $.ajax({
                     url: "/FetchCategoryCourseServlet?action=" + action,
                     dataType: "json",
-                    success: function(data) {
+                    success: function (data) {
                         var targetElement = $("#" + targetElementId);
                         targetElement.empty();
                         for (var key in data) {
@@ -37,11 +37,12 @@
                             targetElement.append("<a href='" + categoryUrl + "'>" + key + "</a>");
                         }
                     },
-                    error: function(jqXHR, textStatus, errorThrown) {
+                    error: function (jqXHR, textStatus, errorThrown) {
                         console.error("Error fetching data:", textStatus, errorThrown);
                     }
                 });
             }
+
             fetchData("course", "categoryContent");
         </script>
     </body>
