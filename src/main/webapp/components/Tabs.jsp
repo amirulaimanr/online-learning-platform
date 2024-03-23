@@ -51,12 +51,13 @@
                 contentHtml += '" id="nav-' + category.toLowerCase().replace(" ", "-") + '" role="tabpanel" aria-labelledby="nav-' + category.toLowerCase().replace(" ", "-") + '-tab">';
                 contentHtml += '<div class="album py-5">';
                 contentHtml += '<div class="container">';
-                contentHtml += '<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">';
+                contentHtml += '<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="catalog-content-' + category.toLowerCase().replace(" ", "-") + '">';
 
                 for (var i = 0; i < 3; i++) {
                     if (i < courses.length) {
                         var course = courses[i];
                         contentHtml += '<div class="col">';
+                        contentHtml += '<a href="/SelectedCourseServlet?course_id=' + course.id + '" onclick="return checkLogin()">';
                         contentHtml += '<div class="card shadow-sm card-box">';
                         contentHtml += '<div class="card-fix-size">';
                         contentHtml += '<div>';
@@ -72,6 +73,7 @@
                         contentHtml += '</div>';
                         contentHtml += '</div>';
                         contentHtml += '</div>';
+                        contentHtml += '</a>';
                         contentHtml += '</div>';
                     } else {
                         break;
@@ -84,6 +86,14 @@
                 return contentHtml;
             }
 
+            function checkLogin() {
+                var isLoggedIn = true;
+                if (!isLoggedIn) {
+                    window.location.href = "/pages/LoginPage.jsp";
+                    return false;
+                }
+                return true;
+            }
         </script>
     </head>
     <body>
