@@ -28,7 +28,8 @@
 
 .enroll-btn:hover {
     color: #FFFFFF;
-    background-color: #000000;
+    background-color: #161315;
+    background-image: linear-gradient(225deg, #161315 0%, #4a2769 50%, #0b334e 100%);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) !important;
 }
 
@@ -66,13 +67,15 @@
     width: 100%;
     height: auto;
     padding: 30px 40px;
-    background-color: #FFFFFF;
+    background-color: #161315;
+    background-image: linear-gradient(225deg, #857881 0%, #310b4f 50%, #021621 100%);
+
 }
 .syllabus-container {
     display: block;
     width: 100%;
     height: auto;
-    padding: 60px;
+    padding: 60px 100px;
 }
 
 .chapter-desciption-box {
@@ -84,5 +87,28 @@
 .icon {
     margin: auto;
     padding: 10px;
+}
+
+.accordian-space,
+.accordion-item-space {
+    padding: 20px 0px;
+}
+
+.accordion-header-space,
+.accordion-item-space {
+    color: #eaeaea;
+    background-color: #161315;
+    background-image: linear-gradient(225deg, #857881 0%, #4a2769 50%, #0b334e 100%);
+    padding: 10px;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #eaeaea;
+}
+
+.video-attachment-box {
+    justify-content: start;
+    padding: 10px 0px;
+    font-size: 16px;
 }
 
