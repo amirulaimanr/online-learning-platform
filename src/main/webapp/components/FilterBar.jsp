@@ -14,7 +14,7 @@
                      aria-labelledby="panelsStayOpen-headingOne">
                     <div class="accordion-body">
                         <div class="flex-column align-items-start side-filter">
-                            <a href="/pages/CatalogPage.jsp">Explore All</a>
+                            <a href="/pages/CatalogPage.jsp" class="mb-2">Explore All</a>
                         </div>
                         <div class="flex-column align-items-start side-filter" id="categoryContent">
                             <!-- Category content -->
@@ -34,7 +34,7 @@
                         targetElement.empty();
                         for (var key in data) {
                             var categoryUrl = "/pages/CatalogPage.jsp?category=" + encodeURIComponent(key);
-                            targetElement.append("<a href='" + categoryUrl + "'>" + key + "</a>");
+                            targetElement.append("<a class='mb-2' href='" + categoryUrl + "'>" + key + "</a>");
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {

@@ -18,9 +18,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/pages/CatalogPage.jsp">Catalog</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/pages/ResourcesPage.jsp">Resources</a>
-                        </li>
                     </ul>
                     <form class="d-flex pe-2 login-btn" role="search">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
