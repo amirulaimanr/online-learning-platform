@@ -102,7 +102,7 @@
     padding: 10px;
 }
 
-.accordion-button:not(.collapsed) {
+.accordion-header-space:not(.collapsed) {
     color: #eaeaea;
 }
 
