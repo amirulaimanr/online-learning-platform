@@ -61,7 +61,6 @@ public class ChapterDao {
                 + "WHERE chp.course_id=? "
                 + "ORDER BY chp.id ASC";
 
-        //hard coded tutor_id
 
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
         statement.setInt(1, id_cor);
@@ -78,7 +77,6 @@ public class ChapterDao {
             int status = resultSet.getInt("status");
             String level = resultSet.getString("level");
             String course_name = resultSet.getString("course_name");
-
 
             Chapter chapter = new Chapter(id, course_id, title, name, video_path, attachment_path, description, status, level, course_name);
             listChapter.add(chapter);

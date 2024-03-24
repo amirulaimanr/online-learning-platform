@@ -12,7 +12,7 @@
     </head>
     <body>
         <div class="topbar-sticky">
-           <%@ include file="/components/TopBarLoggedIn.jsp" %>
+             <%@ include file="/components/TopBarLoggedIn.jsp" %>
         </div>
         <div class="catalog-container">
             <div class="vertical-nav" id="sidebar">
@@ -22,53 +22,36 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a href="#">Home</a></li>
-                      <li class="breadcrumb-item " aria-current="page"><a href="/CourseServlet?route=index">${course_name}</a></li>
-                       <li class="breadcrumb-item active" aria-current="page">Chapter</li>
+                      <li class="breadcrumb-item active" aria-current="page">List Student</li>
                     </ol>
                 </nav>
-                <div class="col-md-12 text-end">
-                    <a href="/ChapterServlet?route=create&id=${course_id}&name=${course_name}" class="btn btn-success"><i class="fa-solid fa-plus"></i> Add Chapter</a>
-                </div>
-
                 <div class="col-md-12 mt-2 mb-2">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Title</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Level</th>
-                                <th scope="col" width="40%">Description</th>
+                                <th scope="col">Student Name</th>
+                                <th scope="col">Date Join</th>
                                 <th scope="col" width="10%">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-
                             <c:set var="count" value="0" scope="page" />
-                            <c:forEach var="chapter" items="${listChapter}" >
+                            <c:forEach var="student" items="${listStudent}" >
                                 <c:set var="count" value="${count + 1}" scope="page" />
                                 <tr>
                                     <th scope="row"><c:out value="${count}" /></th>
-                                    <td><c:out value="${chapter.title}" /></td>
-                                    <td><c:out value="${chapter.name}" /></td>
-                                    <td><c:out value="${chapter.status}" /></td>
-                                    <td><c:out value="${chapter.level}" /></td>
-                                     <td><c:out value="${chapter.description}" /></td>
+                                    <td><c:out value="${student.student_name}" /></td>
+                                    <td><c:out value="${student.date_enroll}" /></td>
                                     <td class="d-flex">
-                                        <a href="/ChapterServlet?route=edit&id=<c:out value='${chapter.id}' />&name=<c:out value='${chapter.name}' />&course_id=${course_id}" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                        <form action="/ChapterServlet?route=delete&id=<c:out value='${chapter.id}' />&course_id=${course_id}&course_name=${course_name}" method="post" id="delete-item-form-<c:out value='${count}' />"  >
+                                        <form action="/TutorEnrollServlet?route=delete&id=<c:out value='${student.course_id}' />&student_id=<c:out value='${student.student_id}' />" method="post" id="delete-item-form-<c:out value='${count}' />"  >
                                             <button class="btn btn-sm btn-danger" type="button" onclick="deleteItem(<c:out value='${count}' />)" id="delete-btn-<c:out value='${count}' />" ><i class="fa-solid fa-trash"></i> Delete</button>
-                                        </form>
+                                        </form>  
                                     </td>
                                 </tr>
                             </c:forEach>
-
                         </tbody>
                     </table>
-                </div>
-                <div class="col-md-12 mt-2 mb-2 text-end">
-                    <a href="/CourseServlet?route=index&tutor_id=<%= user_id %>" class="btn btn-danger" ><i class="fa-solid fa-arrow-left"></i> Back</a>
                 </div>
                 <div>
                     <%
@@ -107,4 +90,3 @@
         });
     }
 </script>
-

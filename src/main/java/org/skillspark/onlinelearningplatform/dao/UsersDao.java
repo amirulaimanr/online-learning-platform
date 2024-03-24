@@ -13,12 +13,13 @@ public class UsersDao {
         this.dbConnection = dbConnection;
     }
 
-    public void addUser(String email, String password, int roleId) throws SQLException {
+    public void addUser(String email, String password, int roleId, String name) throws SQLException {
         String sql = UserRepository.INSERT_USERS_BY_EMAIL_PASSWORD_ROLE;
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
         statement.setString(1, email);
         statement.setString(2, password);
         statement.setInt(3, roleId);
+        statement.setString(4, name);
         statement.executeUpdate();
     }
 

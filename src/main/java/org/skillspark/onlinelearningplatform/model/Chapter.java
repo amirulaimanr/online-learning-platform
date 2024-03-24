@@ -12,6 +12,7 @@ public class Chapter {
     private String level;
     private String course_name;
 
+    // this for joint table.Lazy to query back course soo,dump course name here
     public Chapter(int id ,int course_id ,String title ,String name ,String videoPath ,String attachmentPath ,String description ,int status ,String level ,String course_name)
     {
         this.id = id;

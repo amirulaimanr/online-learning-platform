@@ -10,10 +10,12 @@ import java.sql.SQLException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import org.skillspark.onlinelearningplatform.model.Category;
 import org.skillspark.onlinelearningplatform.model.Course;
+import org.skillspark.onlinelearningplatform.model.Enroll;
 
 /**
  *
@@ -98,4 +100,38 @@ public class EnrollDao {
 
         return rowdelete;
     }
+    
+    public List<Enroll> listStudentByCourse(int course_id) throws SQLException  {
+        List<Enroll> listEnroll = new ArrayList();
+        SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
+        String sql = "SELECT  en.id,en.student_id,en.course_id,en.date_enroll,usr.name as username,cor.name as coursename "
+                + "FROM enrolls en "
+                + "INNER JOIN users usr "
+                + "ON en.student_id = usr.id "
+                + "INNER JOIN courses cor "
+                + "ON en.course_id = cor.id "
+                + "WHERE en.course_id  = ?"
+                + "ORDER BY en.id ASC";
+
+        PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
+        statement.setInt(1, course_id);
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            int student_id = resultSet.getInt("student_id");
+            int course_id_result = resultSet.getInt("course_id");
+            String username = resultSet.getString("username");
+            String coursename = resultSet.getString("coursename");
+            Date date = resultSet.getDate("date_enroll");
+
+            String date_enroll = sdt.format(date);
+
+            Enroll enroll = new Enroll(id, course_id_result, student_id, date_enroll, coursename, username);
+            listEnroll.add(enroll);
+        }
+        
+        return listEnroll;
+    }
+   
 }

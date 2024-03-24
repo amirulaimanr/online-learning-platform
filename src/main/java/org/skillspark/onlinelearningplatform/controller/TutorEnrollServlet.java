@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.skillspark.onlinelearningplatform.dao.CourseDao;
 import org.skillspark.onlinelearningplatform.dao.DatabaseConnection;
+import org.skillspark.onlinelearningplatform.dao.EnrollDao;
 import org.skillspark.onlinelearningplatform.model.Course;
+import org.skillspark.onlinelearningplatform.model.Enroll;
 
 /**
  *
@@ -31,6 +33,12 @@ public class TutorEnrollServlet extends HttpServlet {
          String route = request.getParameter("route");
            try{
                 switch (route){
+                    case "view":
+                        viewStudent(request, response);
+                    break;
+                    case "delete":
+                        deleteEnroll(request,response);
+                    break;
                     default:
                         showListIndexT(request,response);
                         break;
@@ -57,6 +65,31 @@ public class TutorEnrollServlet extends HttpServlet {
         request.setAttribute("listCourse",listCourse);
         
         dispatcher.forward(request,response);
+    }
+
+    private void viewStudent(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException   {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/tutor/content/enroll/view_student.jsp");
+        int id = Integer.parseInt(request.getParameter("id"));
+   
+        DatabaseConnection dbConnection = new DatabaseConnection();
+        EnrollDao enrollDao = new EnrollDao(dbConnection);
+            
+        List<Enroll> listEnroll = enrollDao.listStudentByCourse(id);
+        request.setAttribute("listStudent",listEnroll);
+        
+        dispatcher.forward(request,response);
+    }
+    
+    private void deleteEnroll(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException  {
+        int course_id = Integer.parseInt(request.getParameter("id"));
+        int student_id = Integer.parseInt(request.getParameter("student_id"));
+        
+        DatabaseConnection dbConnection = new DatabaseConnection();
+        EnrollDao enrollDao = new EnrollDao(dbConnection);
+        enrollDao.delete(student_id, course_id);
+        
+        request.getSession().setAttribute("success", "Enrolled student succesffully deleted");
+        response.sendRedirect("/TutorEnrollServlet?route=view&id="+course_id);
     }
 
 }

@@ -114,12 +114,12 @@ public class EnrollServlet extends HttpServlet {
     }
 
     private void deleteEnroll(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException  {
-        int id = Integer.parseInt(request.getParameter("id"));
+        int course_id = Integer.parseInt(request.getParameter("id"));
         int student_id = Integer.parseInt(request.getParameter("student_id"));
         
         DatabaseConnection dbConnection = new DatabaseConnection();
         EnrollDao enrollDao = new EnrollDao(dbConnection);
-        enrollDao.delete(student_id, id);
+        enrollDao.delete(student_id, course_id);
         request.getSession().setAttribute("success", "Enrolled course succesffully deleted");
         response.sendRedirect("/EnrollServlet?route=index&student_id="+student_id);
     }

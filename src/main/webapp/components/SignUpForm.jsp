@@ -10,6 +10,10 @@
                     </select>
                     <div class="login__field">
                         <i class="login__icon fas fa-user"></i>
+                        <input type="text" class="login__input" placeholder="Name" name="name" required>
+                    </div>
+                    <div class="login__field">
+                        <i class="login__icon fas fa-user"></i>
                         <input type="text" class="login__input" placeholder="Email" name="email" required>
                     </div>
                     <div class="login__field">
@@ -17,7 +21,7 @@
                         <input type="password" class="login__input" placeholder="Password" name="password" required
                         >
                     </div>
-                    <button class="button login__submit">
+                    <button class="button login__submit" style="margin-top:-0.5em;">
                         <span class="button__text">Sign Up Now</span>
                         <i class="button__icon fas fa-chevron-right"></i>
                     </button>
