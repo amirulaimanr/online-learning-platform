@@ -64,12 +64,10 @@
                                     </td>
                                 </tr>
                             </c:forEach>
-
                         </tbody>
                     </table>
                 </div>
                 <div>
-                    <%-- error message here if unsuccesful login --%>
                     <%
                         if (session.getAttribute("success") != null) {
                     %>

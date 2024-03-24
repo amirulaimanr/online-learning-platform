@@ -38,7 +38,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             <c:set var="count" value="0" scope="page" />
                             <c:forEach var="course" items="${listCourse}" >
                                 <c:set var="count" value="${count + 1}" scope="page" />
@@ -53,7 +52,6 @@
                                     </td>
                                 </tr>
                             </c:forEach>
-
                         </tbody>
                     </table>
                 </div>           
