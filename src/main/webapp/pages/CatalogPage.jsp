@@ -34,5 +34,13 @@
         </div>
         <%-- Include Footer --%>
         <%--        <%@ include file="/components/Footer.jsp" %>--%>
+
+        <script>
+            $(function () {
+                $('#sidebarCollapse').on('click', function () {
+                    $('#sidebar, #content').toggleClass('active');
+                });
+            });
+        </script>
     </body>
 </html>
