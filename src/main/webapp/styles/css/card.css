@@ -20,3 +20,17 @@
     font-weight: 100;
     height: 85%;
 }
+
+@media (max-width: 1068px) {
+
+    .card-body {
+        color: #282828;
+        /*background-color: #1B2331;*/
+        font-weight: 100;
+        height: 440px;
+    }
+
+    .flex-row-card {
+        gap: 10px;
+    }
+}

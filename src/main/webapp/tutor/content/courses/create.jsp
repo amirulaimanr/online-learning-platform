@@ -56,9 +56,9 @@
                                     <label for="course_difficulties" class="form-label">Course Difficulties</label>
                                     <select class="form-select" id="course_difficulties" name="course_difficulties" required>
                                         <option selected disabled value="">Open this select menu</option>
-                                        <option value="Easy">Easy</option>
-                                        <option value="Medium">Medium</option>
-                                        <option value="Hard">Hard</option>
+                                        <option value="Beginner">Beginner</option>
+                                        <option value="Intermediate">Intermediate</option>
+                                        <option value="Advanced">Advanced</option>
                                     </select>
                                 </div>
                                 <div class="col-md-12 mb-3">

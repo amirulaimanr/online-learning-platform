@@ -42,3 +42,4 @@ src/main/webapp/video
 
 database.properties
 /resources/database.properties
+src/main/resources/database.properties
