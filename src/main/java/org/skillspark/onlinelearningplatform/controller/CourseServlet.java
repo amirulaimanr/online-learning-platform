@@ -28,7 +28,7 @@ import org.skillspark.onlinelearningplatform.model.Users;
  *
  * @author lolip
  */
-@WebServlet(name = "CoursesServlet", value = "/CoursesServlet")
+@WebServlet(name = "CourseServlet", value = "/CourseServlet")
 public class CourseServlet extends HttpServlet {
 
     @Override

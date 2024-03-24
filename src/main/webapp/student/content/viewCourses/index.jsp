@@ -41,7 +41,7 @@
                                 <%
                                     }else{
                                 %>
-                                <a href="#">
+                                <a href="/EnrollServlet?route=view&id=${course.id}&student_id=<%= user_id %>">
                                     <div class="enroll-btn"><i class="fa-solid fa-circle-info"></i> View Course Now
                                     </div>
                                 </a>
