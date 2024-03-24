@@ -57,9 +57,9 @@
                                     <label for="course_difficulties" class="form-label">Course Difficulties</label>
                                     <select class="form-select" id="course_difficulties" name="course_difficulties" required>
                                         <option selected disabled value="">Open this select menu</option>
-                                        <option value="Easy" <c:if test="${course.difficulties.equals('Easy')}">selected</c:if> >Easy</option>
-                                        <option value="Medium" <c:if test="${course.difficulties.equals('Medium')}">selected</c:if> >Medium</option>
-                                        <option value="Hard" <c:if test="${course.difficulties.equals('Hard')}">selected</c:if> >Hard</option>
+                                        <option value="Beginner" <c:if test="${course.difficulties.equals('Beginner')}">selected</c:if> >Beginner</option>
+                                        <option value="Intermediate" <c:if test="${course.difficulties.equals('Intermediate')}">selected</c:if> >Intermediate</option>
+                                        <option value="Advanced" <c:if test="${course.difficulties.equals('Advanced')}">selected</c:if> >Advanced</option>
                                     </select>
                                 </div>
                                 <div class="col-md-12 mb-3">
