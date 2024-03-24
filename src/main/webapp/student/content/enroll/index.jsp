@@ -16,7 +16,7 @@
         </div>
         <div class="catalog-container">
             <div class="vertical-nav" id="sidebar">
-                <%@include file="/student/components/FilterBar.jsp"%>
+                <%@include file="/student/components/FilterBar.jsp" %>
             </div>
             <div class="flex-column explore-catalog p-5 align-items-start" id="content">
                 <nav aria-label="breadcrumb">
