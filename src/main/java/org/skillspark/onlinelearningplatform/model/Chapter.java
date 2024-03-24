@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.skillspark.onlinelearningplatform.model;
 
-/**
- *
- * @author lolip
- */
 public class Chapter {
     private int id;
     private int course_id;
@@ -20,7 +11,7 @@ public class Chapter {
     private int status;
     private String level;
     private String course_name;
-    
+
     public Chapter(int id ,int course_id ,String title ,String name ,String videoPath ,String attachmentPath ,String description ,int status ,String level ,String course_name)
     {
         this.id = id;
@@ -34,7 +25,7 @@ public class Chapter {
         this.level = level;
         this.course_name = course_name;
     }
-    
+
     public Chapter(int id ,int course_id ,String title ,String name ,String videoPath ,String attachmentPath ,String description ,int status ,String level)
     {
         this.id = id;
@@ -47,7 +38,7 @@ public class Chapter {
         this.status = status;
         this.level = level;
     }
-    
+
     public Chapter(int id ,int course_id ,String title ,String name ,String description ,int status ,String level)
     {
         this.id = id;
@@ -58,10 +49,14 @@ public class Chapter {
         this.status = status;
         this.level = level;
     }
-    
+
     public Chapter(int id )
     {
         this.id = id;
+    }
+
+    public Chapter() {
+
     }
 
     /**
@@ -203,5 +198,5 @@ public class Chapter {
     public void setCourse_name(String course_name) {
         this.course_name = course_name;
     }
-    
+
 }
