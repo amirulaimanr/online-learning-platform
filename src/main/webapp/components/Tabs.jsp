@@ -57,7 +57,7 @@
                     if (i < courses.length) {
                         var course = courses[i];
                         contentHtml += '<div class="col">';
-                        contentHtml += '<a href="/SelectedCourseServlet?course_id=' + course.id + '" onclick="return checkLogin()">';
+                        contentHtml += '<a href="/SelectedCourseServlet?course_id=' + course.id + '">';
                         contentHtml += '<div class="card shadow-sm card-box">';
                         contentHtml += '<div class="card-fix-size">';
                         contentHtml += '<div>';
@@ -84,15 +84,6 @@
                 contentHtml += '</div>';
                 contentHtml += '</div>';
                 return contentHtml;
-            }
-
-            function checkLogin() {
-                var isLoggedIn = true;
-                if (!isLoggedIn) {
-                    window.location.href = "/pages/LoginPage.jsp";
-                    return false;
-                }
-                return true;
             }
         </script>
     </head>

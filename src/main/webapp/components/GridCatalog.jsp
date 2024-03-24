@@ -40,7 +40,7 @@
 
         $.each(courses, function (index, course) {
             var courseHtml = '<div class="col">' +
-                '<a href="/SelectedCourseServlet?course_id=' + course.id + '" onclick="return checkLogin()">' +
+                '<a href="/SelectedCourseServlet?course_id=' + course.id + '">' +
                 '<div class="card shadow-sm card-box">' +
                 '<div class="card-fix-size">' +
                 '<div>' +
@@ -59,14 +59,5 @@
                 '</div>';
             catalogContent.append(courseHtml);
         });
-    }
-
-    function checkLogin() {
-        var isLoggedIn = true;
-        if (!isLoggedIn) {
-            window.location.href = "/pages/LoginPage.jsp";
-            return false;
-        }
-        return true;
     }
 </script>
