@@ -22,40 +22,18 @@
                     <div class="course-flexbox flex-column pt-5">
                         <div class="course-details-container">
                             <div class="course-title-box">
-                                <h5>
-                                    ${course.category_name}
-                                </h5>
+                                <h5>${course.category_name}</h5>
                                 <h1>
                                     ${course.name}
                                     <h5 style="margin-top:-2em;">By <b>${course.username}</b></h5>
                                 </h1>
                                 <p>${course.description}</p>
-                                <%
-                                    boolean isEnroll = (Boolean) request.getAttribute("isEnroll");
-                                    if(isEnroll == false){
-                                %>
-                                <a href="/EnrollServlet?route=store&student_id=<%= user_id %>&course_id=${course.id}">
-                                    <div class="enroll-btn"><i class="fa-solid fa-plus"></i> Enroll Now
-                                    </div>
-                                </a>
-                                <%
-                                    }else{
-                                %>
-                                <a href="#">
-                                    <div class="enroll-btn"><i class="fa-solid fa-circle-info"></i> View Course Now
-                                    </div>
-                                </a>
-                                 <%
-                                    }
-                                %>
                             </div>
 
                             <div class="course-img">
                                 <img src="/styles/img/person-learning-online1.png">
                             </div>
                         </div>
-
-
                         <div class="skill-duration-container">
                             <div class="course-details">
                                 <div class="align-items-center">
@@ -116,6 +94,11 @@
                                                 <p style="font-weight: 400">${chapter.description}</p>
                                             </div>
                                             <div id="flush-collapse-<c:out value='${count}' />" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                                <div class="chapter-desciption-box mt-4 mb-2">
+                                                    <video width="1230" height="500" controls>
+                                                        <source src="${chapter.videoPath}" type="video/mp4">
+                                                    </video>
+                                                </div>
                                                 <div class="chapter-desciption-box mb-2">
                                                     <strong>Level :</strong> ${chapter.level}</small>
                                                 </div>

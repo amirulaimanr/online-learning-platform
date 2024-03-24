@@ -26,7 +26,7 @@
                     </ol>
                  </nav>
                 <div class="col-md-12 text-end">
-                    <a href="/CategoryServlet?route=create" class="btn btn-success">Add Category</a>
+                    <a href="/CategoryServlet?route=create" class="btn btn-success"><i class="fa-solid fa-plus"></i> Add Category</a>
                 </div>
 
                 <div class="col-md-12 mt-2 mb-2">
@@ -36,7 +36,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Description</th>
-                                <th scope="col">Action</th>
+                                <th scope="col" width="10%">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,9 +48,9 @@
                                     <td><c:out value="${category.name}" /></td>
                                     <td><c:out value="${category.description}" /></td>
                                     <td class="d-flex">
-                                        <a href="/CategoryServlet?route=edit&id=<c:out value='${category.id}' />" class="btn btn-sm btn-primary me-2">Edit</a>
+                                        <a href="/CategoryServlet?route=edit&id=<c:out value='${category.id}' />" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                                         <form action="/CategoryServlet?route=delete&id=<c:out value='${category.id}' />" method="post" id="delete-item-form-<c:out value='${count}' />"  >
-                                            <button class="btn btn-sm btn-danger" type="button" onclick="deleteItem(<c:out value='${count}' />)" id="delete-btn-<c:out value='${count}' />" >Delete</button>
+                                            <button class="btn btn-sm btn-danger" type="button" onclick="deleteItem(<c:out value='${count}' />)" id="delete-btn-<c:out value='${count}' />" ><i class="fa-solid fa-trash"></i> Delete</button>
                                         </form>
                                     </td>
                                 </tr>

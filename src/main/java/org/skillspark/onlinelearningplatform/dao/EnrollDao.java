@@ -9,6 +9,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import org.skillspark.onlinelearningplatform.model.Category;
+import org.skillspark.onlinelearningplatform.model.Course;
 
 /**
  *
@@ -50,5 +55,47 @@ public class EnrollDao {
         } else {
             return false;
         }
+    }
+    
+    public List<Course> listAll(int student_id) throws SQLException {
+        List<Course> listCourse = new ArrayList();
+        String sql = "SELECT cs.id ,cs.category_id,cs.tutor_id,cs.name,cs.durations,cs.description,cs.status,cs.difficulties,cat.name as category_name "
+                + "FROM courses cs "
+                + "INNER JOIN categories cat "
+                + "ON cs.category_id = cat.id "
+                + "WHERE cs.id IN (SELECT course_id FROM enrolls WHERE student_id = ?)"
+                + "ORDER BY cs.id ASC";
+
+        PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
+        statement.setInt(1, student_id);
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            int category_id = resultSet.getInt("category_id");
+            int tutor_id = resultSet.getInt("tutor_id");
+            String name = resultSet.getString("name");
+            int duration = resultSet.getInt("durations");
+            String description = resultSet.getString("description");
+            int status = resultSet.getInt("status");
+            String difficulties = resultSet.getString("difficulties");
+            String category_name = resultSet.getString("category_name");
+
+            Course course = new Course(id, category_id, tutor_id, name, duration, description, status, difficulties, category_name);
+            listCourse.add(course);
+        }
+        return listCourse;
+    }
+    
+    public boolean delete(int student_id, int course_id) throws SQLException {
+        boolean rowdelete = false;
+        String sql = "DELETE FROM enrolls WHERE student_id=? AND course_id=?";
+
+        PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
+        statement.setInt(1, student_id);
+        statement.setInt(2, course_id);
+        rowdelete = statement.executeUpdate() > 0;
+
+        return rowdelete;
     }
 }

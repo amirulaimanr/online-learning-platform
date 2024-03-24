@@ -41,8 +41,8 @@
                             </div>
                         </div>
                         <div class="card-footer text-end">
-                            <button type="submit" class="btn btn-primary">Add</button>
-                            <a href="/CategoryServlet?route=index" class="btn btn-danger">Back</a>
+                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add</button>
+                            <a href="/CategoryServlet?route=index" class="btn btn-danger"><i class="fa-solid fa-arrow-left"></i> Back</a>
                         </div>
                     </form>
                 </div>

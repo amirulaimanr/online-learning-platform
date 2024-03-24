@@ -33,7 +33,7 @@
                         <div class="card shadow-sm card-box card-fix-size ">
                             <div class="card-header d-flex justify-content-between">
                                 ${course.category_name}
-                                <a href="/StudentMainPageServlet?route=view&id=${course.id}&student_id=<%= useruser_id %>" class="btn btn-info">Info</a>
+                                <a href="/StudentMainPageServlet?route=view&id=${course.id}&student_id=<%= useruser_id %>" class="btn btn-info"><i class="fa-solid fa-circle-info"></i> View</a>
                             </div>
                             <div class="card-body flex-column d-flex justify-content-between">
                                 <h5 class="card-title">${course.name}</h5>

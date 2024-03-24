@@ -14,7 +14,7 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="header1">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#item1" aria-expanded="true" aria-controls="item1">
-                        Main Page
+                        <i class="fa-solid fa-house me-2"></i> Main Page
                     </button>
                 </h2>
                 <div id="item1" class="accordion-collapse collapse"aria-labelledby="header1">
@@ -28,13 +28,13 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="header2">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#item2" aria-expanded="true" aria-controls="item2">
-                        Enroll
+                        <i class="fa-solid fa-book me-2"></i> Enroll
                     </button>
                 </h2>
                 <div id="item2" class="accordion-collapse collapse" aria-labelledby="header2">
                     <div class="accordion-body">
                         <div class="flex-column align-items-start side-filter">
-                            <a href="#">Enroll Course</a>
+                            <a href="/EnrollServlet?route=index&student_id=<%= user_id %>">Enroll Course</a>
                         </div>
                     </div>
                 </div>
