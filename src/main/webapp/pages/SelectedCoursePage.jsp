@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,7 +9,7 @@
         <%@ include file="/styles/bootstrap.jsp" %>
         <%@ include file="/styles/compile.jsp" %>
     </head>
-    <body>
+    <body class="body-course-bg">
         <div class="topbar-sticky">
             <%@ include file="/components/TopBarLogin.jsp" %>
         </div>
@@ -77,9 +78,36 @@
 
                 <div class="syllabus-container">
                     <div class="syllabus-title">
-                        <h5>Syllabus</h5>
+                        <h5 style="color: white">Syllabus</h5>
                     </div>
-                    <%@ include file="/components/Accordion.jsp" %>
+                    <div class="accordion accordian-space" id="accordionFlushExample">
+                        <c:forEach items="${chapters}" var="chapter">
+                            <div class="accordion-item accordion-item-space">
+                                <h3 class="accordion-header accordion-header-space">
+                                    <button class="accordion-button accordion-header-space collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapse${chapter.id}" aria-expanded="false"
+                                            aria-controls="flush-collapse${chapter.id}">
+
+                                        <h4><b>${chapter.name}</b></h4><h5 style="margin-left: 20px">  ${chapter.title}</h5>
+                                    </button>
+                                </h3>
+                                <div class="chapter-desciption-box">
+                                    <p style="font-weight: 400">${chapter.description}</p>
+                                </div>
+                                <div id="flush-collapse${chapter.id}" class="accordion-collapse collapse"
+                                     data-bs-parent="#accordionFlushExample">
+                                    <div class="chapter-desciption-box">
+                                        <div class="flex-row video-attachment-box">
+                                            <p>${chapter.videoPath != null ? '<div class="video-icon" style="margin-right: 10px; font-weight: 300"><i class="fa-solid fa-file-video"></i> Video </div>' : ''}</p>
+                                            <p>${chapter.attachmentPath != null ? '<div class="attachment-icon" style="font-weight: 300"><i class="fa-solid fa-file-pdf"></i> Attachment</div>' : ''}</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+
                 </div>
             </div>
         </div>
