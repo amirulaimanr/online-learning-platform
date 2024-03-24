@@ -5,7 +5,7 @@
  */
 package org.skillspark.onlinelearningplatform.controller;
 
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -221,7 +221,7 @@ public class ChapterServlet extends HttpServlet {
         }  
         
         catch (FileNotFoundException fne){  
-            LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}", new Object[]{fne.getMessage()});  
+            /*LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}", new Object[]{fne.getMessage()});  */
         }  
         finally {  
             if (otpStream != null) {  
@@ -236,7 +236,7 @@ public class ChapterServlet extends HttpServlet {
     
     private String getFileName(final Part part) {  
         final String partHeader = part.getHeader("content-disposition");  
-        LOGGER.log(Level.INFO, "Part Header = {0}", partHeader);  
+       /* LOGGER.log(Level.INFO, "Part Header = {0}", partHeader);*/
           
         // code to get file name from the header  
         for (String content : part.getHeader("content-disposition").split(";")) {  
