@@ -54,15 +54,20 @@ public class TutorEnrollServlet extends HttpServlet {
         doGet(request, response);
     }
 
-    private void showListIndexT(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException  {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/tutor/content/enroll/index.jsp");
+    private void showListIndexT(HttpServletRequest request, HttpServletResponse response) throws  ServletException, IOException  {
+          RequestDispatcher dispatcher = request.getRequestDispatcher("/tutor/content/enroll/index.jsp");
+          try{
+      
         int id = Integer.parseInt(request.getParameter("tutor_id"));
    
         DatabaseConnection dbConnection = new DatabaseConnection();
         CourseDao courseDao = new CourseDao(dbConnection);
             
-        List<Course> listCourse = courseDao.listAll(id);
+        List<Course> listCourse = courseDao.listAllByCountStudent(id);
         request.setAttribute("listCourse",listCourse);
+        }catch(SQLException ex){
+               
+           }
         
         dispatcher.forward(request,response);
     }

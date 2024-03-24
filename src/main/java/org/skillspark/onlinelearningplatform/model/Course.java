@@ -22,6 +22,7 @@ public class Course {
     private String difficulties;
     private String category_name;
     private String username;
+    private int totalStudent;
     
     public Course(int id,int category_id, int tutor_id, String name, int duration, String description, int status, String difficulties, String category_name, String username)
     {
@@ -37,7 +38,6 @@ public class Course {
         this.username = username;
     }
     
-    
     public Course(int id,int category_id, int tutor_id, String name, int duration, String description, int status, String difficulties, String category_name)
     {
         this.id = id;
@@ -51,7 +51,7 @@ public class Course {
         this.category_name = category_name;
     }
     
-    public Course(int id,int category_id, int tutor_id, String name, int duration, String description, int status, String difficulties)
+    public Course(int id, int category_id, int tutor_id, String name, int duration, String description, int status, String difficulties)
     {
         this.id = id;
         this.category_id = category_id;
@@ -61,6 +61,15 @@ public class Course {
         this.description = description;
         this.status = status;
         this.difficulties = difficulties;
+    }
+    
+    public Course(int id, String name, int duration,  String difficulties, int totalStudent)
+    {
+        this.id = id;
+        this.name = name;
+        this.duration = duration;
+        this.difficulties = difficulties;
+        this.totalStudent = totalStudent;
     }
     
      public Course(int id)
@@ -214,6 +223,20 @@ public class Course {
      */
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    /**
+     * @return the totalStudent
+     */
+    public int getTotalStudent() {
+        return totalStudent;
+    }
+
+    /**
+     * @param totalStudent the totalStudent to set
+     */
+    public void setTotalStudent(int totalStudent) {
+        this.totalStudent = totalStudent;
     }
 
 }

@@ -31,9 +31,9 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Category</th>
                                 <th scope="col">Duration</th>
                                 <th scope="col">Difficulties</th>
+                                 <th scope="col">Total Student</th>
                                 <th scope="col" width="10%">Action</th>
                             </tr>
                         </thead>
@@ -44,9 +44,9 @@
                                 <tr>
                                     <th scope="row"><c:out value="${count}" /></th>
                                     <td><c:out value="${course.name}" /></td>
-                                    <td><c:out value="${course.category_name}" /></td>
                                     <td><c:out value="${course.duration}" /></td>
                                     <td><c:out value="${course.difficulties}" /></td>
+                                    <td><c:out value="${course.totalStudent}" /></td>
                                     <td class="d-flex">
                                         <a href="/TutorEnrollServlet?route=view&id=<c:out value='${course.id}' />" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-list"></i> List of Student</a>  
                                     </td>
