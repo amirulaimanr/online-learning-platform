@@ -9,7 +9,7 @@
         <%@ include file="/styles/bootstrap.jsp" %>
         <%@ include file="/styles/compile.jsp" %>
     </head>
-    <body>
+    <body class="body-course-bg">
         <div class="topbar-sticky">
             <%@ include file="/components/TopBarLoggedIn.jsp" %>
         </div>
@@ -22,50 +22,64 @@
                     <div class="container flex-grow-1 container-p-y">
                         <div class="row mt-4">
                             <div class="col">
-                                <div class="card mb-4">
-                                    <div class="card-header text-start p-3">
-                                        <h4>${course.name}</h4>
+                                <div class="course-details-container">
+                                    <div class="course-title-box">
+                                        <h5>${course.category_name}</h5>
+                                        <h1>
+                                            ${course.name}
+                                            <h5 style="margin-top:-2em;">By <b>${course.username}</b></h5>
+                                        </h1>
+                                        <p>${course.description}</p>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="row mb-2">
-                                            <div class="col-md-3 text-muted">Tutor Name </div>
-                                            <div class="col-md-9">
-                                                   ${course.username}
-                                            </div>
-                                        </div>
 
-                                        <div class="row mb-2">
-                                            <div class="col-md-3 text-muted">Category </div>
-                                            <div class="col-md-9">
-                                                ${course.category_name}
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-2">
-                                            <div class="col-md-3 text-muted">Description </div>
-                                            <div class="col-md-9">
-                                                <p>
-                                                    ${course.description}
-                                                </p>
-                                            </div>
-                                        </div>
+                                    <div class="course-img">
+                                        <img src="/styles/img/person-learning-online1.png">
                                     </div>
-                                    <div class="card-footer text-center p-0">
-                                        <div class="row no-gutters row-bordered row-border-light">
-                                            <a href="javascript:void(0)" class="d-flex col flex-column text-body py-3">
-                                                <div class="font-weight-bold">${course.duration} hrs</div>
-                                                <div class="text-muted small">video on demand</div>
-                                            </a>
+                                </div>
+                                <div class="skill-duration-container">
+                                    <div class="course-details">
+                                        <div class="align-items-center">
+                                            <div class="flex-row">
+                                                <i class="fa-solid fa-signal icon" style="font-size: 35px"></i>
+                                                <div class="flex-column">
+                                                    <h5 style="font-weight: 600">SKILL LEVEL</h5>
+                                                    <h6>${course.difficulties}</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="align-items-center">
+                                            <div class="flex-row">
+                                                <i class="fa-solid fa-clock icon" style="font-size: 35px"></i>
+                                                <div class="flex-column">
+                                                    <h5 style="font-weight: 600">TIME TO COMPLETE</h5>
+                                                    <h6>${course.duration} hours</h6>
+                                                </div>
+                                            </div>
 
-                                            <a href="javascript:void(0)" class="d-flex col flex-column text-body py-3">
-                                                <div class="font-weight-bold">${course.difficulties}</div>
-                                                <div class="text-muted small">Type of difficulties</div>
-                                            </a>
+                                        </div>
+                                        <div class="align-items-center">
+                                            <div class="flex-row">
+                                                <i class="fa-solid fa-certificate icon" style="font-size: 35px"></i>
+                                                <div class="flex-column">
+                                                    <h5 style="font-weight: 600">CERTIFICATE</h5>
+                                                    <h6>Yes</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="align-items-center">
+                                            <div class="flex-row">
+                                                <i class="fa-solid fa-check-double icon" style="font-size: 35px"></i>
+                                                <div class="flex-column">
+                                                    <h5 style="font-weight: 600">PREREQUISITES</h5>
+                                                    <h6>None</h6>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <c:forEach var="chapter" items="${listChapter}" >
-                                    <div class="card mb-4">
+                                    <div class="card mb-4 mt-4">
                                         <div class="card-header text-start p-3">
                                             <h4>${chapter.name} :</h4><h5>${chapter.title}</h5>
                                         </div>
@@ -77,7 +91,7 @@
                                                 <div class="p-4">
                                                     <h5>Description</h5>
                                                     <p>
-                                                     ${chapter.description}
+                                                        ${chapter.description}
                                                     </p>
                                                 </div>
                                             </div>

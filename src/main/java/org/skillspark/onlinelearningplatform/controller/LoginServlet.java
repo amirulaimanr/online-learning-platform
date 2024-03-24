@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect("/TutorMainPageServlet?route=index&tutor_id="+user.getId());
             } else {
                 //students
-                response.sendRedirect("/pages/UserDashboardPage.jsp");
+                  response.sendRedirect("/StudentMainPageServlet?route=index");
             }
             
         } else {

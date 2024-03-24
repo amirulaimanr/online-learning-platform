@@ -147,6 +147,34 @@ public class CourseDao {
         }
           return new Course(course_id, category_id, tutor_id, name, duration, description, status, difficulties, category_name, username);
     }
+     
+    public List<Course> listAll() throws SQLException {
+        List<Course> listCourse = new ArrayList();
+        String sql = "SELECT cs.id ,cs.category_id,cs.tutor_id,cs.name,cs.durations,cs.description,cs.status,cs.difficulties,cat.name as category_name "
+                + "FROM courses cs "
+                + "INNER JOIN categories cat "
+                + "ON cs.category_id = cat.id "
+                + "ORDER BY cs.id ASC";
+
+        Statement statement = dbConnection.getConnection().createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            int category_id = resultSet.getInt("category_id");
+            int tutor_id = resultSet.getInt("tutor_id");
+            String name = resultSet.getString("name");
+            int duration = resultSet.getInt("durations");
+            String description = resultSet.getString("description");
+            int status = resultSet.getInt("status");
+            String difficulties = resultSet.getString("difficulties");
+            String category_name = resultSet.getString("category_name");
+
+            Course course = new Course(id, category_id, tutor_id, name, duration, description, status, difficulties, category_name);
+            listCourse.add(course);
+        }
+        return listCourse;
+    }
 
 
     /*amirul method*/

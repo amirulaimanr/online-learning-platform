@@ -34,7 +34,7 @@
                                 <th scope="col">Category</th>
                                 <th scope="col">Duration</th>
                                 <th scope="col">Difficulties</th>
-                                <th scope="col">Action</th>
+                                <th scope="col" width="10%">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,7 +49,7 @@
                                     <td><c:out value="${course.duration}" /></td>
                                     <td><c:out value="${course.difficulties}" /></td>
                                     <td class="d-flex">
-                                        <a href="/CourseServlet?route=edit&id=<c:out value='${course.id}' />" class="btn btn-sm btn-primary me-2">List of Student</a>  
+                                        <a href="/CourseServlet?route=edit&id=<c:out value='${course.id}' />" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-list"></i> List of Student</a>  
                                     </td>
                                 </tr>
                             </c:forEach>

@@ -27,7 +27,7 @@
                     </ol>
                 </nav>
                 <div class="col-md-12 text-end">
-                    <a href="/ChapterServlet?route=create&id=${course_id}&name=${course_name}" class="btn btn-success">Add Chapter</a>
+                    <a href="/ChapterServlet?route=create&id=${course_id}&name=${course_name}" class="btn btn-success"><i class="fa-solid fa-plus"></i> Add Chapter</a>
                 </div>
 
                 <div class="col-md-12 mt-2 mb-2">
@@ -40,7 +40,7 @@
                                 <th scope="col">Status</th>
                                 <th scope="col">Level</th>
                                 <th scope="col" width="40%">Description</th>
-                                <th scope="col">Action</th>
+                                <th scope="col" width="10%">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,9 +56,9 @@
                                     <td><c:out value="${chapter.level}" /></td>
                                      <td><c:out value="${chapter.description}" /></td>
                                     <td class="d-flex">
-                                        <a href="/ChapterServlet?route=edit&id=<c:out value='${chapter.id}' />&name=<c:out value='${chapter.name}' />&course_id=${course_id}" class="btn btn-sm btn-primary me-2">Edit</a>
+                                        <a href="/ChapterServlet?route=edit&id=<c:out value='${chapter.id}' />&name=<c:out value='${chapter.name}' />&course_id=${course_id}" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                                         <form action="/ChapterServlet?route=delete&id=<c:out value='${chapter.id}' />&course_id=${course_id}&course_name=${course_name}"" method="post" id="delete-item-form-<c:out value='${count}' />"  >
-                                            <button class="btn btn-sm btn-danger" type="button" onclick="deleteItem(<c:out value='${count}' />)" id="delete-btn-<c:out value='${count}' />" >Delete</button>
+                                            <button class="btn btn-sm btn-danger" type="button" onclick="deleteItem(<c:out value='${count}' />)" id="delete-btn-<c:out value='${count}' />" ><i class="fa-solid fa-trash"></i> Delete</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -68,7 +68,7 @@
                     </table>
                 </div>
                 <div class="col-md-12 mt-2 mb-2 text-end">
-                    <a href="/CourseServlet?route=index" class="btn btn-danger" >Back</a>
+                    <a href="/CourseServlet?route=index&tutor_id=<%= user_id %>" class="btn btn-danger" ><i class="fa-solid fa-arrow-left"></i> Back</a>
                 </div>
                 <div>
                     <%-- error message here if unsuccesful login --%>
