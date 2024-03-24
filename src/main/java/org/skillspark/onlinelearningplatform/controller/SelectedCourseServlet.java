@@ -1,7 +1,10 @@
 package org.skillspark.onlinelearningplatform.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.skillspark.onlinelearningplatform.dao.ChapterDao;
 import org.skillspark.onlinelearningplatform.dao.DatabaseConnection;
+import org.skillspark.onlinelearningplatform.model.Chapter;
+import org.skillspark.onlinelearningplatform.model.Chapters;
 import org.skillspark.onlinelearningplatform.model.Course;
 import org.skillspark.onlinelearningplatform.dao.CourseDao;
 
@@ -11,6 +14,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @WebServlet(name = "SelectedCourseServlet", value = "/SelectedCourseServlet")
 public class SelectedCourseServlet extends HttpServlet {
@@ -26,7 +30,15 @@ public class SelectedCourseServlet extends HttpServlet {
             Course course = courseDao.getCourseById(courseId);
 
             if (course != null) {
+                ChapterDao chapterDao = new ChapterDao(dbConnection);
+                List<Chapters> chapters = chapterDao.getChaptersByCourseId(courseId)
+                        .stream()
+                        .sorted((c1, c2) -> c1.getId() - c2.getId())
+                        .collect(Collectors.toList());
+
                 request.setAttribute("course", course);
+                request.setAttribute("chapters", chapters);
+
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/SelectedCoursePage.jsp");
                 dispatcher.forward(request, response);
             } else {
@@ -38,4 +50,5 @@ public class SelectedCourseServlet extends HttpServlet {
         }
     }
 }
+
 
