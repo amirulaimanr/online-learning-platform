@@ -26,14 +26,18 @@
                     </ol>
                  </nav>
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    <c:set var="count" value="0" scope="page" />
                     <c:forEach var="course" items="${listCourse}" >
+                        <c:set var="count" value="${count + 1}" scope="page" />
                         <div class="col">
                             <div class="card shadow-sm card-box card-fix-size ">
                                 <div class="card-header d-flex justify-content-between">
                                     ${course.category_name}
-                                    <div>
+                                    <div class="d-flex ">
                                         <a href="/EnrollServlet?route=view&id=${course.id}&student_id=<%= user_id %>" class="btn btn-info"><i class="fa-solid fa-circle-info"></i> View</a>
-                                        <a href="/EnrollServlet?route=delete&id=${course.id}&student_id=<%= user_id %>" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                                        <form action="/EnrollServlet?route=delete&id=${course.id}&student_id=<%= user_id %>" method="post" id="delete-item-form-<c:out value='${count}' />"  >
+                                            <button class="btn btn-danger ms-2" type="button" onclick="deleteItem(<c:out value='${count}' />)" id="delete-btn-<c:out value='${count}' />" ><i class="fa-solid fa-trash"></i> Delete</button>
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="card-body flex-column d-flex justify-content-between">
@@ -51,7 +55,6 @@
                     </c:forEach>
                 </div>           
                 <div>
-                    <%-- error message here if unsuccesful login --%>
                     <%
                         if (session.getAttribute("success") != null) {
                     %>
@@ -71,4 +74,21 @@
         </div>
     </body>
 </html>
-
+<script>
+    function deleteItem(index)
+    {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This action cannot be revert!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes,Delete!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $('#delete-item-form-'+index).submit();
+            }
+        });
+    }
+</script>

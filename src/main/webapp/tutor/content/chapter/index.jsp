@@ -71,7 +71,6 @@
                     <a href="/CourseServlet?route=index&tutor_id=<%= user_id %>" class="btn btn-danger" ><i class="fa-solid fa-arrow-left"></i> Back</a>
                 </div>
                 <div>
-                    <%-- error message here if unsuccesful login --%>
                     <%
                         if (session.getAttribute("success") != null) {
                     %>

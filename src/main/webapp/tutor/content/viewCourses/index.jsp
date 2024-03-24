@@ -99,7 +99,7 @@
                                         <div class="card-footer">
                                             <a href="javascript:void(0)" class="d-inline-block text-muted">
                                                 <small class="align-middle">
-                                                    <strong>Level :</strong> ${chapter.level}</small>
+                                                <strong>Level :</strong> ${chapter.level}</small>
                                             </a>
                                         </div>
                                     </div>
