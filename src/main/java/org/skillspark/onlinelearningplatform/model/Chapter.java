@@ -10,22 +10,6 @@ public class Chapter {
     private String description;
     private int status;
     private String level;
-    private String course_name;
-
-    // this for joint table.Lazy to query back course soo,dump course name here
-    public Chapter(int id ,int course_id ,String title ,String name ,String videoPath ,String attachmentPath ,String description ,int status ,String level ,String course_name)
-    {
-        this.id = id;
-        this.course_id = course_id;
-        this.title = title;
-        this.name = name;
-        this.videoPath = videoPath;
-        this.attachmentPath = attachmentPath;
-        this.description = description;
-        this.status = status;
-        this.level = level;
-        this.course_name = course_name;
-    }
 
     public Chapter(int id ,int course_id ,String title ,String name ,String videoPath ,String attachmentPath ,String description ,int status ,String level)
     {
@@ -185,19 +169,4 @@ public class Chapter {
     public void setLevel(String level) {
         this.level = level;
     }
-
-    /**
-     * @return the course_name
-     */
-    public String getCourse_name() {
-        return course_name;
-    }
-
-    /**
-     * @param course_name the course_name to set
-     */
-    public void setCourse_name(String course_name) {
-        this.course_name = course_name;
-    }
-
 }
