@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
 
             session.setAttribute("user", user);
 
-            if (user.getId() == 1) {
+            if (user.getRole_id() == 1) {
                 //tutor
                 response.sendRedirect("/TutorMainPageServlet?route=index&tutor_id="+user.getId());
             } else {
