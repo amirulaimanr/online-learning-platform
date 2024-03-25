@@ -119,7 +119,7 @@ public class ChapterServlet extends HttpServlet {
             DatabaseConnection dbConnection = new DatabaseConnection();
             HttpSession session = request.getSession();
             
-            Part videopath = request.getPart("videopath");
+            Part videopath = request.getPart("videoPath");
 
             ChapterDao chapterDao = new ChapterDao(dbConnection);
             int chapter_id = chapterDao.store(course_id, chapter_title, chapter_name, null, null, chapter_description, chapter_status, chapter_level);
@@ -169,7 +169,7 @@ public class ChapterServlet extends HttpServlet {
         
         chapterDao.update(chapter);
         
-        Part videopath = request.getPart("videopath");
+        Part videopath = request.getPart("videoPath");
         
         if(videopath.getSize()>0){
             String filePath = request.getParameter("tempt_video");

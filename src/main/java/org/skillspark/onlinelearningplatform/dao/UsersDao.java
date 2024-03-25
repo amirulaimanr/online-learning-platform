@@ -1,5 +1,6 @@
 package org.skillspark.onlinelearningplatform.dao;
 
+import java.sql.Date;
 import org.skillspark.onlinelearningplatform.repository.UserRepository;
 
 import java.sql.PreparedStatement;
@@ -15,11 +16,14 @@ public class UsersDao {
 
     public void addUser(String email, String password, int roleId, String name) throws SQLException {
         String sql = UserRepository.INSERT_USERS_BY_EMAIL_PASSWORD_ROLE;
+        Date currentDate = new Date(System.currentTimeMillis());
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
         statement.setString(1, email);
         statement.setString(2, password);
         statement.setInt(3, roleId);
         statement.setString(4, name);
+        statement.setDate(5, currentDate);
+        statement.setDate(6, currentDate);    
         statement.executeUpdate();
     }
 

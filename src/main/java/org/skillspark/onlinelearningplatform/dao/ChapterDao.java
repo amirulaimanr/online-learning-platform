@@ -5,6 +5,7 @@
  */
 package org.skillspark.onlinelearningplatform.dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,7 +31,7 @@ public class ChapterDao {
     public Optional<Chapter> find(int id) throws SQLException {
         String sql = "SELECT * FROM chapters WHERE id=?";
         int chapter_id = 0, course_id = 0, status = 0;
-        String title = "", name = "", videopath = "", attachmentpath = "", description = "", level = "";
+        String title = "", name = "", video_path = "", attachment_path = "", description = "", level = "";
 
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
         statement.setInt(1, id);
@@ -41,14 +42,16 @@ public class ChapterDao {
             course_id = resultSet.getInt("course_id");
             title = resultSet.getString("title");
             name = resultSet.getString("name");
-            videopath = resultSet.getString("videopath");
-            attachmentpath = resultSet.getString("attachmentpath");
+            
+            video_path = resultSet.getString("videopath");
+            attachment_path = resultSet.getString("attachmentpath");
+
             description = resultSet.getString("description");
             status = resultSet.getInt("status");
             level = resultSet.getString("level");
         }
 
-        return Optional.of(new Chapter(chapter_id, course_id, title, name, videopath, attachmentpath, description, status, level));
+        return Optional.of(new Chapter(chapter_id, course_id, title, name, video_path, attachment_path, description, status, level));
     }
 
     public List<Chapter> listAll(int id_cor) throws SQLException {
@@ -69,8 +72,10 @@ public class ChapterDao {
             int course_id = resultSet.getInt("course_id");
             String title = resultSet.getString("title");
             String name = resultSet.getString("name");
+
             String videopath = resultSet.getString("videopath");
             String attachmentpath = resultSet.getString("attachmentpath");
+
             String description = resultSet.getString("description");
             int status = resultSet.getInt("status");
             String level = resultSet.getString("level");
@@ -85,7 +90,8 @@ public class ChapterDao {
     }
 
     public int store(int course_id, String title, String name, String videopath, String attachmentpath, String description, int status, String level) throws SQLException {
-        String sql = "INSERT INTO chapters (course_id,title,name,videopath,attachmentpath,description,status,level) VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO chapters (course_id,title,name,videopath,attachmentpath,description,status,level,created_at) VALUES (?,?,?,?,?,?,?,?,?)";
+        Date currentDate = new Date(System.currentTimeMillis());
 
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         statement.setInt(1, course_id);
@@ -96,6 +102,7 @@ public class ChapterDao {
         statement.setString(6, description);
         statement.setInt(7, status);
         statement.setString(8, level);
+        statement.setDate(9, currentDate);
         statement.executeUpdate();
 
         ResultSet result = statement.getGeneratedKeys();
@@ -160,8 +167,10 @@ public class ChapterDao {
             chapter.setCourse_id(resultSet.getInt("course_id"));
             chapter.setTitle(resultSet.getString("title"));
             chapter.setName(resultSet.getString("name"));
+
             chapter.setVideopath(resultSet.getString("videopath"));
             chapter.setAttachmentpath(resultSet.getString("attachmentpath"));
+
             chapter.setDescription(resultSet.getString("description"));
             chapter.setStatus(resultSet.getInt("status"));
             chapter.setLevel(resultSet.getString("level"));
