@@ -124,8 +124,8 @@
                                      data-bs-parent="#accordionFlushExample">
                                     <div class="chapter-desciption-box">
                                         <div class="flex-row video-attachment-box">
-                                            <p>${chapter.videoPath != null ? '<div class="video-icon" style="margin-right: 10px; font-weight: 300"><i class="fa-solid fa-file-video"></i> Video </div>' : ''}</p>
-                                            <p>${chapter.attachmentPath != null ? '<div class="attachment-icon" style="font-weight: 300"><i class="fa-solid fa-file-pdf"></i> Attachment</div>' : ''}</p>
+                                            <p>${chapter.videopath != null ? '<div class="video-icon" style="margin-right: 10px; font-weight: 300"><i class="fa-solid fa-file-video"></i> Video </div>' : ''}</p>
+                                            <p>${chapter.attachmentpath != null ? '<div class="attachment-icon" style="font-weight: 300"><i class="fa-solid fa-file-pdf"></i> Attachment</div>' : ''}</p>
                                         </div>
 
                                     </div>

@@ -5,19 +5,19 @@ public class Chapters {
     private int course_id;
     private String title;
     private String name;
-    private String videoPath;
-    private String attachmentPath;
+    private String videopath;
+    private String attachmentpath;
     private String description;
     private int status;
     private String level;
 
-    public Chapters(int id, int course_id, String title, String name, String videoPath, String attachmentPath, String description, int status, String level) {
+    public Chapters(int id, int course_id, String title, String name, String videopath, String attachmentpath, String description, int status, String level) {
         this.id = id;
         this.course_id = course_id;
         this.title = title;
         this.name = name;
-        this.videoPath = videoPath;
-        this.attachmentPath = attachmentPath;
+        this.videopath = videopath;
+        this.attachmentpath = attachmentpath;
         this.description = description;
         this.status = status;
         this.level = level;
@@ -59,19 +59,19 @@ public class Chapters {
     }
 
     public String getVideoPath() {
-        return videoPath;
+        return videopath;
     }
 
-    public void setVideoPath(String videoPath) {
-        this.videoPath = videoPath;
+    public void setVideoPath(String videopath) {
+        this.videopath = videopath;
     }
 
     public String getAttachmentPath() {
-        return attachmentPath;
+        return attachmentpath;
     }
 
-    public void setAttachmentPath(String attachmentPath) {
-        this.attachmentPath = attachmentPath;
+    public void setAttachmentPath(String attachmentpath) {
+        this.attachmentpath = attachmentpath;
     }
 
     public String getDescription() {

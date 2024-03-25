@@ -36,7 +36,7 @@
                                 <input type="hidden" class="form-control" id="chapter_id" name="chapter_id" value="${chapter.id}" />
                                 <input type="hidden" class="form-control" id="course_id" name="course_id" value="${course_id}" />
                                 <input type="hidden" class="form-control" id="course_name" name="course_name" value="${course_name}" />
-                                <input type="hidden" class="form-control" id="tempt_video" name="tempt_video" value="${chapter.videoPath}" />
+                                <input type="hidden" class="form-control" id="tempt_video" name="tempt_video" value="${chapter.videopath}" />
                                 
                                 <div class="col-md-12 mb-3">
                                     <label for="chapter_title" class="form-label">Chapter Title</label>
@@ -48,15 +48,15 @@
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <label for="formFile" class="form-label">Chapter Video</label>
-                                    <input class="form-control" type="file" id="video_path" name="video_path" />
+                                    <input class="form-control" type="file" id="videopath" name="videoPath" />
                                 </div>
                                 <div class="col-md-12 mb-3 text-center">
                                     <video controls>
-                                        <source src="${chapter.videoPath}" type="video/mp4">
+                                        <source src="${chapter.videopath}" type="video/mp4">
                                     </video>
                                 </div>
                                 <div class="col-md-12 mb-3">
-                                    <a href="${chapter.videoPath}" target="_blank" class="">${chapter.videoPath}</a>
+                                    <a href="${chapter.videopath}" target="_blank" class="">${chapter.videopath}</a>
                                 </div>
  
                                 <div class="col-md-6 mb-3">
