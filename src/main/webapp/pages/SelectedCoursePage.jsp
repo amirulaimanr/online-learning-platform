@@ -1,4 +1,4 @@
-<%@page import="org.skillspark.onlinelearningplatform.model.Users"%>
+<%@page import="org.skillspark.onlinelearningplatform.model.Users" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,13 +18,13 @@
             int user_id = 0;
             boolean check = false;
             Users userbar = (Users) session.getAttribute("user");
-            
+
             if (session.getAttribute("user") != null) {
                 check = true;
                 user_id = userbar.getId();
             }
         %>
-        <div 
+        <div
 
         <div class="container-l layout-size">
             <div class="course-flexbox flex-column pt-5">
@@ -33,8 +33,8 @@
                         <h5><b>Free</b> Course</h5>
                         <h1>${course.name}</h1>
                         <p>${course.description}</p>
-                        <% 
-                            if(check == true){
+                        <%
+                            if (check == true) {
                         %>
                         <a href="/EnrollServlet?route=store&student_id=<%= user_id %>&course_id=${course.id}">
                             <div class="enroll-btn">
@@ -42,16 +42,16 @@
                             </div>
                         </a>
                         <%
-                            }else{
+                        } else {
                         %>
-                         <a href="/pages/LoginPage.jsp">
+                        <a href="/pages/LoginPage.jsp">
                             <div class="enroll-btn">
                                 Enroll Now
                             </div>
                         </a>
-                         <% 
-                            } 
-                         %>
+                        <%
+                            }
+                        %>
                     </div>
 
                     <div class="course-img">
@@ -110,11 +110,13 @@
                         <c:forEach items="${chapters}" var="chapter">
                             <div class="accordion-item accordion-item-space">
                                 <h3 class="accordion-header accordion-header-space">
-                                    <button class="accordion-button accordion-header-space collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button accordion-header-space collapsed" type="button"
+                                            data-bs-toggle="collapse"
                                             data-bs-target="#flush-collapse${chapter.id}" aria-expanded="false"
                                             aria-controls="flush-collapse${chapter.id}">
 
-                                        <h4><b>${chapter.name}</b></h4><h5 style="margin-left: 20px">  ${chapter.title}</h5>
+                                        <h4><b>${chapter.name}</b></h4>
+                                        <h5 style="margin-left: 20px"> ${chapter.title}</h5>
                                     </button>
                                 </h3>
                                 <div class="chapter-desciption-box">
