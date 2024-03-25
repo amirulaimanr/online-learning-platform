@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 import java.sql.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.skillspark.onlinelearningplatform.controller.LoginServlet;
 
 import org.skillspark.onlinelearningplatform.model.Category;
 import org.skillspark.onlinelearningplatform.model.Course;
@@ -73,7 +76,7 @@ public class CourseDao {
         return listCourse;
     }
     
-     public List<Course> listAllByCountStudent(int harcoded_tutor_id) throws SQLException {
+    public List<Course> listAllByCountStudent(int harcoded_tutor_id) throws SQLException {
         List<Course> listCourse = new ArrayList();
         String sql = "SELECT c.id,c.name,c.durations,c.difficulties,count(e.student_id) AS total_student "
                 + "FROM courses c "
@@ -206,6 +209,75 @@ public class CourseDao {
         }
         return listCourse;
     }
+    
+    public List<Course> searchList(String search)  throws SQLException  {
+        List<Course> listCourse = new ArrayList();
+        String sql = "SELECT cs.id ,cs.category_id,cs.tutor_id,cs.name,cs.durations,cs.description,cs.status,cs.difficulties,cat.name as category_name "
+                + "FROM courses cs "
+                + "INNER JOIN categories cat "
+                + "ON cs.category_id = cat.id "
+                + "WHERE cs.name LIKE ? "
+                + "ORDER BY cs.id ASC";
+        String searchPattern = "%"+ search +"%";
+
+        PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
+      
+        statement.setString(1, searchPattern);
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            int category_id = resultSet.getInt("category_id");
+            int tutor_id = resultSet.getInt("tutor_id");
+            String name = resultSet.getString("name");
+            int duration = resultSet.getInt("durations");
+            String description = resultSet.getString("description");
+            int status = resultSet.getInt("status");
+            String difficulties = resultSet.getString("difficulties");
+            String category_name = resultSet.getString("category_name");
+
+            Course course = new Course(id, category_id, tutor_id, name, duration, description, status, difficulties, category_name);
+            listCourse.add(course);
+        }
+
+        return listCourse;
+    }
+    
+    public List<Course> searchListTutor(int search_tutor_id,String search) throws SQLException {
+        List<Course> listCourse = new ArrayList();
+        String sql = "SELECT cs.id ,cs.category_id,cs.tutor_id,cs.name,cs.durations,cs.description,cs.status,cs.difficulties,cat.name as category_name "
+                + "FROM courses cs "
+                + "INNER JOIN categories cat "
+                + "ON cs.category_id = cat.id "
+                + "WHERE cs.name LIKE ? "
+                + "AND cs.tutor_id = ? "
+                + "ORDER BY cs.id ASC";
+        String searchPattern = "%"+ search +"%";
+
+        PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
+     
+        statement.setString(1, searchPattern);
+        statement.setInt(2, search_tutor_id);
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            int category_id = resultSet.getInt("category_id");
+            int tutor_id = resultSet.getInt("tutor_id");
+            String name = resultSet.getString("name");
+            int duration = resultSet.getInt("durations");
+            String description = resultSet.getString("description");
+            int status = resultSet.getInt("status");
+            String difficulties = resultSet.getString("difficulties");
+            String category_name = resultSet.getString("category_name");
+
+            Course course = new Course(id, category_id, tutor_id, name, duration, description, status, difficulties, category_name);
+            listCourse.add(course);
+        }
+
+        return listCourse;
+    }
+
 
 
     /*amirul method*/

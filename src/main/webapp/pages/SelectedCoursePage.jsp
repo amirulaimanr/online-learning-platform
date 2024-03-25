@@ -33,25 +33,19 @@
                         <h5><b>Free</b> Course</h5>
                         <h1>${course.name}</h1>
                         <p>${course.description}</p>
-                        <% 
-                            if(check == true){
-                        %>
+                        <% if(check == true){ %>
                         <a href="/EnrollServlet?route=store&student_id=<%= user_id %>&course_id=${course.id}">
                             <div class="enroll-btn">
                                 Enroll Now
                             </div>
                         </a>
-                        <%
-                            }else{
-                        %>
+                        <% }else{ %>
                          <a href="/pages/LoginPage.jsp">
                             <div class="enroll-btn">
                                 Enroll Now
                             </div>
                         </a>
-                         <% 
-                            } 
-                         %>
+                         <% } %>
                     </div>
 
                     <div class="course-img">
