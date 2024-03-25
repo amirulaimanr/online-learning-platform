@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
+import java.sql.Date;
 
 import org.skillspark.onlinelearningplatform.model.Category;
 import org.skillspark.onlinelearningplatform.model.Course;
@@ -101,9 +102,11 @@ public class CourseDao {
     }
 
     public void store(String course_name, int course_category, int course_duration, String course_difficulties, int course_status, String course_description, int harcoded_tutor_id) throws SQLException {
-        String sql = "INSERT INTO courses (category_id, tutor_id, name, durations, description, status, difficulties) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO courses (category_id, tutor_id, name, durations, description, status, difficulties, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
+        Date currentDate = new java.sql.Date(System.currentTimeMillis());
+        
         statement.setInt(1, course_category);
         statement.setInt(2, harcoded_tutor_id);
         statement.setString(3, course_name);
@@ -111,6 +114,7 @@ public class CourseDao {
         statement.setString(5, course_description);
         statement.setInt(6, course_status);
         statement.setString(7, course_difficulties);
+        statement.setDate(8, currentDate);
         statement.executeUpdate();
     }
 

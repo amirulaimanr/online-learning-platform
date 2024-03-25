@@ -5,6 +5,7 @@
  */
 package org.skillspark.onlinelearningplatform.dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -86,8 +87,8 @@ public class ChapterDao {
     }
 
     public int store(int course_id, String title, String name, String video_path, String attachment_path, String description, int status, String level) throws SQLException {
-        String sql = "INSERT INTO chapters (course_id,title,name,video_path,attachment_path,description,status,level) VALUES (?,?,?,?,?,?,?,?)";
-
+        String sql = "INSERT INTO chapters (course_id,title,name,video_path,attachment_path,description,status,level,created_at) VALUES (?,?,?,?,?,?,?,?,?)";
+        Date currentDate = new Date(System.currentTimeMillis());
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         statement.setInt(1, course_id);
         statement.setString(2, title);
@@ -97,6 +98,7 @@ public class ChapterDao {
         statement.setString(6, description);
         statement.setInt(7, status);
         statement.setString(8, level);
+        statement.setDate(9, currentDate);
         statement.executeUpdate();
 
         ResultSet result = statement.getGeneratedKeys();

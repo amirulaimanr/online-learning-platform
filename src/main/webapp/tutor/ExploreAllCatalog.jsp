@@ -6,7 +6,7 @@
             <%@include file="/tutor/components/FilterBar.jsp" %>
         </div>
 
-        <div class="flex-column explore-catalog p-5 align-items-start" id="content">
+        <div class="row p-5 align-items-start" id="content">
             <div class="catalog-menu-btn">
                 <button id="sidebarCollapse" type="button"
                         class="btn btn-dark bg-dark rounded-pill shadow-sm px-4 mb-4">
