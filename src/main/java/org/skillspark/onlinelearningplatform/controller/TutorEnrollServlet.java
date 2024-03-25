@@ -73,13 +73,15 @@ public class TutorEnrollServlet extends HttpServlet {
     private void viewStudent(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/tutor/content/enroll/view_student.jsp");
         int id = Integer.parseInt(request.getParameter("id"));
+        String course_name = request.getParameter("course_name");
 
         DatabaseConnection dbConnection = new DatabaseConnection();
         EnrollDao enrollDao = new EnrollDao(dbConnection);
 
         List<Enroll> listEnroll = enrollDao.listStudentByCourse(id);
         request.setAttribute("listStudent", listEnroll);
-
+        request.setAttribute("course_name", course_name);
+          
         dispatcher.forward(request, response);
     }
 

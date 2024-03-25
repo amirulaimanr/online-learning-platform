@@ -30,27 +30,29 @@
                     <c:forEach var="course" items="${listCourse}" >
                         <c:set var="count" value="${count + 1}" scope="page" />
                         <div class="col">
-                            <div class="card shadow-sm card-box card-fix-size ">
-                                <div class="card-header d-flex justify-content-between">
-                                    ${course.category_name}
-                                    <div class="d-flex ">
-                                        <a href="/EnrollServlet?route=view&id=${course.id}&student_id=<%= user_id %>" class="btn btn-info"><i class="fa-solid fa-circle-info"></i> View</a>
-                                        <form action="/EnrollServlet?route=delete&id=${course.id}&student_id=<%= user_id %>" method="post" id="delete-item-form-<c:out value='${count}' />"  >
-                                            <button class="btn btn-danger ms-2" type="button" onclick="deleteItem(<c:out value='${count}' />)" id="delete-btn-<c:out value='${count}' />" ><i class="fa-solid fa-trash"></i> Delete</button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="card-body flex-column d-flex justify-content-between">
-                                    <h5 class="card-title">${course.name}</h5>
-                                    <p class="card-text">${course.description}</p>
-                                    <div class="flex-row d-flex justify-content-between">
-                                        <div class="" style="font-weight: 400"><i class="fa-solid fa-signal"></i>
-                                            ${course.difficulties}
+                            <a href="/EnrollServlet?route=view&id=${course.id}&student_id=<%= user_id %>" >
+                                <div class="card shadow-sm card-box card-fix-size ">
+                                    <div class="card-header d-flex justify-content-between">
+                                        ${course.category_name}
+                                        <div class="d-flex ">
+
+    <!--                                        <form action="/EnrollServlet?route=delete&id=${course.id}&student_id=<%= user_id %>" method="post" id="delete-item-form-<c:out value='${count}' />"  >
+                                                <button class="btn btn-danger ms-2" type="button" onclick="deleteItem(<c:out value='${count}' />)" id="delete-btn-<c:out value='${count}' />" ><i class="fa-solid fa-trash"></i> Delete</button>
+                                            </form>-->
                                         </div>
-                                        <div class="" style="font-weight: 400"><b>${course.duration}</b> hours</div>
+                                    </div>
+                                    <div class="card-body flex-column d-flex justify-content-between">
+                                        <h5 class="card-title">${course.name}</h5>
+                                        <p class="card-text">${course.description}</p>
+                                        <div class="flex-row d-flex justify-content-between">
+                                            <div class="" style="font-weight: 400"><i class="fa-solid fa-signal"></i>
+                                                ${course.difficulties}
+                                            </div>
+                                            <div class="" style="font-weight: 400"><b>${course.duration}</b> hours</div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </c:forEach>
                 </div>           

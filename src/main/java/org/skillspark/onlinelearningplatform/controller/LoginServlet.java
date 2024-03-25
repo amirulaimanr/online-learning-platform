@@ -39,21 +39,24 @@ public class LoginServlet extends HttpServlet {
             int timeOut = 60 * 60 * 24;
             session.setMaxInactiveInterval(timeOut);
             
+            String role = "";
+            
             // get info from users and store it in session
             try {
                 dbConnection = new DatabaseConnection();
                 UsersDao userDao = new UsersDao(dbConnection);
                 user = userDao.getUserInfo(email, password);
+                role = userDao.checkUserRole(user.getId());
             } catch (SQLException ex) {
                 Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             session.setAttribute("user", user);
 
-            if (user.getId() == 1) {
+            if (role.equals("Tutor")) {
                 //tutor
                 response.sendRedirect("/TutorMainPageServlet?route=index&tutor_id="+user.getId());
-            } else {
+            } else if(role.equals("Student")) {
                 //students
                   response.sendRedirect("/StudentMainPageServlet?route=index");
             }

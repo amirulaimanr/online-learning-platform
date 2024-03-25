@@ -48,7 +48,7 @@
                                     <td><c:out value="${course.difficulties}" /></td>
                                     <td><c:out value="${course.totalStudent}" /></td>
                                     <td class="d-flex">
-                                        <a href="/TutorEnrollServlet?route=view&id=<c:out value='${course.id}' />" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-list"></i> List of Student</a>  
+                                        <a href="/TutorEnrollServlet?route=view&id=<c:out value='${course.id}' />&course_name=<c:out value="${course.name}" />" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-list"></i> List of Student</a>  
                                     </td>
                                 </tr>
                             </c:forEach>

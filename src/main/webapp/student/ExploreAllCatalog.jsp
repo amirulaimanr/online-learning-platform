@@ -30,22 +30,24 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <c:forEach var="course" items="${listCourse}" >
                     <div class="col">
-                        <div class="card shadow-sm card-box card-fix-size ">
-                            <div class="card-header d-flex justify-content-between">
-                                ${course.category_name}
-                                <a href="/StudentMainPageServlet?route=view&id=${course.id}&student_id=<%= useruser_id %>" class="btn btn-info"><i class="fa-solid fa-circle-info"></i> View</a>
-                            </div>
-                            <div class="card-body flex-column d-flex justify-content-between">
-                                <h5 class="card-title">${course.name}</h5>
-                                <p class="card-text">${course.description}</p>
-                                <div class="flex-row d-flex justify-content-between">
-                                    <div class="" style="font-weight: 400"><i class="fa-solid fa-signal"></i>
-                                        ${course.difficulties}
+                        <a href="/StudentMainPageServlet?route=view&id=${course.id}&student_id=<%= useruser_id %>" >
+                            <div class="card shadow-sm card-box card-fix-size ">
+                                <div class="card-header d-flex justify-content-between">
+                                    ${course.category_name}
+
+                                </div>
+                                <div class="card-body flex-column d-flex justify-content-between">
+                                    <h5 class="card-title">${course.name}</h5>
+                                    <p class="card-text">${course.description}</p>
+                                    <div class="flex-row d-flex justify-content-between">
+                                        <div class="" style="font-weight: 400"><i class="fa-solid fa-signal"></i>
+                                            ${course.difficulties}
+                                        </div>
+                                        <div class="" style="font-weight: 400"><b>${course.duration}</b> hours</div>
                                     </div>
-                                    <div class="" style="font-weight: 400"><b>${course.duration}</b> hours</div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </c:forEach>
             </div>
