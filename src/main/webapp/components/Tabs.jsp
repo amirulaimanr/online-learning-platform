@@ -49,7 +49,7 @@
                     contentHtml += ' show active';
                 }
                 contentHtml += '" id="nav-' + category.toLowerCase().replace(" ", "-") + '" role="tabpanel" aria-labelledby="nav-' + category.toLowerCase().replace(" ", "-") + '-tab">';
-                contentHtml += '<div class="album py-5">';
+                contentHtml += '<div class="album album-width py-5">';
                 contentHtml += '<div class="container">';
                 contentHtml += '<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="catalog-content-' + category.toLowerCase().replace(" ", "-") + '">';
 
@@ -58,18 +58,14 @@
                         var course = courses[i];
                         contentHtml += '<div class="col">';
                         contentHtml += '<a href="/SelectedCourseServlet?course_id=' + course.id + '">';
-                        contentHtml += '<div class="card shadow-sm card-box">';
-                        contentHtml += '<div class="card-fix-size">';
-                        contentHtml += '<div>';
+                        contentHtml += '<div class="card shadow-sm card-box card-fix-size">';
                         contentHtml += '<div class="card-header"> Free course </div>';
-                        contentHtml += '<div class="card-body flex-column d-flex justify-content-between">';
+                        contentHtml += '<div class="card-body  card-body-course flex-column d-flex justify-content-between">';
                         contentHtml += '<h5 class="card-title">' + course.name + '</h5>';
                         contentHtml += '<p class="card-text">' + course.description + '</p>';
                         contentHtml += '<div class="flex-row d-flex justify-content-between">';
                         contentHtml += '<div class="" style="font-weight: 400"><i class="fa-solid fa-signal me-2"></i>' + course.difficulties + '</div>';
                         contentHtml += '<div class="" style="font-weight: 400"><b>' + course.duration + '</b> hours</div>';
-                        contentHtml += '</div>';
-                        contentHtml += '</div>';
                         contentHtml += '</div>';
                         contentHtml += '</div>';
                         contentHtml += '</div>';
