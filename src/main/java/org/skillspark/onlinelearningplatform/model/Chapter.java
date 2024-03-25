@@ -5,20 +5,20 @@ public class Chapter {
     private int course_id;
     private String title;
     private String name;
-    private String videoPath;
-    private String attachmentPath;
+    private String videopath;
+    private String attachmentpath;
     private String description;
     private int status;
     private String level;
 
-    public Chapter(int id ,int course_id ,String title ,String name ,String videoPath ,String attachmentPath ,String description ,int status ,String level)
+    public Chapter(int id ,int course_id ,String title ,String name ,String videopath ,String attachmentpath ,String description ,int status ,String level)
     {
         this.id = id;
         this.course_id = course_id;
         this.title = title;
         this.name = name;
-        this.videoPath = videoPath;
-        this.attachmentPath = attachmentPath;
+        this.videopath = videopath;
+        this.attachmentpath = attachmentpath;
         this.description = description;
         this.status = status;
         this.level = level;
@@ -104,28 +104,28 @@ public class Chapter {
      * @return the videoPath
      */
     public String getVideoPath() {
-        return videoPath;
+        return videopath;
     }
 
     /**
      * @param videoPath the videoPath to set
      */
-    public void setVideoPath(String videoPath) {
-        this.videoPath = videoPath;
+    public void setVideoPath(String videopath) {
+        this.videopath = videopath;
     }
 
     /**
      * @return the attachmentPath
      */
     public String getAttachmentPath() {
-        return attachmentPath;
+        return attachmentpath;
     }
 
     /**
-     * @param attachmentPath the attachmentPath to set
+     * @param attachmentpath the attachmentPath to set
      */
-    public void setAttachmentPath(String attachmentPath) {
-        this.attachmentPath = attachmentPath;
+    public void setAttachmentPath(String attachmentpath) {
+        this.attachmentpath = attachmentpath;
     }
 
     /**

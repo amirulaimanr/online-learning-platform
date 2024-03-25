@@ -42,8 +42,10 @@ public class ChapterDao {
             course_id = resultSet.getInt("course_id");
             title = resultSet.getString("title");
             name = resultSet.getString("name");
+            
             video_path = resultSet.getString("videopath");
             attachment_path = resultSet.getString("attachmentpath");
+
             description = resultSet.getString("description");
             status = resultSet.getInt("status");
             level = resultSet.getString("level");
@@ -70,30 +72,33 @@ public class ChapterDao {
             int course_id = resultSet.getInt("course_id");
             String title = resultSet.getString("title");
             String name = resultSet.getString("name");
-            String videoPath = resultSet.getString("videopath");
-            String attachmentPath = resultSet.getString("attachmentpath");
+
+            String videopath = resultSet.getString("videopath");
+            String attachmentpath = resultSet.getString("attachmentpath");
+
             String description = resultSet.getString("description");
             int status = resultSet.getInt("status");
             String level = resultSet.getString("level");
 //            String course_name = resultSet.getString("course_name");
 
 
-            Chapter chapter = new Chapter(id, course_id, title, name, videoPath, attachmentPath, description, status, level);
+            Chapter chapter = new Chapter(id, course_id, title, name, videopath, attachmentpath, description, status, level);
             listChapter.add(chapter);
         }
 
         return listChapter;
     }
 
-    public int store(int course_id, String title, String name, String video_path, String attachment_path, String description, int status, String level) throws SQLException {
+    public int store(int course_id, String title, String name, String videopath, String attachmentpath, String description, int status, String level) throws SQLException {
         String sql = "INSERT INTO chapters (course_id,title,name,videopath,attachmentpath,description,status,level,created_at) VALUES (?,?,?,?,?,?,?,?,?)";
         Date currentDate = new Date(System.currentTimeMillis());
+
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         statement.setInt(1, course_id);
         statement.setString(2, title);
         statement.setString(3, name);
-        statement.setString(4, video_path);
-        statement.setString(5, attachment_path);
+        statement.setString(4, videopath);
+        statement.setString(5, attachmentpath);
         statement.setString(6, description);
         statement.setInt(7, status);
         statement.setString(8, level);
@@ -124,12 +129,12 @@ public class ChapterDao {
         return rowupdate;
     }
 
-    public boolean updateVideoPath(int chapter_id, String video_path) throws SQLException {
+    public boolean updateVideoPath(int chapter_id, String videoPath) throws SQLException {
         boolean rowupdate = false;
         String sql = "UPDATE chapters SET videopath=? WHERE id=?";
 
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
-        statement.setString(1, video_path);
+        statement.setString(1, videoPath);
         statement.setInt(2, chapter_id);
         rowupdate = statement.executeUpdate() > 0;
 
@@ -162,7 +167,9 @@ public class ChapterDao {
             chapter.setCourse_id(resultSet.getInt("course_id"));
             chapter.setTitle(resultSet.getString("title"));
             chapter.setName(resultSet.getString("name"));
-            chapter.setVideoPath(resultSet.getString("videopath"));
+
+            chapter.setVideoPath(resultSet.getString("videoPath"));
+
             chapter.setAttachmentPath(resultSet.getString("attachmentpath"));
             chapter.setDescription(resultSet.getString("description"));
             chapter.setStatus(resultSet.getInt("status"));

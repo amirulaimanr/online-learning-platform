@@ -96,7 +96,7 @@
                                             <div id="flush-collapse-<c:out value='${count}' />" class="accordion-collapse collapse <c:if test='${count  == 0}'>show</c:if>" data-bs-parent="#accordionFlushExample">
                                                 <div class="chapter-desciption-box mt-4 mb-2">
                                                     <video width="100%" height="500" controls>
-                                                        <source src="${chapter.videoPath}" type="video/mp4">
+                                                        <source src="${chapter.videopath}" type="video/mp4">
                                                     </video>
                                                 </div>
                                                 <div class="chapter-desciption-box mb-2">

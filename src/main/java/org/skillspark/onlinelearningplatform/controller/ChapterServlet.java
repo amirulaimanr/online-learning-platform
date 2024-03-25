@@ -119,12 +119,12 @@ public class ChapterServlet extends HttpServlet {
             DatabaseConnection dbConnection = new DatabaseConnection();
             HttpSession session = request.getSession();
             
-            Part video_path = request.getPart("video_path");
+            Part videopath = request.getPart("videopath");
 
             ChapterDao chapterDao = new ChapterDao(dbConnection);
             int chapter_id = chapterDao.store(course_id, chapter_title, chapter_name, null, null, chapter_description, chapter_status, chapter_level);
             
-            String path = fileUpload(video_path,course_id,chapter_id);
+            String path = fileUpload(videopath,course_id,chapter_id);
             chapterDao.updateVideoPath(chapter_id,path);
             
             request.getSession().setAttribute("success", "Category succesffully added");
@@ -169,12 +169,12 @@ public class ChapterServlet extends HttpServlet {
         
         chapterDao.update(chapter);
         
-        Part video_path = request.getPart("video_path");
+        Part videopath = request.getPart("videopath");
         
-        if(video_path.getSize()>0){
+        if(videopath.getSize()>0){
             String filePath = request.getParameter("tempt_video");
             deleteVideo(globalPath + filePath);
-            String path = fileUpload(video_path,course_id,id);
+            String path = fileUpload(videopath,course_id,id);
             chapterDao.updateVideoPath(id,path);
         }
         
@@ -197,10 +197,10 @@ public class ChapterServlet extends HttpServlet {
          response.sendRedirect("/ChapterServlet?route=index&id="+course_id+"&name="+course_name);
     }
     
-    private String fileUpload(Part video_path,int course_id,int chapter_id) throws SQLException ,ServletException, IOException {
+    private String fileUpload(Part videopath,int course_id,int chapter_id) throws SQLException ,ServletException, IOException {
         String path =  globalPath;
         String system_path = "/video/";
-        String fileName = chapter_id+"_"+getFileName(video_path); 
+        String fileName = chapter_id+"_"+getFileName(videopath);
 
         OutputStream otpStream = null;  
         InputStream iptStream = null;  
@@ -209,7 +209,7 @@ public class ChapterServlet extends HttpServlet {
           
         try {  
             otpStream = new FileOutputStream(new File(path + File.separator + fileName));  
-            iptStream = video_path.getInputStream();  
+            iptStream = videopath.getInputStream();
   
             int read = 0;  
             final byte[] bytes = new byte[1024];  
