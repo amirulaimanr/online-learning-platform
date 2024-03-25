@@ -70,7 +70,7 @@ public class ChapterServlet extends HttpServlet {
                         break;
                 }
            }catch(SQLException ex){
-               
+               System.err.println("Error sql: " + ex.getMessage());
            }
     }
 
@@ -134,7 +134,6 @@ public class ChapterServlet extends HttpServlet {
             e.printStackTrace();
             response.sendRedirect("error.jsp");
         }
-         
     }
     
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException {
@@ -221,7 +220,7 @@ public class ChapterServlet extends HttpServlet {
         }  
         
         catch (FileNotFoundException fne){  
-            /*LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}", new Object[]{fne.getMessage()});  */
+            System.err.println("Error file: " + fne.getMessage());
         }  
         finally {  
             if (otpStream != null) {  
@@ -236,15 +235,12 @@ public class ChapterServlet extends HttpServlet {
     
     private String getFileName(final Part part) {  
         final String partHeader = part.getHeader("content-disposition");  
-       /* LOGGER.log(Level.INFO, "Part Header = {0}", partHeader);*/
-          
-        // code to get file name from the header  
+
         for (String content : part.getHeader("content-disposition").split(";")) {  
             if (content.trim().startsWith("filename")) {  
                 return content.substring(content.indexOf('=') + 1).trim().replace("\"", "");  
             }  
         }  
-
         return null;  
     }  
     
@@ -252,9 +248,7 @@ public class ChapterServlet extends HttpServlet {
     {
         File file = new File(filePath);
         try{
-            // Check if the file exists
             if (file.exists()) {
-                // Attempt to delete the file
                 if (file.delete()) {
                     System.out.println("Video deleted successfully.");
                 } else {

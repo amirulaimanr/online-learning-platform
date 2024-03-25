@@ -50,7 +50,7 @@ public class EnrollServlet extends HttpServlet {
                     break;
             }
         } catch (SQLException ex) {
-
+            System.err.println("Error sql: " + ex.getMessage());
         };
     }
 
@@ -70,12 +70,19 @@ public class EnrollServlet extends HttpServlet {
             UsersDao userDao = new UsersDao(dbConnection);
             
             String role = userDao.checkUserRole(student_id);
-            
+           
+             
             if(role.equals("Student")){
-                enrollDao.store(student_id, course_id);
+                boolean isEnroll = enrollDao.checkEnrollStudent(student_id,course_id);
+                
+                if(isEnroll == true){
+                    response.sendRedirect("/StudentMainPageServlet?route=index");
+                }else{
+                    enrollDao.store(student_id, course_id);
             
-                request.getSession().setAttribute("success", "Course successfully enrolled");
-                response.sendRedirect("/EnrollServlet?route=index&student_id="+student_id);
+                    request.getSession().setAttribute("success", "Course successfully enrolled");
+                    response.sendRedirect("/EnrollServlet?route=index&student_id="+student_id);
+                }
             }else{
                response.sendRedirect("/TutorMainPageServlet?route=index&tutor_id="+student_id);
             }
