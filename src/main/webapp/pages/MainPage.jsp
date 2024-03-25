@@ -57,7 +57,7 @@
                 <div class="card img-card mb-5" style="width: 15rem;">
                     <img src="https://images.ctfassets.net/go6kr6r0ykrq/Sk3Knek82fDxSX5eZqdzX/bac59c63ff86d8d52ef9e1559e8eb381/De-Shaun-Broadnax.jpeg"
                          class="card-img-top" alt="..." style="height: 220px">
-                    <div class="card-body">
+                    <div class="card-body card-body-community">
                         <p class="card-text">"Highly recommend this course for aspiring data scientists. You'll become a
                             visualization tools expert, even with no prior experience." - Phillip W
                         </p>
@@ -67,7 +67,7 @@
                 <div class="card img-card mb-5" style="width: 15rem;">
                     <img src="https://images.ctfassets.net/go6kr6r0ykrq/IEAxMFzasjkSr11XsNGso/ef9c1fcd18c5abf06e8064dc5352060c/Julia-Jubileu.jpeg"
                          class="card-img-top" alt="..." style="height: 220px">
-                    <div class="card-body">
+                    <div class="card-body card-body-community">
                         <p class="card-text">"This course helped me freshen up on my product manager skills and land
                             a job at Facebook! Thanks guys :)" - Julia
                         </p>
@@ -77,7 +77,7 @@
                 <div class="card img-card mb-5" style="width: 15rem;">
                     <img src="https://images.ctfassets.net/go6kr6r0ykrq/2ao4ZIQinCIgAt4UuGNR3z/b5b0608e9ae47b42ba6aa5e18e97411e/SerenaIsone1.jpeg"
                          class="card-img-top" alt="..." style="height: 220px">
-                    <div class="card-body">
+                    <div class="card-body card-body-community">
                         <p class="card-text">"After completing this course, I passed my exam and became an AWS Certified
                             Cloud Practitioner! The content matched the exam perfectly." - Serena
                         </p>
@@ -86,7 +86,7 @@
                 <div class="card img-card mb-5" style="width: 15rem;">
                     <img src="https://images.ctfassets.net/go6kr6r0ykrq/6zlCvqSouWnN7NGDTvidvT/3d4f8caef82cdaef8017edfd7e57f94f/Cristian-Tera__n.jpeg"
                          class="card-img-top" alt="..." style="height: 220px">
-                    <div class="card-body">
+                    <div class="card-body card-body-community">
                         <p class="card-text">"Exceptional experience! The courses were easy to follow.Can't wait to
                             explore more!" - CTara
                         </p>
