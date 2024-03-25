@@ -110,8 +110,9 @@ public class EnrollDao {
                 + "ON en.student_id = usr.id "
                 + "INNER JOIN courses cor "
                 + "ON en.course_id = cor.id "
-                + "WHERE en.course_id  = ?"
+                + "WHERE en.course_id  = ? "
                 + "ORDER BY en.id ASC";
+
 
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
         statement.setInt(1, course_id);
