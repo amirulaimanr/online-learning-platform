@@ -7,7 +7,7 @@
                     <small class="text-uppercase font-weight-bold">Catalog Menu</small>
                 </button>
             </div>
-            <h2 style="font-weight: 600">Data Science Catalog</h2>
+            <h2 style="font-weight: 600"><%= request.getParameter("category") %> Catalog</h2>
             <h4 style="font-weight: 500; margin-top: 30px">Courses</h4>
             <%@ include file="/components/GridCatalog.jsp"%>
             <div class="catalog-content" id="catalog-content">

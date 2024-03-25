@@ -18,16 +18,8 @@
         </div>
         <div class="catalog-container">
             <% String category = request.getParameter("category"); %>
-            <% if ("Data Science".equals(category)) { %>
-            <%@ include file="/pages/CategoryCatalog/DataScienceCatalog.jsp" %>
-            <% } else if ("Business".equals(category)) { %>
-            <%@ include file="/pages/CategoryCatalog/BusinessCatalog.jsp" %>
-            <% } else if ("Marketing".equals(category)) { %>
-            <%@ include file="/pages/CategoryCatalog/MarketingCatalog.jsp" %>
-            <% } else if ("Programming".equals(category)) { %>
-            <%@ include file="/pages/CategoryCatalog/ProgrammingCatalog.jsp" %>
-            <% } else if ("Design".equals(category)) { %>
-            <%@ include file="/pages/CategoryCatalog/DesignCatalog.jsp" %>
+            <% if (category != null) { %>
+            <%@ include file="/pages/CategoryCatalog.jsp" %>
             <% } else { %>
             <%@ include file="/pages/ExploreAllCatalog.jsp" %>
             <% } %>
