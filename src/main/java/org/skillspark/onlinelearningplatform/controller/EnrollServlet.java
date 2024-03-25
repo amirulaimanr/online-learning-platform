@@ -21,6 +21,7 @@ import org.skillspark.onlinelearningplatform.dao.ChapterDao;
 import org.skillspark.onlinelearningplatform.dao.CourseDao;
 import org.skillspark.onlinelearningplatform.dao.DatabaseConnection;
 import org.skillspark.onlinelearningplatform.dao.EnrollDao;
+import org.skillspark.onlinelearningplatform.dao.UsersDao;
 import org.skillspark.onlinelearningplatform.model.Chapter;
 import org.skillspark.onlinelearningplatform.model.Course;
 
@@ -66,10 +67,19 @@ public class EnrollServlet extends HttpServlet {
             HttpSession session = request.getSession();
 
             EnrollDao enrollDao = new EnrollDao(dbConnection);
-            enrollDao.store(student_id, course_id);
-            request.getSession().setAttribute("success", "Course successfully enrolled");
-            response.sendRedirect("/EnrollServlet?route=index&student_id="+student_id);
-
+            UsersDao userDao = new UsersDao(dbConnection);
+            
+            String role = userDao.checkUserRole(student_id);
+            
+            if(role.equals("Student")){
+                enrollDao.store(student_id, course_id);
+            
+                request.getSession().setAttribute("success", "Course successfully enrolled");
+                response.sendRedirect("/EnrollServlet?route=index&student_id="+student_id);
+            }else{
+               response.sendRedirect("/TutorMainPageServlet?route=index&tutor_id="+student_id);
+            }
+           
         } catch (SQLException e) {
             e.printStackTrace();
             response.sendRedirect("error.jsp");

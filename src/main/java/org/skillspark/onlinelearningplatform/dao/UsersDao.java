@@ -51,4 +51,24 @@ public class UsersDao {
 
         return new Users(id, role_id, name, email_user);
     }
+
+     public String checkUserRole(int user_id) throws SQLException {
+        String sql = "SELECT rol.name as role_name "
+                + "FROM users usr "
+                + "JOIN roles as rol "
+                + "ON usr.role_id = rol.id "
+                + "WHERE usr.id=? ";
+            
+        PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
+        statement.setInt(1, user_id);
+        ResultSet resultSet = statement.executeQuery();
+        
+        String str = "";
+        
+        if (resultSet.next()) {
+            str = resultSet.getString("role_name");
+        } 
+        
+        return str;
+    }
 }

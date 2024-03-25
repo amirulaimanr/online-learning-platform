@@ -1,3 +1,4 @@
+<%@page import="org.skillspark.onlinelearningplatform.model.Users"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +14,17 @@
         <div class="topbar-sticky">
             <%@ include file="/components/TopBarLogin.jsp" %>
         </div>
-
+        <%
+            int user_id = 0;
+            boolean check = false;
+            Users userbar = (Users) session.getAttribute("user");
+            
+            if (session.getAttribute("user") != null) {
+                check = true;
+                user_id = userbar.getId();
+            }
+        %>
+        <div 
 
         <div class="container-l layout-size">
             <div class="course-flexbox flex-column pt-5">
@@ -22,10 +33,25 @@
                         <h5><b>Free</b> Course</h5>
                         <h1>${course.name}</h1>
                         <p>${course.description}</p>
-                        <a href="/enroll?course_id=${course.id}">
-                            <div class="enroll-btn">Enroll Now
+                        <% 
+                            if(check == true){
+                        %>
+                        <a href="/EnrollServlet?route=store&student_id=<%= user_id %>&course_id=${course.id}">
+                            <div class="enroll-btn">
+                                Enroll Now
                             </div>
                         </a>
+                        <%
+                            }else{
+                        %>
+                         <a href="/pages/LoginPage.jsp">
+                            <div class="enroll-btn">
+                                Enroll Now
+                            </div>
+                        </a>
+                         <% 
+                            } 
+                         %>
                     </div>
 
                     <div class="course-img">

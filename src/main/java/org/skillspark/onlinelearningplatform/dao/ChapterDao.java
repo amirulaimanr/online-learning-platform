@@ -161,8 +161,8 @@ public class ChapterDao {
             chapter.setCourse_id(resultSet.getInt("course_id"));
             chapter.setTitle(resultSet.getString("title"));
             chapter.setName(resultSet.getString("name"));
-            chapter.setVideoPath(resultSet.getString("videoPath"));
-            chapter.setAttachmentPath(resultSet.getString("attachmentPath"));
+            chapter.setVideoPath(resultSet.getString("video_path"));
+            chapter.setAttachmentPath(resultSet.getString("attachment_path"));
             chapter.setDescription(resultSet.getString("description"));
             chapter.setStatus(resultSet.getInt("status"));
             chapter.setLevel(resultSet.getString("level"));
