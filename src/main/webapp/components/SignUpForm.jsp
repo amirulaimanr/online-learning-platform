@@ -5,8 +5,8 @@
                 <form action="/SignUpServlet" method="post" class="login">
                     <select class="form-select form-size" aria-label="Role selected" name="roleId" required>
                         <option value="" disabled selected>Sign up as</option>
-                        <option value="1">Student</option>
-                        <option value="2">Tutor</option>
+                        <option value="1">Tutor</option>
+                        <option value="2">Student</option>
                     </select>
                     <div class="login__field">
                         <i class="login__icon fas fa-user"></i>
