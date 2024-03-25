@@ -74,7 +74,7 @@ public class CourseDao {
     }
 
     public void store(String course_name, int course_category, int course_duration, String course_difficulties, int course_status, String course_description, int harcoded_tutor_id) throws SQLException {
-        String sql = "INSERT INTO courses (category_id,tutor_id,name,durations,description,status,difficulties) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO courses (category_id, tutor_id, name, durations, description, status, difficulties) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
         statement.setInt(1, course_category);
@@ -86,6 +86,7 @@ public class CourseDao {
         statement.setString(7, course_difficulties);
         statement.executeUpdate();
     }
+
 
     public boolean update(Course course) throws SQLException {
         boolean rowupdate = false;
