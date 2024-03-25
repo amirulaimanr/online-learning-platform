@@ -42,8 +42,8 @@ public class ChapterDao {
             course_id = resultSet.getInt("course_id");
             title = resultSet.getString("title");
             name = resultSet.getString("name");
-            video_path = resultSet.getString("video_path");
-            attachment_path = resultSet.getString("attachment_path");
+            video_path = resultSet.getString("videopath");
+            attachment_path = resultSet.getString("attachmentpath");
             description = resultSet.getString("description");
             status = resultSet.getInt("status");
             level = resultSet.getString("level");
@@ -70,8 +70,8 @@ public class ChapterDao {
             int course_id = resultSet.getInt("course_id");
             String title = resultSet.getString("title");
             String name = resultSet.getString("name");
-            String videoPath = resultSet.getString("videoPath");
-            String attachmentPath = resultSet.getString("attachmentPath");
+            String videoPath = resultSet.getString("videopath");
+            String attachmentPath = resultSet.getString("attachmentpath");
             String description = resultSet.getString("description");
             int status = resultSet.getInt("status");
             String level = resultSet.getString("level");
@@ -86,7 +86,7 @@ public class ChapterDao {
     }
 
     public int store(int course_id, String title, String name, String video_path, String attachment_path, String description, int status, String level) throws SQLException {
-        String sql = "INSERT INTO chapters (course_id,title,name,video_path,attachment_path,description,status,level,created_at) VALUES (?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO chapters (course_id,title,name,videopath,attachmentpath,description,status,level,created_at) VALUES (?,?,?,?,?,?,?,?,?)";
         Date currentDate = new Date(System.currentTimeMillis());
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         statement.setInt(1, course_id);
@@ -126,7 +126,7 @@ public class ChapterDao {
 
     public boolean updateVideoPath(int chapter_id, String video_path) throws SQLException {
         boolean rowupdate = false;
-        String sql = "UPDATE chapters SET video_path=? WHERE id=?";
+        String sql = "UPDATE chapters SET videopath=? WHERE id=?";
 
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
         statement.setString(1, video_path);
@@ -162,8 +162,8 @@ public class ChapterDao {
             chapter.setCourse_id(resultSet.getInt("course_id"));
             chapter.setTitle(resultSet.getString("title"));
             chapter.setName(resultSet.getString("name"));
-            chapter.setVideoPath(resultSet.getString("videoPath"));
-            chapter.setAttachmentPath(resultSet.getString("attachmentPath"));
+            chapter.setVideoPath(resultSet.getString("videopath"));
+            chapter.setAttachmentPath(resultSet.getString("attachmentpath"));
             chapter.setDescription(resultSet.getString("description"));
             chapter.setStatus(resultSet.getInt("status"));
             chapter.setLevel(resultSet.getString("level"));

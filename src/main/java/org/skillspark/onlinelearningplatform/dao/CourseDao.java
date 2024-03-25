@@ -51,7 +51,6 @@ public class CourseDao {
                 + "WHERE cs.tutor_id=? "
                 + "ORDER BY cs.id ASC";
 
-
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
         statement.setInt(1, harcoded_tutor_id);
         ResultSet resultSet = statement.executeQuery();
