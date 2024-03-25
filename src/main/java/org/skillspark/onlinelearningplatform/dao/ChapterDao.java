@@ -85,7 +85,7 @@ public class ChapterDao {
     }
 
     public int store(int course_id, String title, String name, String videopath, String attachmentpath, String description, int status, String level) throws SQLException {
-        String sql = "INSERT INTO chapters (course_id,title,name,videoPath,attachmentpath,description,status,level) VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO chapters (course_id,title,name,videopath,attachmentpath,description,status,level) VALUES (?,?,?,?,?,?,?,?)";
 
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         statement.setInt(1, course_id);
@@ -122,12 +122,12 @@ public class ChapterDao {
         return rowupdate;
     }
 
-    public boolean updateVideoPath(int chapter_id, String videoPath) throws SQLException {
+    public boolean updateVideoPath(int chapter_id, String videopath) throws SQLException {
         boolean rowupdate = false;
-        String sql = "UPDATE chapters SET videoPath=? WHERE id=?";
+        String sql = "UPDATE chapters SET videopath=? WHERE id=?";
 
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
-        statement.setString(1, videoPath);
+        statement.setString(1, videopath);
         statement.setInt(2, chapter_id);
         rowupdate = statement.executeUpdate() > 0;
 
@@ -160,8 +160,8 @@ public class ChapterDao {
             chapter.setCourse_id(resultSet.getInt("course_id"));
             chapter.setTitle(resultSet.getString("title"));
             chapter.setName(resultSet.getString("name"));
-            chapter.setVideoPath(resultSet.getString("videoPath"));
-            chapter.setAttachmentPath(resultSet.getString("attachmentpath"));
+            chapter.setVideopath(resultSet.getString("videopath"));
+            chapter.setAttachmentpath(resultSet.getString("attachmentpath"));
             chapter.setDescription(resultSet.getString("description"));
             chapter.setStatus(resultSet.getInt("status"));
             chapter.setLevel(resultSet.getString("level"));

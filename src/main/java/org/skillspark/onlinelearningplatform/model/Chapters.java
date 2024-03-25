@@ -58,19 +58,19 @@ public class Chapters {
         this.name = name;
     }
 
-    public String getVideoPath() {
+    public String getVideopath() {
         return videopath;
     }
 
-    public void setVideoPath(String videopath) {
+    public void setVideopath(String videopath) {
         this.videopath = videopath;
     }
 
-    public String getAttachmentPath() {
+    public String getAttachmentpath() {
         return attachmentpath;
     }
 
-    public void setAttachmentPath(String attachmentpath) {
+    public void setAttachmentpath(String attachmentpath) {
         this.attachmentpath = attachmentpath;
     }
 
