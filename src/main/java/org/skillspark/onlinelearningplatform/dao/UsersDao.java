@@ -13,12 +13,13 @@ public class UsersDao {
         this.dbConnection = dbConnection;
     }
 
-    public void addUser(String email, String password, int roleId) throws SQLException {
+    public void addUser(String email, String password, int roleId, String name) throws SQLException {
         String sql = UserRepository.INSERT_USERS_BY_EMAIL_PASSWORD_ROLE;
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
         statement.setString(1, email);
         statement.setString(2, password);
         statement.setInt(3, roleId);
+        statement.setString(4, name);
         statement.executeUpdate();
     }
 
@@ -49,5 +50,25 @@ public class UsersDao {
         }
 
         return new Users(id, role_id, name, email_user);
+    }
+
+     public String checkUserRole(int user_id) throws SQLException {
+        String sql = "SELECT rol.name as role_name "
+                + "FROM users usr "
+                + "JOIN roles as rol "
+                + "ON usr.role_id = rol.id "
+                + "WHERE usr.id=? ";
+            
+        PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
+        statement.setInt(1, user_id);
+        ResultSet resultSet = statement.executeQuery();
+        
+        String str = "";
+        
+        if (resultSet.next()) {
+            str = resultSet.getString("role_name");
+        } 
+        
+        return str;
     }
 }

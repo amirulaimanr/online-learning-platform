@@ -21,6 +21,7 @@ import org.skillspark.onlinelearningplatform.dao.ChapterDao;
 import org.skillspark.onlinelearningplatform.dao.CourseDao;
 import org.skillspark.onlinelearningplatform.dao.DatabaseConnection;
 import org.skillspark.onlinelearningplatform.dao.EnrollDao;
+import org.skillspark.onlinelearningplatform.dao.UsersDao;
 import org.skillspark.onlinelearningplatform.model.Chapter;
 import org.skillspark.onlinelearningplatform.model.Course;
 
@@ -49,7 +50,7 @@ public class EnrollServlet extends HttpServlet {
                     break;
             }
         } catch (SQLException ex) {
-
+            System.err.println("Error sql: " + ex.getMessage());
         };
     }
 
@@ -66,10 +67,26 @@ public class EnrollServlet extends HttpServlet {
             HttpSession session = request.getSession();
 
             EnrollDao enrollDao = new EnrollDao(dbConnection);
-            enrollDao.store(student_id, course_id);
-            request.getSession().setAttribute("success", "Course successfully enrolled");
-            response.sendRedirect("/EnrollServlet?route=index&student_id="+student_id);
-
+            UsersDao userDao = new UsersDao(dbConnection);
+            
+            String role = userDao.checkUserRole(student_id);
+           
+             
+            if(role.equals("Student")){
+                boolean isEnroll = enrollDao.checkEnrollStudent(student_id,course_id);
+                
+                if(isEnroll == true){
+                    response.sendRedirect("/StudentMainPageServlet?route=index");
+                }else{
+                    enrollDao.store(student_id, course_id);
+            
+                    request.getSession().setAttribute("success", "Course successfully enrolled");
+                    response.sendRedirect("/EnrollServlet?route=index&student_id="+student_id);
+                }
+            }else{
+               response.sendRedirect("/TutorMainPageServlet?route=index&tutor_id="+student_id);
+            }
+           
         } catch (SQLException e) {
             e.printStackTrace();
             response.sendRedirect("error.jsp");
@@ -114,12 +131,12 @@ public class EnrollServlet extends HttpServlet {
     }
 
     private void deleteEnroll(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException  {
-        int id = Integer.parseInt(request.getParameter("id"));
+        int course_id = Integer.parseInt(request.getParameter("id"));
         int student_id = Integer.parseInt(request.getParameter("student_id"));
         
         DatabaseConnection dbConnection = new DatabaseConnection();
         EnrollDao enrollDao = new EnrollDao(dbConnection);
-        enrollDao.delete(student_id, id);
+        enrollDao.delete(student_id, course_id);
         request.getSession().setAttribute("success", "Enrolled course succesffully deleted");
         response.sendRedirect("/EnrollServlet?route=index&student_id="+student_id);
     }

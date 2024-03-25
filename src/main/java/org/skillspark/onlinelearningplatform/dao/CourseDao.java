@@ -72,6 +72,33 @@ public class CourseDao {
 
         return listCourse;
     }
+    
+     public List<Course> listAllByCountStudent(int harcoded_tutor_id) throws SQLException {
+        List<Course> listCourse = new ArrayList();
+        String sql = "SELECT c.id,c.name,c.durations,c.difficulties,count(e.student_id) AS total_student "
+                + "FROM courses c "
+                + "LEFT JOIN enrolls e "
+                + "ON c.id = e.course_id "
+                + "WHERE c.tutor_id=? "
+                + "GROUP BY  c.id,c.name,c.durations,c.difficulties ";
+       
+        PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
+        statement.setInt(1, harcoded_tutor_id);
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            String name = resultSet.getString("name");
+            int duration = resultSet.getInt("durations");
+            String difficulties = resultSet.getString("difficulties");
+            int total_student = resultSet.getInt("total_student");
+
+            Course course = new Course(id, name, duration, difficulties, total_student);
+            listCourse.add(course);
+        }
+
+        return listCourse;
+    }
 
     public void store(String course_name, int course_category, int course_duration, String course_difficulties, int course_status, String course_description, int harcoded_tutor_id) throws SQLException {
         String sql = "INSERT INTO courses (category_id, tutor_id, name, durations, description, status, difficulties) VALUES (?, ?, ?, ?, ?, ?, ?)";

@@ -24,36 +24,32 @@
             %>
             <h2 style="font-weight: 600">Hi,<%= userusername %></h2>
             <h4 class="my-4" style="font-weight: 500; margin-top: 30px">Courses that you make</h4>
-
-            <div class="album album-width py-5">
-                <div class="container">
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                        <c:forEach var="course" items="${listCourse}">
-                            <div class="col">
-                                <div class="card shadow-sm card-box card-fix-size ">
-                                    <div class="card-header d-flex justify-content-between">
-                                            ${course.category_name}
-                                        <a href="/TutorMainPageServlet?route=view&id=${course.id}" class="btn btn-info"><i
-                                                class="fa-solid fa-circle-info"></i> Info</a>
-                                    </div>
-                                    <div class="card-body flex-column d-flex justify-content-between">
-                                        <h5 class="card-title">${course.name}</h5>
-                                        <p class="card-text">${course.description}</p>
-                                        <div class="flex-row d-flex justify-content-between">
-                                            <div class="" style="font-weight: 400"><i class="fa-solid fa-signal"></i>
-                                                    ${course.difficulties}
-                                            </div>
-                                            <div class="" style="font-weight: 400"><b>${course.duration}</b> hours</div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <c:forEach var="course" items="${listCourse}" >
+                    <div class="col">
+                        <a href="/TutorMainPageServlet?route=view&id=${course.id}">
+                            <div class="card shadow-sm card-box card-fix-size ">
+                                <div class="card-header">
+                                    ${course.category_name} 
+                                </div>
+                                <div class="card-body card-body-course flex-column d-flex justify-content-between">
+                                    <h5 class="card-title">${course.name}</h5>
+                                    <p class="card-text">${course.description}</p>
+                                    <div class="flex-row flex-row-card d-flex justify-content-between">
+                                        <div class="" style="font-weight: 400"><i class="fa-solid fa-signal"></i>
+                                            ${course.difficulties}
                                         </div>
+                                        <div class="" style="font-weight: 400"><b>${course.duration}</b> hours</div>
                                     </div>
                                 </div>
                             </div>
-                        </c:forEach>
+                        </a>
+                    </div>
+                </c:forEach>
                     </div>
                 </div>
             </div>
         </div>
-
         <script>
             $(function () {
                 // Sidebar toggle behavior

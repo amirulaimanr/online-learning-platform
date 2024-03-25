@@ -41,7 +41,7 @@ public class StudentMainPageServlet extends HttpServlet {
                     break;
             }
         } catch (SQLException ex) {
-
+            System.err.println("Error sql: " + ex.getMessage());
         }
     }
 

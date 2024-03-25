@@ -21,7 +21,10 @@
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
                     </form>
-                    <a class="btn btn-outline-success" href="#">Logout</a>
+                    <form id="logoutForm" action="/LogoutServlet" method="post">
+                        <button type="submit" class="btn btn-outline-success">Logout</button>
+                    </form>
+             
                 </div>
             </div>
         </nav>
