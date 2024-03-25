@@ -15,12 +15,12 @@
         </div>
         <div class="catalog-container">
             <div class="vertical-nav" id="sidebar">
-                <%@include file="/student/components/FilterBar.jsp"%>
+                <%@include file="/student/components/FilterBar.jsp" %>
             </div>
-            <div class="row" >
+            <div class="row">
                 <div class="container-l layout-size">
                     <div class="course-flexbox flex-column pt-5">
-                        <div class="course-details-container">
+                        <div class="course-details-container student-course-details">
                             <div class="course-title-box">
                                 <h5>
                                     ${course.category_name}
@@ -32,20 +32,20 @@
                                 <p>${course.description}</p>
                                 <%
                                     boolean isEnroll = (Boolean) request.getAttribute("isEnroll");
-                                    if(isEnroll == false){
+                                    if (isEnroll == false) {
                                 %>
                                 <a href="/EnrollServlet?route=store&student_id=<%= user_id %>&course_id=${course.id}">
                                     <div class="enroll-btn"><i class="fa-solid fa-plus"></i> Enroll Now
                                     </div>
                                 </a>
                                 <%
-                                    }else{
+                                } else {
                                 %>
                                 <a href="/EnrollServlet?route=view&id=${course.id}&student_id=<%= user_id %>">
                                     <div class="enroll-btn"><i class="fa-solid fa-circle-info"></i> View Course Now
                                     </div>
                                 </a>
-                                 <%
+                                <%
                                     }
                                 %>
                             </div>
@@ -100,34 +100,43 @@
 
                         <div class="syllabus-container">
                             <div class="syllabus-title">
-                                <h5>Syllabus</h5>
+                                <h5 style="color: white">Syllabus</h5>
                             </div>
                             <body class="body-course-bg">
-                                <div class="accordion" id="accordionFlushExample">
-                                    <c:set var="count" value="0" scope="page" />
-                                    <c:forEach var="chapter" items="${listChapter}" >
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header"">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-<c:out value='${count}' />" aria-expanded="false" aria-controls="flush-collapseOne">
-                                                    <h4>${chapter.name} :</h4><h5>${chapter.title}</h5>
+                                <div class="accordion accordian-space" id="accordionFlushExample">
+                                    <c:set var="count" value="0" scope="page"/>
+                                    <c:forEach var="chapter" items="${listChapter}">
+                                        <div class="accordion-item accordion-item-space">
+                                            <h3 class="accordion-header accordion-header-space">
+                                                <button class="accordion-button accordion-header-space collapsed" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#flush-collapse-<c:out value='${count}' />"
+                                                        aria-expanded="false" aria-controls="flush-collapseOne">
+                                                    <h4>${chapter.name} :</h4>
+                                                    <h5>${chapter.title}</h5>
                                                 </button>
                                             </h3>
                                             <div class="chapter-desciption-box">
                                                 <p style="font-weight: 400">${chapter.description}</p>
                                             </div>
-                                            <div id="flush-collapse-<c:out value='${count}' />" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                            <div id="flush-collapse-<c:out value='${count}' />"
+                                                 class="accordion-collapse collapse"
+                                                 data-bs-parent="#accordionFlushExample">
                                                 <div class="chapter-desciption-box mb-2">
-                                                    <strong>Level :</strong> ${chapter.level}</small>
+                                                    <div class="flex-row video-attachment-box">
+                                                        <p>${chapter.videopath != null ? '<div class="video-icon" style="margin-right: 10px; font-weight: 300"><i class="fa-solid fa-file-video"></i> Video </div>' : ''}</p>
+                                                        <p>${chapter.attachmentpath != null ? '<div class="attachment-icon" style="font-weight: 300"><i class="fa-solid fa-file-pdf"></i> Attachment</div>' : ''}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <c:set var="count" value="${count + 1}" scope="page" />
+                                        <c:set var="count" value="${count + 1}" scope="page"/>
                                     </c:forEach>
                                 </div>
                             </body>
                         </div>
                     </div>
-                </div>                                
+                </div>
             </div>
         </div>
     </body>

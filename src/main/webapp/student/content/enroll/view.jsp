@@ -15,12 +15,12 @@
         </div>
         <div class="catalog-container">
             <div class="vertical-nav" id="sidebar">
-                <%@include file="/student/components/FilterBar.jsp"%>
+                <%@include file="/student/components/FilterBar.jsp" %>
             </div>
-            <div class="row" >
+            <div class="row">
                 <div class="container-l layout-size">
                     <div class="course-flexbox flex-column pt-5">
-                        <div class="course-details-container">
+                        <div class="course-details-container student-course-details">
                             <div class="course-title-box">
                                 <h5>${course.category_name}</h5>
                                 <h1>
@@ -76,41 +76,47 @@
                             </div>
                         </div>
 
-                        <div class="syllabus-container">
+                        <div class="syllabus-container syllabus-container-video">
                             <div class="syllabus-title">
-                                <h5>Syllabus</h5>
+                                <h5 style="color: white">Syllabus</h5>
                             </div>
                             <body class="body-course-bg">
-                                <div class="accordion" id="accordionFlushExample">
-                                    <c:set var="count" value="0" scope="page" />
-                                    <c:forEach var="chapter" items="${listChapter}" >
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header"">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-<c:out value='${count}' />" aria-expanded="false" aria-controls="flush-collapseOne">
-                                                    <h4>${chapter.name} :</h4><h5>${chapter.title}</h5>
+                                <div class="accordion accordian-space" id="accordionFlushExample">
+                                    <c:set var="count" value="0" scope="page"/>
+                                    <c:forEach var="chapter" items="${listChapter}">
+                                        <div class="accordion-item accordion-item-space">
+                                            <h2 class="accordion-header accordion-header-space">
+                                                <button class="accordion-button accordion-header-space collapsed"
+                                                        type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#flush-collapse-<c:out value='${count}' />"
+                                                        aria-expanded="false" aria-controls="flush-collapseOne">
+                                                    <h4>${chapter.name} :</h4>
+                                                    <h5>${chapter.title}</h5>
                                                 </button>
-                                            </h3>
-                                            <div class="chapter-desciption-box">
-                                                <p style="font-weight: 400">${chapter.description}</p>
-                                            </div>
-                                            <div id="flush-collapse-<c:out value='${count}' />" class="accordion-collapse collapse <c:if test='${count  == 0}'>show</c:if>" data-bs-parent="#accordionFlushExample">
-                                                <div class="chapter-desciption-box mt-4 mb-2">
-                                                    <video width="100%" height="500" controls>
-                                                        <source src="${chapter.videopath}" type="video/mp4">
-                                                    </video>
+                                                </h3>
+                                                <div class="chapter-desciption-box">
+                                                    <p style="font-weight: 400">${chapter.description}</p>
                                                 </div>
-                                                <div class="chapter-desciption-box mb-2">
-                                                    <strong>Level :</strong> ${chapter.level}
+                                                <div id="flush-collapse-<c:out value='${count}' />"
+                                                     class="accordion-collapse collapse <c:if test='${count  == 0}'>show</c:if>"
+                                                     data-bs-parent="#accordionFlushExample">
+                                                    <div class="chapter-desciption-box mt-4 mb-2">
+                                                        <video width="100%" height="500" controls>
+                                                            <source src="${chapter.videopath}" type="video/mp4">
+                                                        </video>
+                                                    </div>
+                                                    <div class="chapter-desciption-box mb-2">
+                                                        <strong>Level :</strong> ${chapter.level}
+                                                    </div>
                                                 </div>
-                                            </div>
                                         </div>
-                                        <c:set var="count" value="${count + 1}" scope="page" />
+                                        <c:set var="count" value="${count + 1}" scope="page"/>
                                     </c:forEach>
                                 </div>
                             </body>
                         </div>
                     </div>
-                </div>                                
+                </div>
             </div>
         </div>
     </body>
