@@ -129,12 +129,12 @@ public class ChapterDao {
         return rowupdate;
     }
 
-    public boolean updateVideoPath(int chapter_id, String videoPath) throws SQLException {
+    public boolean updateVideoPath(int chapter_id, String videopath) throws SQLException {
         boolean rowupdate = false;
         String sql = "UPDATE chapters SET videopath=? WHERE id=?";
 
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
-        statement.setString(1, videoPath);
+        statement.setString(1, videopath);
         statement.setInt(2, chapter_id);
         rowupdate = statement.executeUpdate() > 0;
 
@@ -168,9 +168,9 @@ public class ChapterDao {
             chapter.setTitle(resultSet.getString("title"));
             chapter.setName(resultSet.getString("name"));
 
-            chapter.setVideoPath(resultSet.getString("videoPath"));
+            chapter.setVideopath(resultSet.getString("videopath"));
+            chapter.setAttachmentpath(resultSet.getString("attachmentpath"));
 
-            chapter.setAttachmentPath(resultSet.getString("attachmentpath"));
             chapter.setDescription(resultSet.getString("description"));
             chapter.setStatus(resultSet.getInt("status"));
             chapter.setLevel(resultSet.getString("level"));
