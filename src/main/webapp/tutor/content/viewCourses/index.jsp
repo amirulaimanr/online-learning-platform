@@ -18,7 +18,7 @@
                 <%@include file="/tutor/components/FilterBar.jsp"%>
             </div>
             <div class="row" >
-                <div class="layout-content">
+                <div class="layout-content" style="padding: 20px">
                     <div class="container flex-grow-1 container-p-y">
                         <div class="row mt-4">
                             <div class="col">
@@ -84,7 +84,7 @@
                                             <h4>${chapter.name} :</h4><h5>${chapter.title}</h5>
                                         </div>
                                         <div class="card-body">
-                                            <video width="1260" height="500" controls>
+                                            <video width="100%" height="500" controls>
                                                 <source src="${chapter.videoPath}" type="video/mp4">
                                             </video>
                                             <div class="ui-bordered">

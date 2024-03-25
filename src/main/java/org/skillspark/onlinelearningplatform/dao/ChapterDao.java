@@ -55,10 +55,8 @@ public class ChapterDao {
     public List<Chapter> listAll(int id_cor) throws SQLException {
         List<Chapter> listChapter = new ArrayList();
 
-        String sql = "SELECT chp.id,chp.course_id,chp.title,chp.name,chp.video_path,chp.attachment_path,chp.description,chp.status,chp.level,cs.name as course_name "
+        String sql = "SELECT * "
                 + "FROM chapters chp "
-                + "INNER JOIN courses cs "
-                + "ON chp.course_id = cs.id "
                 + "WHERE chp.course_id=? "
                 + "ORDER BY chp.id ASC";
 
@@ -72,14 +70,15 @@ public class ChapterDao {
             int course_id = resultSet.getInt("course_id");
             String title = resultSet.getString("title");
             String name = resultSet.getString("name");
-            String video_path = resultSet.getString("video_path");
-            String attachment_path = resultSet.getString("attachment_path");
+            String videoPath = resultSet.getString("videoPath");
+            String attachmentPath = resultSet.getString("attachmentPath");
             String description = resultSet.getString("description");
             int status = resultSet.getInt("status");
             String level = resultSet.getString("level");
-            String course_name = resultSet.getString("course_name");
+//            String course_name = resultSet.getString("course_name");
 
-            Chapter chapter = new Chapter(id, course_id, title, name, video_path, attachment_path, description, status, level, course_name);
+
+            Chapter chapter = new Chapter(id, course_id, title, name, videoPath, attachmentPath, description, status, level);
             listChapter.add(chapter);
         }
 
@@ -163,8 +162,8 @@ public class ChapterDao {
             chapter.setCourse_id(resultSet.getInt("course_id"));
             chapter.setTitle(resultSet.getString("title"));
             chapter.setName(resultSet.getString("name"));
-            chapter.setVideoPath(resultSet.getString("video_path"));
-            chapter.setAttachmentPath(resultSet.getString("attachment_path"));
+            chapter.setVideoPath(resultSet.getString("videoPath"));
+            chapter.setAttachmentPath(resultSet.getString("attachmentPath"));
             chapter.setDescription(resultSet.getString("description"));
             chapter.setStatus(resultSet.getInt("status"));
             chapter.setLevel(resultSet.getString("level"));

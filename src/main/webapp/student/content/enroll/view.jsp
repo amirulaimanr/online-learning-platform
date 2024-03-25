@@ -94,13 +94,13 @@
                                                 <p style="font-weight: 400">${chapter.description}</p>
                                             </div>
                                             <div id="flush-collapse-<c:out value='${count}' />" class="accordion-collapse collapse <c:if test='${count  == 0}'>show</c:if>" data-bs-parent="#accordionFlushExample">
-                                                <div class="chapter-desciption-box mt-4 mb-2 text-center">
-                                                    <video height="600" controls>
+                                                <div class="chapter-desciption-box mt-4 mb-2">
+                                                    <video width="100%" height="500" controls>
                                                         <source src="${chapter.videoPath}" type="video/mp4">
                                                     </video>
                                                 </div>
                                                 <div class="chapter-desciption-box mb-2">
-                                                    <strong>Level :</strong> ${chapter.level}</small>
+                                                    <strong>Level :</strong> ${chapter.level}
                                                 </div>
                                             </div>
                                         </div>
