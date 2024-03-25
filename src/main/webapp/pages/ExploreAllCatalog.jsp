@@ -1,9 +1,5 @@
 <html>
     <body>
-        <div class="vertical-nav" id="sidebar">
-            <%@include file="/components/FilterBar.jsp"%>
-        </div>
-
         <div class="flex-column explore-catalog p-5 align-items-start" id="content">
             <div class="catalog-menu-btn">
                 <button id="sidebarCollapse" type="button"
@@ -13,7 +9,11 @@
             </div>
             <h2 style="font-weight: 600">Explore Catalog</h2>
             <h4 style="font-weight: 500; margin-top: 30px">Courses</h4>
-            <%@ include file="/components/GridCatalog.jsp" %>
+            <%@ include file="/components/GridCatalogAll.jsp"%>
+            <div class="catalog-content" id="catalog-content">
+                <!-- card content -->
+            </div>
+
         </div>
 
         <script>

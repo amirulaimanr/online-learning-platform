@@ -8,6 +8,11 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.skillspark.onlinelearningplatform.dao.DatabaseConnection;
+import org.skillspark.onlinelearningplatform.dao.UsersDao;
+import org.skillspark.onlinelearningplatform.model.Users;
 
 @WebServlet(name = "LoginServlet", value = "/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -27,8 +32,35 @@ public class LoginServlet extends HttpServlet {
 
         if (authService.authenticate(email, password)) {
             HttpSession session = request.getSession();
-            session.setAttribute("email", email);
-            response.sendRedirect("/pages/UserDashboardPage.jsp");
+            Users user = null;
+            DatabaseConnection dbConnection = null;
+            
+            // set session timmer
+            int timeOut = 60 * 60 * 24;
+            session.setMaxInactiveInterval(timeOut);
+            
+            String role = "";
+            
+            // get info from users and store it in session
+            try {
+                dbConnection = new DatabaseConnection();
+                UsersDao userDao = new UsersDao(dbConnection);
+                user = userDao.getUserInfo(email, password);
+                role = userDao.checkUserRole(user.getId());
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            session.setAttribute("user", user);
+
+            if (role.equals("Tutor")) {
+                //tutor
+                response.sendRedirect("/TutorMainPageServlet?route=index&tutor_id="+user.getId());
+            } else if(role.equals("Student")) {
+                //students
+                  response.sendRedirect("/StudentMainPageServlet?route=index");
+            }
+            
         } else {
             request.setAttribute("errorMessage", "Invalid username or password");
             request.getRequestDispatcher("/pages/LoginPage.jsp").forward(request, response);

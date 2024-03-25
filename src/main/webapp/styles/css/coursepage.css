@@ -1,0 +1,122 @@
+.body-course-bg {
+    background-color: #FEF1E5;
+}
+
+.course-details-container {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    width: 100%;
+    height: auto;
+    background-color: #D9AFD9;
+    background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
+    padding: 70px 150px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+.enroll-btn {
+    display: block;
+    padding: 10px;
+    border: 1px solid black;
+    width: 50%;
+    height: auto;
+    text-align: center;
+    justify-content: center;
+    color: #000000;
+    transition: 0.3s !important;
+}
+
+.enroll-btn:hover {
+    color: #FFFFFF;
+    background-color: #161315;
+    background-image: linear-gradient(225deg, #161315 0%, #4a2769 50%, #0b334e 100%);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+.course-title-box {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 50%;
+}
+
+.skill-duration-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    background-color: #8EC5FC;
+    background-image: linear-gradient(0deg, #8EC5FC 0%, #E0C3FC 100%);
+    padding: 60px 100px;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+
+.course-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.syllabus-title {
+    display: block;
+    font-size: 60px;
+    border: 1px solid #DEE2E6;
+    border-radius: 5px;
+    width: 100%;
+    height: auto;
+    padding: 30px 40px;
+    background-color: #161315;
+    background-image: linear-gradient(225deg, #857881 0%, #310b4f 50%, #021621 100%);
+
+}
+.syllabus-container {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 60px 100px;
+}
+
+.chapter-desciption-box {
+    display: block;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.icon {
+    margin: auto;
+    padding: 10px;
+}
+
+.accordian-space,
+.accordion-item-space {
+    padding: 20px 0px;
+}
+
+.accordion-header-space,
+.accordion-item-space {
+    color: #eaeaea;
+    background-color: #161315;
+    background-image: linear-gradient(225deg, #857881 0%, #4a2769 50%, #0b334e 100%);
+    padding: 10px;
+}
+
+.accordion-header-space:not(.collapsed) {
+    color: #eaeaea;
+}
+
+.video-attachment-box {
+    justify-content: start;
+    padding: 10px 0px;
+    font-size: 16px;
+}
+
+.student-course-details {
+    padding: 70px 40px !important;
+}
+
+.syllabus-container-video {
+    padding: 60px 20px !important;
+}
+

@@ -19,7 +19,13 @@
                             <a class="nav-link" href="/pages/CatalogPage.jsp">Catalog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/pages/ResourcesPage.jsp">Resources</a>
+                            <a class="nav-link disabled" href="/pages/ResourcesPage.jsp">Resources</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">Community</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">Pricing</a>
                         </li>
                     </ul>
                     <form class="d-flex pe-2 login-btn" role="search">

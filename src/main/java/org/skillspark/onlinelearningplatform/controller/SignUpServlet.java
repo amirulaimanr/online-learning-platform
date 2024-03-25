@@ -15,6 +15,7 @@ public class SignUpServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String name = request.getParameter("name");
         int roleId = Integer.parseInt(request.getParameter("roleId"));
 
         try {
@@ -22,7 +23,7 @@ public class SignUpServlet extends HttpServlet {
             UsersDao usersDao = new UsersDao(dbConnection);
 
             if (!usersDao.exists(email)) {
-                usersDao.addUser(email, password, roleId);
+                usersDao.addUser(email, password, roleId, name);
                 response.sendRedirect("/pages/LoginPage.jsp");
             } else {
                 request.setAttribute("errorMessage", "Email already exists");

@@ -37,3 +37,9 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+src/main/webapp/video
+
+database.properties
+/resources/database.properties
+src/main/resources/database.properties
