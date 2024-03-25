@@ -6,7 +6,7 @@
     <body>
         <nav class="navbar navbar-expand-lg bg-body-tertiary topbar">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/" >
+                <a class="navbar-brand" href="#" >
                     <img src="/styles/img/logo/skillspark_logo.png" class="img-fluid" height="120" width="140">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
