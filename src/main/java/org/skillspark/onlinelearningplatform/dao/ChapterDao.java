@@ -79,8 +79,6 @@ public class ChapterDao {
             String description = resultSet.getString("description");
             int status = resultSet.getInt("status");
             String level = resultSet.getString("level");
-//            String course_name = resultSet.getString("course_name");
-
 
             Chapter chapter = new Chapter(id, course_id, title, name, videopath, attachmentpath, description, status, level);
             listChapter.add(chapter);
