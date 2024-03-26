@@ -44,3 +44,4 @@ database.properties
 /resources/database.properties
 src/main/resources/database.properties
 /resource/
+src/main/resources/application.properties
