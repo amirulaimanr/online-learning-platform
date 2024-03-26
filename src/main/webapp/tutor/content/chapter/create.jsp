@@ -65,7 +65,7 @@
                                         <option selected disabled value="">Open this select menu</option>
                                         <option value="Beginner">Beginner</option>
                                         <option value="Intermediate">Intermediate</option>
-                                        <option value="Expert">Expert</option>
+                                        <option value="Advanced">Advanced</option>
                                     </select>
                                 </div>
                                 <div class="col-md-12 mb-3">

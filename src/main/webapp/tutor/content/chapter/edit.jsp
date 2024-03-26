@@ -73,7 +73,7 @@
                                         <option selected disabled value="">Open this select menu</option>
                                         <option value="Beginner" <c:if test="${chapter.level.equals('Beginner')}">selected</c:if> >Beginner</option>
                                         <option value="Intermediate" <c:if test="${chapter.level.equals('Intermediate')}">selected</c:if> >Intermediate</option>
-                                        <option value="Expert" <c:if test="${chapter.level.equals('Expert')}">selected</c:if> >Expert</option>
+                                        <option value="Advanced" <c:if test="${chapter.level.equals('Advanced')}">selected</c:if> >Advanced</option>
                                     </select>
                                 </div>
                                 <div class="col-md-12 mb-3">
