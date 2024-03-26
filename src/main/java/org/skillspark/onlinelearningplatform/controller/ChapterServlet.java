@@ -194,7 +194,7 @@ public class ChapterServlet extends HttpServlet {
         
         chapterDao.delete(chapter);
         request.getSession().setAttribute("success", "Chapter succesffully deleted");
-         response.sendRedirect("/ChapterServlet?route=index&id="+course_id+"&name="+course_name);
+        response.sendRedirect("/ChapterServlet?route=index&id="+course_id+"&name="+course_name);
     }
     
     private String fileUpload(Part videopath,int course_id,int chapter_id) throws SQLException ,ServletException, IOException {
