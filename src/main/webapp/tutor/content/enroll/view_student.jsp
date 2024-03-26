@@ -45,7 +45,7 @@
                                     <td><c:out value="${student.student_name}" /></td>
                                     <td><c:out value="${student.date_enroll}" /></td>
                                     <td class="d-flex">
-                                        <form action="/TutorEnrollServlet?route=delete&id=<c:out value='${student.course_id}' />&student_id=<c:out value='${student.student_id}' />" method="post" id="delete-item-form-<c:out value='${count}' />"  >
+                                        <form action="/TutorEnrollServlet?route=delete&id=<c:out value='${student.course_id}' />&student_id=<c:out value='${student.student_id}' />&course_name=${course_name} " method="post" id="delete-item-form-<c:out value='${count}' />"  >
                                             <button class="btn btn-sm btn-danger" type="button" onclick="deleteItem(<c:out value='${count}' />)" id="delete-btn-<c:out value='${count}' />" ><i class="fa-solid fa-trash"></i> Delete</button>
                                         </form>  
                                     </td>
@@ -53,6 +53,9 @@
                             </c:forEach>
                         </tbody>
                     </table>
+                </div>
+                <div class="col-md-12 mt-2 mb-2 text-end">
+                    <a href="/TutorEnrollServlet?route=index&tutor_id=<%= user_id %>" class="btn btn-danger" ><i class="fa-solid fa-arrow-left"></i> Back</a>
                 </div>
                 <div>
                     <%
