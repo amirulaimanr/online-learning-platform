@@ -18,6 +18,7 @@ import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.logging.Level;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -43,8 +44,25 @@ import org.skillspark.onlinelearningplatform.model.Course;
 @WebServlet(name = "ChapterServlet", value = "/ChapterServlet")
 @MultipartConfig
 public class ChapterServlet extends HttpServlet {
-    String globalPath =  "C:/Users/lolip/OneDrive/Documents/NetBeansProjects/OnlineLearningSystem/src/main/webapp/video/";
-             
+    private String globalPath;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        loadProperties();
+    }
+
+    private void loadProperties() {
+        try {
+            Properties properties = new Properties();
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("application.properties");
+            properties.load(inputStream);
+            globalPath = properties.getProperty("globalPath");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String route = request.getParameter("route");
