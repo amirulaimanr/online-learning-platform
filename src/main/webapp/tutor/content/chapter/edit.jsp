@@ -48,10 +48,10 @@
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <label for="formFile" class="form-label">Chapter Video</label>
-                                    <input class="form-control" type="file" id="videopath" name="videoPath" />
+                                    <input class="form-control" type="file" id="videopath" name="videopath" />
                                 </div>
                                 <div class="col-md-12 mb-3 text-center">
-                                    <video controls>
+                                    <video controls style="width: 520px">
                                         <source src="${chapter.videopath}" type="video/mp4">
                                     </video>
                                 </div>

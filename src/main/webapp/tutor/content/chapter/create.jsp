@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <label for="formFile" class="form-label">Chapter Video</label>
-                                    <input class="form-control" type="file" id="videopath" name="videoPath" accept="video/*" required/>
+                                    <input class="form-control" type="file" id="videopath" name="videopath" accept="video/*" required/>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                   
