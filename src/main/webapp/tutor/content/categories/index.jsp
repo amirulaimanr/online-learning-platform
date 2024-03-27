@@ -12,7 +12,7 @@
     </head>
     <body>
         <div class="topbar-sticky">
-          <%@ include file="/components/TopBarLoggedIn.jsp" %>
+            <%@ include file="/components/TopBarLoggedIn.jsp" %>
         </div>
         <div class="catalog-container">
             <div class="vertical-nav" id="sidebar">
@@ -21,10 +21,10 @@
             <div class="flex-column explore-catalog p-5 align-items-start" id="content">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="#">Home</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">Category</li>
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Category</li>
                     </ol>
-                 </nav>
+                </nav>
                 <div class="col-md-12 text-end">
                     <a href="/CategoryServlet?route=create" class="btn btn-success"><i class="fa-solid fa-plus"></i> Add Category</a>
                 </div>
@@ -33,7 +33,7 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col" width="2%">#</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Description</th>
                                 <th scope="col" width="10%">Action</th>
@@ -58,6 +58,17 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="col-md-12 mt-2 mb-2 d-flex justify-content-end">
+                        <nav  aria-label="Page navigation">
+                            <ul class="pagination">
+                                <c:forEach var="i" begin="1" end="${totalPages}">
+                                    <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                        <a class="page-link" href="/CategoryServlet?route=index&page=${i}">${i}</a>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </nav>
+                </div>
                 <%@ include file="/components/notification.jsp" %>
             </div>
         </div>
@@ -67,18 +78,19 @@
     function deleteItem(index)
     {
         Swal.fire({
-            title: 'Are you sure?',
-            text: "This action cannot be revert!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes,Delete!'
-            }).then((result) => {
-            if (result.isConfirmed) {
-                $('#delete-item-form-'+index).submit();
+        title: 'Are you sure?',
+                text: "This action cannot be revert!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes,Delete!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            $('#delete-item-form-' + index).submit();
             }
-        });
+        }
+        );
     }
 </script>
 

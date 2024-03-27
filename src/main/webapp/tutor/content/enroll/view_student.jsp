@@ -54,6 +54,17 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="col-md-12 mt-2 mb-2 d-flex justify-content-end">
+                    <nav  aria-label="Page navigation">
+                        <ul class="pagination">
+                            <c:forEach var="i" begin="1" end="${totalPages}">
+                                <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                    <a class="page-link" href="/TutorEnrollServlet?route=view&id=${course_id}&course_name=${course_name}&page=${i}">${i}</a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </nav>
+                </div>
                 <div class="col-md-12 mt-2 mb-2 text-end">
                     <a href="/TutorEnrollServlet?route=index&tutor_id=<%= user_id %>" class="btn btn-danger" ><i class="fa-solid fa-arrow-left"></i> Back</a>
                 </div>

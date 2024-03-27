@@ -35,6 +35,7 @@ import org.skillspark.onlinelearningplatform.dao.DatabaseConnection;
 import org.skillspark.onlinelearningplatform.model.Category;
 import org.skillspark.onlinelearningplatform.model.Chapter;
 import org.skillspark.onlinelearningplatform.model.Course;
+import org.skillspark.onlinelearningplatform.util.Pagination;
 
 @WebServlet(name = "ChapterServlet", value = "/ChapterServlet")
 @MultipartConfig
@@ -100,11 +101,26 @@ public class ChapterServlet extends HttpServlet {
 
         DatabaseConnection dbConnection = new DatabaseConnection();
         ChapterDao chapterDao = new ChapterDao(dbConnection);
+        Pagination paginate = new Pagination();
 
         List<Chapter> listChapter = chapterDao.listAll(id);
-        request.setAttribute("listChapter", listChapter);
+        
+        int page = 1; 
+        int recordsPerPage = 5; 
+        int totalRecords = paginate.getTotalRecordsChapter(listChapter);
+        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
+
+        if (request.getParameter("page") != null) {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+        
+        List<Chapter> paginateChap = paginate.chapterPaginate(listChapter, (page - 1) * recordsPerPage, recordsPerPage);
+        
+        request.setAttribute("listChapter", paginateChap);
         request.setAttribute("course_name", course_name);
         request.setAttribute("course_id", id);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("currentPage", page);
 
         dispatcher.forward(request, response);
     }

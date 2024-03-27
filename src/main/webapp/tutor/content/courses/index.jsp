@@ -13,7 +13,7 @@
     </head>
     <body>
         <div class="topbar-sticky">
-             <%@ include file="/components/TopBarLoggedIn.jsp" %>
+            <%@ include file="/components/TopBarLoggedIn.jsp" %>
         </div>
         <div class="catalog-container">
             <div class="vertical-nav" id="sidebar">
@@ -22,8 +22,8 @@
             <div class="flex-column explore-catalog p-5 align-items-start" id="content">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="#">Home</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">Course</li>
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Course</li>
                     </ol>
                 </nav>
                 <div class="col-md-12 text-end">
@@ -57,8 +57,8 @@
                                     <td><c:out value="${course.difficulties}" /></td>
                                     <td class="d-flex">
                                         <a href="/CourseServlet?route=edit&id=<c:out value='${course.id}' />" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                        <a href="/ChapterServlet?route=index&id=<c:out value='${course.id}' />&name=<c:out value='${course.name}' />" " class="btn btn-sm btn-success me-2"><i class="fa-solid fa-list"></i> Chapter</a>
-                                        <form action="/CourseServlet?route=delete&id=<c:out value='${course.id}' />&tutor_id=<%= user_id %>" method="post" id="delete-item-form-<c:out value='${count}' />"  >
+                                        <a href="/ChapterServlet?route=index&id=<c:out value='${course.id}' />&name=<c:out value='${course.name}' />"  class="btn btn-sm btn-success me-2"><i class="fa-solid fa-list"></i> Chapter</a>
+                                        <form action="/CourseServlet?route=delete&id=<c:out value='${course.id}' />&tutor_id=<%= user_id%>" method="post" id="delete-item-form-<c:out value='${count}' />"  >
                                             <button class="btn btn-sm btn-danger" type="button" onclick="deleteItem(<c:out value='${count}' />)" id="delete-btn-<c:out value='${count}' />" ><i class="fa-solid fa-trash"></i> Delete</button>
                                         </form>
                                     </td>
@@ -67,7 +67,18 @@
                         </tbody>
                     </table>
                 </div>
-                    <%@ include file="/components/notification.jsp" %>
+                <div class="col-md-12 mt-2 mb-2 d-flex justify-content-end">
+                    <nav  aria-label="Page navigation">
+                        <ul class="pagination">
+                            <c:forEach var="i" begin="1" end="${totalPages}">
+                                <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                    <a class="page-link" href="/CourseServlet?route=index&tutor_id=<%= user_id %>&page=${i}">${i}</a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </nav>
+                </div>
+                <%@ include file="/components/notification.jsp" %>
             </div>
         </div>
     </body>
@@ -76,14 +87,14 @@
     function deleteItem(index)
     {
         Swal.fire({
-        title: 'Are you sure?',
-                text: "This action cannot be revert!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes,Delete!'
-        }).then((result) => {
+            title: 'Are you sure?',
+                    text: "This action cannot be revert!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes,Delete!'
+            }).then((result) => {
             if (result.isConfirmed) {
                 $('#delete-item-form-' + index).submit();
             }

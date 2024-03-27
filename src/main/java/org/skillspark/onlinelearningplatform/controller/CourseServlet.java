@@ -23,6 +23,7 @@ import org.skillspark.onlinelearningplatform.dao.DatabaseConnection;
 import org.skillspark.onlinelearningplatform.model.Category;
 import org.skillspark.onlinelearningplatform.model.Course;
 import org.skillspark.onlinelearningplatform.model.Users;
+import org.skillspark.onlinelearningplatform.util.Pagination;
 
 /**
  *
@@ -30,6 +31,7 @@ import org.skillspark.onlinelearningplatform.model.Users;
  */
 @WebServlet(name = "CourseServlet", value = "/CourseServlet")
 public class CourseServlet extends HttpServlet {
+    private Object paginate;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -71,9 +73,24 @@ public class CourseServlet extends HttpServlet {
 
         DatabaseConnection dbConnection = new DatabaseConnection();
         CourseDao courseDao = new CourseDao(dbConnection);
+        Pagination paginate = new Pagination();
 
         List<Course> listCourse = courseDao.listAll(id);
-        request.setAttribute("listCourse", listCourse);
+        
+        int page = 1; 
+        int recordsPerPage = 5; 
+        int totalRecords = paginate.getTotalRecordsCourse(listCourse);
+        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
+
+        if (request.getParameter("page") != null) {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+        
+        List<Course> paginateCor = paginate.coursePaginate(listCourse, (page - 1) * recordsPerPage, recordsPerPage);
+   
+        request.setAttribute("listCourse", paginateCor);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("currentPage", page);
 
         dispatcher.forward(request, response);
     }
