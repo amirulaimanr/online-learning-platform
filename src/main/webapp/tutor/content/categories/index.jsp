@@ -58,22 +58,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div>
-                    <%
-                        if (session.getAttribute("success") != null) {
-                    %>
-                    <script>
-                        Swal.fire({
-                            title: "Success!",
-                            text: "  <%= session.getAttribute("success") %>",
-                            icon: "success"
-                        });
-                    </script>
-                    <%
-                        }
-                        session.removeAttribute("success");
-                    %>
-                </div>
+                <%@ include file="/components/notification.jsp" %>
             </div>
         </div>
     </body>

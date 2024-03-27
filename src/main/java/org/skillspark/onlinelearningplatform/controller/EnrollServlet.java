@@ -32,18 +32,18 @@ import org.skillspark.onlinelearningplatform.model.Course;
 @WebServlet(name = "EnrollServlet", value = "/EnrollServlet")
 public class EnrollServlet extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String route = request.getParameter("route");
         try {
             switch (route) {
                 case "store":
-                    storeEnroll(request,response);
+                    storeEnroll(request, response);
                     break;
                 case "view":
-                    viewCouresContent(request,response);
+                    viewCouresContent(request, response);
                     break;
                 case "delete":
-                    deleteEnroll(request,response);
+                    deleteEnroll(request, response);
                     break;
                 default:
                     viewEnrollCourse(request, response);
@@ -54,90 +54,96 @@ public class EnrollServlet extends HttpServlet {
         };
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 
-    private void storeEnroll(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException {
+    private void storeEnroll(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int student_id = Integer.parseInt(request.getParameter("student_id"));
         int course_id = Integer.parseInt(request.getParameter("course_id"));
-        
-         try {
+
+        try {
             DatabaseConnection dbConnection = new DatabaseConnection();
             HttpSession session = request.getSession();
 
             EnrollDao enrollDao = new EnrollDao(dbConnection);
             UsersDao userDao = new UsersDao(dbConnection);
-            
+
             String role = userDao.checkUserRole(student_id);
-           
-             
-            if(role.equals("Student")){
-                boolean isEnroll = enrollDao.checkEnrollStudent(student_id,course_id);
-                
-                if(isEnroll == true){
+
+            if (role.equals("Student")) {
+                boolean isEnroll = enrollDao.checkEnrollStudent(student_id, course_id);
+
+                if (isEnroll == true) {
                     response.sendRedirect("/StudentMainPageServlet?route=index");
-                }else{
+                } else {
                     enrollDao.store(student_id, course_id);
-            
+
                     request.getSession().setAttribute("success", "Course successfully enrolled");
-                    response.sendRedirect("/EnrollServlet?route=index&student_id="+student_id);
+                    response.sendRedirect("/EnrollServlet?route=index&student_id=" + student_id);
                 }
-            }else{
-               response.sendRedirect("/TutorMainPageServlet?route=index&tutor_id="+student_id);
+            } else {
+                response.sendRedirect("/TutorMainPageServlet?route=index&tutor_id=" + student_id);
             }
-           
+
         } catch (SQLException e) {
             e.printStackTrace();
             response.sendRedirect("error.jsp");
         }
-        
+
     }
 
-    private void viewEnrollCourse(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException  {
+    private void viewEnrollCourse(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int student_id = Integer.parseInt(request.getParameter("student_id"));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/student/content/enroll/index.jsp");
 
         DatabaseConnection dbConnection = new DatabaseConnection();
         EnrollDao enrollDao = new EnrollDao(dbConnection);
-            
+
         List<Course> listCourse = enrollDao.listAll(student_id);
-        request.setAttribute("listCourse",listCourse);
-        
-        dispatcher.forward(request,response);
+        request.setAttribute("listCourse", listCourse);
+
+        dispatcher.forward(request, response);
     }
-    
-     private void viewCouresContent(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException {
+
+    private void viewCouresContent(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         int student_id = Integer.parseInt(request.getParameter("student_id"));
-        
+
         DatabaseConnection dbConnection = new DatabaseConnection();
         CourseDao courseDao = new CourseDao(dbConnection);
         ChapterDao chapterDao = new ChapterDao(dbConnection);
         EnrollDao enrollDao = new EnrollDao(dbConnection);
-        
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("/student/content/enroll/view.jsp");
-    
+
         Course course = courseDao.getInfo(id);
-        request.setAttribute("course",course);
-        
+        request.setAttribute("course", course);
+
         List<Chapter> listChapter = chapterDao.listAll(id);
-        request.setAttribute("listChapter",listChapter);
-        
-        boolean isEnroll = enrollDao.checkEnrollStudent(student_id,id);
-        request.setAttribute("isEnroll",isEnroll);
-     
-        dispatcher.forward(request,response);
+        request.setAttribute("listChapter", listChapter);
+
+        boolean isEnroll = enrollDao.checkEnrollStudent(student_id, id);
+        request.setAttribute("isEnroll", isEnroll);
+
+        dispatcher.forward(request, response);
     }
 
-    private void deleteEnroll(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException  {
+    private void deleteEnroll(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int course_id = Integer.parseInt(request.getParameter("id"));
         int student_id = Integer.parseInt(request.getParameter("student_id"));
-        
+
         DatabaseConnection dbConnection = new DatabaseConnection();
         EnrollDao enrollDao = new EnrollDao(dbConnection);
-        enrollDao.delete(student_id, course_id);
-        request.getSession().setAttribute("success", "Enrolled course succesffully deleted");
-        response.sendRedirect("/EnrollServlet?route=index&student_id="+student_id);
+
+        try {
+            enrollDao.delete(student_id, course_id);
+            request.getSession().setAttribute("success", "Enrolled course successfully deleted");
+            response.sendRedirect("/EnrollServlet?route=index&student_id=" + student_id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            request.getSession().setAttribute("failed", "Enrolled course failed deleted");
+            response.sendRedirect("/EnrollServlet?route=index&student_id=" + student_id);
+        }
     }
 }

@@ -57,21 +57,7 @@
                 <div class="col-md-12 mt-2 mb-2 text-end">
                     <a href="/TutorEnrollServlet?route=index&tutor_id=<%= user_id %>" class="btn btn-danger" ><i class="fa-solid fa-arrow-left"></i> Back</a>
                 </div>
-                <div>
-                    <%
-                        if (session.getAttribute("success") != null) {
-                    %>
-                    <script>
-                                Swal.fire({
-                                title: "Success!",
-                                        text: "  <%= session.getAttribute("success")%>",
-                                        icon: "success"
-                                });                    </script>
-                    <%
-                        }
-                        session.removeAttribute("success");
-                    %>
-                </div>
+                    <%@ include file="/components/notification.jsp" %>
             </div>
         </div>
     </body>

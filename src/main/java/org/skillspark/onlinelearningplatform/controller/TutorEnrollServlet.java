@@ -81,7 +81,7 @@ public class TutorEnrollServlet extends HttpServlet {
         List<Enroll> listEnroll = enrollDao.listStudentByCourse(id);
         request.setAttribute("listStudent", listEnroll);
         request.setAttribute("course_name", course_name);
-          
+
         dispatcher.forward(request, response);
     }
 
@@ -89,13 +89,20 @@ public class TutorEnrollServlet extends HttpServlet {
         int course_id = Integer.parseInt(request.getParameter("id"));
         int student_id = Integer.parseInt(request.getParameter("student_id"));
         String course_name = request.getParameter("course_name");
-        
+
         DatabaseConnection dbConnection = new DatabaseConnection();
         EnrollDao enrollDao = new EnrollDao(dbConnection);
-        enrollDao.delete(student_id, course_id);
 
-        request.getSession().setAttribute("success", "Enrolled student succesffully deleted");
-        response.sendRedirect("/TutorEnrollServlet?route=view&id="+course_id+"&course_name="+course_name);
+        try {
+            enrollDao.delete(student_id, course_id);
+
+            request.getSession().setAttribute("success", "Enrolled student successfully deleted");
+            response.sendRedirect("/TutorEnrollServlet?route=view&id=" + course_id + "&course_name=" + course_name);
+        } catch (SQLException e) {
+            e.printStackTrace();
+             request.getSession().setAttribute("failed", "Enrolled student failed deleted");
+            response.sendRedirect("/TutorEnrollServlet?route=view&id=" + course_id + "&course_name=" + course_name);
+        }
     }
 
 }
