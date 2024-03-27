@@ -36,10 +36,6 @@ import org.skillspark.onlinelearningplatform.model.Category;
 import org.skillspark.onlinelearningplatform.model.Chapter;
 import org.skillspark.onlinelearningplatform.model.Course;
 
-/**
- *
- * @author lolip
- */
 @WebServlet(name = "ChapterServlet", value = "/ChapterServlet")
 @MultipartConfig
 public class ChapterServlet extends HttpServlet {
@@ -135,6 +131,7 @@ public class ChapterServlet extends HttpServlet {
 
         try {
             DatabaseConnection dbConnection = new DatabaseConnection();
+
             HttpSession session = request.getSession();
 
             Part videopath = request.getPart("videoPath");
@@ -146,6 +143,7 @@ public class ChapterServlet extends HttpServlet {
             chapterDao.updateVideoPath(chapter_id, path);
 
             request.getSession().setAttribute("success", "Category successfully added");
+
             response.sendRedirect("/ChapterServlet?route=index&id=" + course_id + "&name=" + course_name);
 
         } catch (SQLException e) {
@@ -255,7 +253,6 @@ public class ChapterServlet extends HttpServlet {
     }
 
     private String getFileName(final Part part) {
-        final String partHeader = part.getHeader("content-disposition");
 
         for (String content : part.getHeader("content-disposition").split(";")) {
             if (content.trim().startsWith("filename")) {
@@ -264,8 +261,10 @@ public class ChapterServlet extends HttpServlet {
         }
         return null;
     }
+    
+    private void deleteVideo(String filePath)
+    {
 
-    private void deleteVideo(String filePath) {
         File file = new File(filePath);
         try {
             if (file.exists()) {
