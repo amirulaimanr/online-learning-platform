@@ -37,10 +37,6 @@ import org.skillspark.onlinelearningplatform.model.Category;
 import org.skillspark.onlinelearningplatform.model.Chapter;
 import org.skillspark.onlinelearningplatform.model.Course;
 
-/**
- *
- * @author lolip
- */
 @WebServlet(name = "ChapterServlet", value = "/ChapterServlet")
 @MultipartConfig
 public class ChapterServlet extends HttpServlet {
@@ -123,30 +119,30 @@ public class ChapterServlet extends HttpServlet {
         dispatcher.forward(request,response);
     }
 
-    private void storeChapter(HttpServletRequest request, HttpServletResponse response) throws SQLException ,ServletException, IOException {
+    private void storeChapter(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int course_id = Integer.parseInt(request.getParameter("course_id"));
         String course_name = request.getParameter("course_name");
         String chapter_title = request.getParameter("chapter_title");
         String chapter_name = request.getParameter("chapter_name");
-      
         int chapter_status = Integer.parseInt(request.getParameter("chapter_status"));
         String chapter_level = request.getParameter("chapter_level");
         String chapter_description = request.getParameter("chapter_description");
-        
-         try {
+
+        try {
             DatabaseConnection dbConnection = new DatabaseConnection();
+
             HttpSession session = request.getSession();
-            
+
             Part videopath = request.getPart("videoPath");
 
             ChapterDao chapterDao = new ChapterDao(dbConnection);
             int chapter_id = chapterDao.store(course_id, chapter_title, chapter_name, null, null, chapter_description, chapter_status, chapter_level);
-            
-            String path = fileUpload(videopath,course_id,chapter_id);
-            chapterDao.updateVideoPath(chapter_id,path);
-            
-            request.getSession().setAttribute("success", "Category succesffully added");
-            response.sendRedirect("/ChapterServlet?route=index&id="+course_id+"&name="+course_name);
+
+            String path = fileUpload(videopath, course_id, chapter_id);
+            chapterDao.updateVideoPath(chapter_id, path);
+
+            session.setAttribute("success", "Chapter successfully added");
+            response.sendRedirect("/ChapterServlet?route=index&id=" + course_id + "&name=" + course_name);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -186,7 +182,7 @@ public class ChapterServlet extends HttpServlet {
         ChapterDao chapterDao = new ChapterDao(dbConnection);
         
         chapterDao.update(chapter);
-        
+
         Part videopath = request.getPart("videoPath");
         
         if(videopath.getSize()>0){
@@ -214,53 +210,37 @@ public class ChapterServlet extends HttpServlet {
         request.getSession().setAttribute("success", "Chapter succesffully deleted");
          response.sendRedirect("/ChapterServlet?route=index&id="+course_id+"&name="+course_name);
     }
-    
-    private String fileUpload(Part videopath,int course_id,int chapter_id) throws SQLException ,ServletException, IOException {
-        String path =  globalPath;
-        String system_path = "/video/";
-        String fileName = chapter_id+"_"+getFileName(videopath);
 
-        OutputStream otpStream = null;  
-        InputStream iptStream = null;  
-        
-        Files.createDirectories(Paths.get(path));
-          
-        try {  
-            otpStream = new FileOutputStream(new File(path + File.separator + fileName));  
-            iptStream = videopath.getInputStream();
-  
-            int read = 0;  
-            final byte[] bytes = new byte[1024];  
-              
-            while ((read = iptStream.read(bytes)) != -1) {  
-                otpStream.write(bytes, 0, read);  
-            }  
-        }  
-        
-        catch (FileNotFoundException fne){  
-            System.err.println("Error file: " + fne.getMessage());
-        }  
-        finally {  
-            if (otpStream != null) {  
-                otpStream.close();  
-            }  
-            if (iptStream != null) {  
-                iptStream.close();  
-            }  
-        }  
-        return system_path + fileName;
+    private String fileUpload(Part videopath, int course_id, int chapter_id) throws IOException, ServletException {
+        String path = getServletContext().getRealPath("/video/");
+        String fileName = chapter_id + "_" + getFileName(videopath);
+
+        try (OutputStream otpStream = new FileOutputStream(new File(path, fileName));
+             InputStream iptStream = videopath.getInputStream()) {
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+
+            while ((bytesRead = iptStream.read(buffer)) != -1) {
+                otpStream.write(buffer, 0, bytesRead);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw new ServletException("File upload failed: " + e.getMessage());
+        }
+
+        return "/video/" + fileName;
     }
-    
-    private String getFileName(final Part part) {  
-        final String partHeader = part.getHeader("content-disposition");  
 
-        for (String content : part.getHeader("content-disposition").split(";")) {  
-            if (content.trim().startsWith("filename")) {  
-                return content.substring(content.indexOf('=') + 1).trim().replace("\"", "");  
-            }  
-        }  
-        return null;  
-    }  
+
+    private String getFileName(final Part part) {
+        for (String content : part.getHeader("content-disposition").split(";")) {
+            if (content.trim().startsWith("filename")) {
+                return content.substring(content.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return null;
+    }
     
     private void deleteVideo(String filePath)
     {

@@ -85,7 +85,7 @@
                                         </div>
                                         <div class="card-body">
                                             <video width="100%" height="500" controls>
-                                                <source src="${chapter.videopath}" type="video/mp4">
+                                                <source src="${chapter.videopath}?${System.currentTimeMillis()}" type="video/mp4">
                                             </video>
                                             <div class="ui-bordered">
                                                 <div class="p-4">
