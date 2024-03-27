@@ -14,7 +14,12 @@
             <%@ include file="/components/TopBarLoggedIn.jsp" %>
         </div>
         <div class="catalog-container">
+                <% String category = request.getParameter("category"); %>
+            <% if (category != null) { %>
+            <%@ include file="/student/components/CategoryCatalog.jsp" %>
+            <% } else { %>
             <%@ include file="/student/ExploreAllCatalog.jsp" %>
+            <% } %>
         </div>
     </body>
 </html>
