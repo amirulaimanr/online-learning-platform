@@ -93,7 +93,7 @@ public class CategoryServlet extends HttpServlet {
 
             CategoryDao catDao = new CategoryDao(dbConnection);
             catDao.store(cat_name, cat_description);
-            request.getSession().setAttribute("success", "Category succesffully added");
+            request.getSession().setAttribute("success", "Category successfully added");
             response.sendRedirect("/CategoryServlet?route=index");
 
         } catch (SQLException e) {
@@ -123,7 +123,7 @@ public class CategoryServlet extends HttpServlet {
         CategoryDao catDao = new CategoryDao(dbConnection);
         
         catDao.update(cat);
-        request.getSession().setAttribute("success", "Category succesffully updated");
+        request.getSession().setAttribute("success", "Category successfully updated");
         response.sendRedirect("/CategoryServlet?route=index");
     }
 
@@ -135,7 +135,7 @@ public class CategoryServlet extends HttpServlet {
         Category cat = new Category(id);
         
         catDao.delete(cat);
-        request.getSession().setAttribute("success", "Category succesffully deleted");
+        request.getSession().setAttribute("success", "Category successfully deleted");
         response.sendRedirect("/CategoryServlet?route=index");
     }
     

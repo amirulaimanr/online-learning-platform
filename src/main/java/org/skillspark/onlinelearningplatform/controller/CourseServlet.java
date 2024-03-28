@@ -105,7 +105,7 @@ public class CourseServlet extends HttpServlet {
 
             CourseDao courseDao = new CourseDao(dbConnection);
             courseDao.store(course_name, course_category, course_duration, course_difficulties, course_status, course_description,tutor_id);
-            request.getSession().setAttribute("success", "Category succesffully added");
+            request.getSession().setAttribute("success", "Category successfully added");
             response.sendRedirect("/CourseServlet?route=index&tutor_id="+tutor_id);
 
         } catch (SQLException e) {
@@ -147,7 +147,7 @@ public class CourseServlet extends HttpServlet {
         CourseDao courseDao = new CourseDao(dbConnection);
         
         courseDao.update(course);
-        request.getSession().setAttribute("success", "Course succesffully updated");
+        request.getSession().setAttribute("success", "Course successfully updated");
         response.sendRedirect("/CourseServlet?route=index&tutor_id="+tutor_id);
     }
 
@@ -161,7 +161,7 @@ public class CourseServlet extends HttpServlet {
         Course course = new Course(id);
         
         courseDao.delete(course);
-        request.getSession().setAttribute("success", "Course succesffully deleted");
+        request.getSession().setAttribute("success", "Course successfully deleted");
         response.sendRedirect("/CourseServlet?route=index&tutor_id="+tutor_id);
     }
 }

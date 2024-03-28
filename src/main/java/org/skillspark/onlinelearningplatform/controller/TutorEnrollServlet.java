@@ -94,7 +94,7 @@ public class TutorEnrollServlet extends HttpServlet {
         EnrollDao enrollDao = new EnrollDao(dbConnection);
         enrollDao.delete(student_id, course_id);
 
-        request.getSession().setAttribute("success", "Enrolled student succesffully deleted");
+        request.getSession().setAttribute("success", "Enrolled student successfully deleted");
         response.sendRedirect("/TutorEnrollServlet?route=view&id="+course_id+"&course_name="+course_name);
     }
 

@@ -137,7 +137,7 @@ public class EnrollServlet extends HttpServlet {
         DatabaseConnection dbConnection = new DatabaseConnection();
         EnrollDao enrollDao = new EnrollDao(dbConnection);
         enrollDao.delete(student_id, course_id);
-        request.getSession().setAttribute("success", "Enrolled course succesffully deleted");
+        request.getSession().setAttribute("success", "Enrolled course successfully deleted");
         response.sendRedirect("/EnrollServlet?route=index&student_id="+student_id);
     }
 }
