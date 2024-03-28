@@ -15,8 +15,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.skillspark.onlinelearningplatform.model.Chapter;
-import org.skillspark.onlinelearningplatform.model.Chapters;
-import org.skillspark.onlinelearningplatform.model.Course;
 
 /**
  * @author lolip
@@ -151,8 +149,8 @@ public class ChapterDao {
     }
 
     /*amirul method*/
-    public List<Chapters> getChaptersByCourseId(int courseId) throws SQLException {
-        List<Chapters> chapters = new ArrayList<>();
+    public List<Chapter> getChaptersByCourseId(int courseId) throws SQLException {
+        List<Chapter> chapters = new ArrayList<>();
         String sql = "SELECT * FROM chapters WHERE course_id = ? ORDER BY id";
 
         PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
@@ -160,7 +158,7 @@ public class ChapterDao {
         ResultSet resultSet = statement.executeQuery();
 
         while (resultSet.next()) {
-            Chapters chapter = new Chapters();
+            Chapter chapter = new Chapter();
             chapter.setId(resultSet.getInt("id"));
             chapter.setCourse_id(resultSet.getInt("course_id"));
             chapter.setTitle(resultSet.getString("title"));
