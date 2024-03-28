@@ -158,13 +158,14 @@ public class ChapterServlet extends HttpServlet {
             String path = fileUpload(videopath, course_id, chapter_id);
             chapterDao.updateVideoPath(chapter_id, path);
 
-            request.getSession().setAttribute("success", "Category successfully added");
-
+            request.getSession().setAttribute("success", "Chapter successfully added");
             response.sendRedirect("/ChapterServlet?route=index&id=" + course_id + "&name=" + course_name);
 
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("error.jsp");
+            request.getSession().setAttribute("failed", "Chapter fail to store. Error :"+e);
+            response.sendRedirect("/ChapterServlet?route=index&id=" + course_id + "&name=" + course_name);
+            
         }
     }
 
@@ -199,19 +200,25 @@ public class ChapterServlet extends HttpServlet {
         DatabaseConnection dbConnection = new DatabaseConnection();
         ChapterDao chapterDao = new ChapterDao(dbConnection);
 
-        chapterDao.update(chapter);
+        try {
+            chapterDao.update(chapter);
 
-        Part videopath = request.getPart("videopath");
+            Part videopath = request.getPart("videopath");
 
-        if (videopath.getSize() > 0) {
-            String filePath = request.getParameter("tempt_video");
-            deleteVideo(globalPath + filePath);
-            String path = fileUpload(videopath, course_id, id);
-            chapterDao.updateVideoPath(id, path);
+            if (videopath.getSize() > 0) {
+                String filePath = request.getParameter("tempt_video");
+                deleteVideo(globalPath + filePath);
+                String path = fileUpload(videopath, course_id, id);
+                chapterDao.updateVideoPath(id, path);
+            }
+
+            request.getSession().setAttribute("success", "Chapter successfully updated");
+            response.sendRedirect("/ChapterServlet?route=index&id=" + course_id + "&name=" + course_name);
+         } catch (SQLException e) {
+            e.printStackTrace();
+            request.getSession().setAttribute("failed", "Chapter failed to update. Error :"+e);
+            response.sendRedirect("/ChapterServlet?route=index&id=" + course_id + "&name=" + course_name);
         }
-
-        request.getSession().setAttribute("success", "Category successfully updated");
-        response.sendRedirect("/ChapterServlet?route=index&id=" + course_id + "&name=" + course_name);
     }
 
     private void deleteChapter(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {

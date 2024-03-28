@@ -111,7 +111,8 @@ public class CategoryServlet extends HttpServlet {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("error.jsp");
+            request.getSession().setAttribute("failed", "Category fail to store. Error :"+e);
+            response.sendRedirect("/CategoryServlet?route=index");
         }
     }
 
@@ -134,10 +135,16 @@ public class CategoryServlet extends HttpServlet {
         Category cat = new Category(cat_id, cat_name, cat_description);
         DatabaseConnection dbConnection = new DatabaseConnection();
         CategoryDao catDao = new CategoryDao(dbConnection);
-
-        catDao.update(cat);
-        request.getSession().setAttribute("success", "Category successfully updated");
-        response.sendRedirect("/CategoryServlet?route=index");
+        
+        try {
+            catDao.update(cat);
+            request.getSession().setAttribute("success", "Category successfully updated");
+            response.sendRedirect("/CategoryServlet?route=index");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            request.getSession().setAttribute("failed", "Category fail to updated. Error :"+e);
+            response.sendRedirect("/CategoryServlet?route=index");
+        }
     }
 
     private void deleteCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {

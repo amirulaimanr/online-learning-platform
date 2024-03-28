@@ -127,7 +127,8 @@ public class CourseServlet extends HttpServlet {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("error.jsp");
+            request.getSession().setAttribute("failed", "Category fail to store. Error "+e);
+            response.sendRedirect("/CourseServlet?route=index&tutor_id=" + tutor_id);
         }
     }
 
@@ -162,10 +163,16 @@ public class CourseServlet extends HttpServlet {
         Course course = new Course(course_id, course_category, tutor_id, course_name, course_duration, course_description, course_status, course_difficulties);
         DatabaseConnection dbConnection = new DatabaseConnection();
         CourseDao courseDao = new CourseDao(dbConnection);
-
-        courseDao.update(course);
-        request.getSession().setAttribute("success", "Course successfully updated");
-        response.sendRedirect("/CourseServlet?route=index&tutor_id=" + tutor_id);
+        
+        try {
+            courseDao.update(course);
+            request.getSession().setAttribute("success", "Course successfully updated");
+            response.sendRedirect("/CourseServlet?route=index&tutor_id=" + tutor_id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            request.getSession().setAttribute("failed", "Course fail to updated. Error "+e);
+            response.sendRedirect("/CourseServlet?route=index&tutor_id=" + tutor_id);
+        }
     }
 
     private void deleteCourse(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
