@@ -62,7 +62,7 @@
                                                 <i class="fa-solid fa-certificate icon" style="font-size: 35px"></i>
                                                 <div class="flex-column">
                                                     <h5 style="font-weight: 600">CERTIFICATE</h5>
-                                                    <h6>Yes</h6>
+                                                    <h6>No</h6>
                                                 </div>
                                             </div>
                                         </div>
