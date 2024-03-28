@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.skillspark.onlinelearningplatform.dao.ChapterDao;
 import org.skillspark.onlinelearningplatform.dao.DatabaseConnection;
 import org.skillspark.onlinelearningplatform.model.Chapter;
-import org.skillspark.onlinelearningplatform.model.Chapters;
 import org.skillspark.onlinelearningplatform.model.Course;
 import org.skillspark.onlinelearningplatform.dao.CourseDao;
 
@@ -31,7 +30,7 @@ public class SelectedCourseServlet extends HttpServlet {
 
             if (course != null) {
                 ChapterDao chapterDao = new ChapterDao(dbConnection);
-                List<Chapters> chapters = chapterDao.getChaptersByCourseId(courseId)
+                List<Chapter> chapters = chapterDao.getChaptersByCourseId(courseId)
                         .stream()
                         .sorted((c1, c2) -> c1.getId() - c2.getId())
                         .collect(Collectors.toList());
