@@ -65,5 +65,13 @@ public class Pagination {
     public int getTotalRecordsEnroll(List<Enroll> result) {
         return result.size();
     }
+    
+     public List<Course> coursePaginateMoreData(List<Course> result, int offset, int limit) {
+        List<Course> data = new ArrayList<>();
+        for (int i = 0; i < Math.min(offset + limit, result.size()); i++) {
+            data.add(result.get(i));
+        }
+        return data;
+    }
 
 }

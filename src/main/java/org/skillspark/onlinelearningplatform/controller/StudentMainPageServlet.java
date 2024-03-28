@@ -19,8 +19,10 @@ import org.skillspark.onlinelearningplatform.dao.ChapterDao;
 import org.skillspark.onlinelearningplatform.dao.CourseDao;
 import org.skillspark.onlinelearningplatform.dao.DatabaseConnection;
 import org.skillspark.onlinelearningplatform.dao.EnrollDao;
+import org.skillspark.onlinelearningplatform.model.Category;
 import org.skillspark.onlinelearningplatform.model.Chapter;
 import org.skillspark.onlinelearningplatform.model.Course;
+import org.skillspark.onlinelearningplatform.util.Pagination;
 
 /**
  *
@@ -54,9 +56,24 @@ public class StudentMainPageServlet extends HttpServlet {
 
         DatabaseConnection dbConnection = new DatabaseConnection();
         CourseDao courseDao = new CourseDao(dbConnection);
+        Pagination paginate = new Pagination();
             
         List<Course> listCourse = courseDao.listAll();
-        request.setAttribute("listCourse",listCourse);
+   
+        int page = 1; 
+        int recordsPerPage = 5; 
+        int totalRecords = paginate.getTotalRecordsCourse(listCourse);
+        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
+
+        if (request.getParameter("page") != null) {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+        
+        List<Course> paginateCor = paginate.coursePaginateMoreData(listCourse, (page - 1) * recordsPerPage, recordsPerPage);
+   
+        request.setAttribute("listCourse",paginateCor);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("currentPage", page);
         
         dispatcher.forward(request,response);
     }
