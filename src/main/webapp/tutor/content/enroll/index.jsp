@@ -12,7 +12,7 @@
     </head>
     <body>
         <div class="topbar-sticky">
-             <%@ include file="/components/TopBarLoggedIn.jsp" %>
+            <%@ include file="/components/TopBarLoggedIn.jsp" %>
         </div>
         <div class="catalog-container">
             <div class="vertical-nav" id="sidebar">
@@ -21,8 +21,8 @@
             <div class="flex-column explore-catalog p-5 align-items-start" id="content">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="#">Home</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">Enroll Student</li>
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Enroll Student</li>
                     </ol>
                 </nav>
                 <div class="col-md-12 mt-2 mb-2">
@@ -33,7 +33,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Duration</th>
                                 <th scope="col">Difficulties</th>
-                                 <th scope="col">Total Student</th>
+                                <th scope="col">Total Student</th>
                                 <th scope="col" width="10%">Action</th>
                             </tr>
                         </thead>
@@ -54,7 +54,18 @@
                             </c:forEach>
                         </tbody>
                     </table>
-                </div>           
+                </div>
+                <div class="col-md-12 mt-2 mb-2 d-flex justify-content-end">
+                    <nav  aria-label="Page navigation">
+                        <ul class="pagination">
+                            <c:forEach var="i" begin="1" end="${totalPages}">
+                                <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                    <a class="page-link" href="/TutorEnrollServlet?route=index&tutor_id=<%= user_id %>&page=${i}">${i}</a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
     </body>

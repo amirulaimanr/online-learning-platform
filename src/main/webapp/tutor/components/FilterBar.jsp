@@ -17,7 +17,7 @@
                         <i class="fa-solid fa-house me-2"></i> Main Page
                     </button>
                 </h2>
-                <div id="item1" class="accordion-collapse collapse"aria-labelledby="header1">
+                <div id="item1" class="accordion-collapse collapse show"aria-labelledby="header1">
                     <div class="accordion-body">
                         <div class="flex-column align-items-start side-filter">
                             <a href="/TutorMainPageServlet?route=index&tutor_id=<%= user_id %>">Dashboard</a>

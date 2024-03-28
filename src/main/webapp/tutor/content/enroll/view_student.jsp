@@ -45,7 +45,7 @@
                                     <td><c:out value="${student.student_name}" /></td>
                                     <td><c:out value="${student.date_enroll}" /></td>
                                     <td class="d-flex">
-                                        <form action="/TutorEnrollServlet?route=delete&id=<c:out value='${student.course_id}' />&student_id=<c:out value='${student.student_id}' />" method="post" id="delete-item-form-<c:out value='${count}' />"  >
+                                        <form action="/TutorEnrollServlet?route=delete&id=<c:out value='${student.course_id}' />&student_id=<c:out value='${student.student_id}' />&course_name=${course_name} " method="post" id="delete-item-form-<c:out value='${count}' />"  >
                                             <button class="btn btn-sm btn-danger" type="button" onclick="deleteItem(<c:out value='${count}' />)" id="delete-btn-<c:out value='${count}' />" ><i class="fa-solid fa-trash"></i> Delete</button>
                                         </form>  
                                     </td>
@@ -54,21 +54,21 @@
                         </tbody>
                     </table>
                 </div>
-                <div>
-                    <%
-                        if (session.getAttribute("success") != null) {
-                    %>
-                    <script>
-                                Swal.fire({
-                                title: "Success!",
-                                        text: "  <%= session.getAttribute("success")%>",
-                                        icon: "success"
-                                });                    </script>
-                    <%
-                        }
-                        session.removeAttribute("success");
-                    %>
+                <div class="col-md-12 mt-2 mb-2 d-flex justify-content-end">
+                    <nav  aria-label="Page navigation">
+                        <ul class="pagination">
+                            <c:forEach var="i" begin="1" end="${totalPages}">
+                                <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                    <a class="page-link" href="/TutorEnrollServlet?route=view&id=${course_id}&course_name=${course_name}&page=${i}">${i}</a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </nav>
                 </div>
+                <div class="col-md-12 mt-2 mb-2 text-end">
+                    <a href="/TutorEnrollServlet?route=index&tutor_id=<%= user_id %>" class="btn btn-danger" ><i class="fa-solid fa-arrow-left"></i> Back</a>
+                </div>
+                    <%@ include file="/components/notification.jsp" %>
             </div>
         </div>
     </body>

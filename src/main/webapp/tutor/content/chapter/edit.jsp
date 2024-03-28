@@ -48,10 +48,10 @@
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <label for="formFile" class="form-label">Chapter Video</label>
-                                    <input class="form-control" type="file" id="videopath" name="videoPath" />
+                                    <input class="form-control" type="file" id="videopath" name="videopath" />
                                 </div>
                                 <div class="col-md-12 mb-3 text-center">
-                                    <video controls>
+                                    <video controls style="width: 520px">
                                         <source src="${chapter.videopath}" type="video/mp4">
                                     </video>
                                 </div>
@@ -73,7 +73,7 @@
                                         <option selected disabled value="">Open this select menu</option>
                                         <option value="Beginner" <c:if test="${chapter.level.equals('Beginner')}">selected</c:if> >Beginner</option>
                                         <option value="Intermediate" <c:if test="${chapter.level.equals('Intermediate')}">selected</c:if> >Intermediate</option>
-                                        <option value="Expert" <c:if test="${chapter.level.equals('Expert')}">selected</c:if> >Expert</option>
+                                        <option value="Advanced" <c:if test="${chapter.level.equals('Advanced')}">selected</c:if> >Advanced</option>
                                     </select>
                                 </div>
                                 <div class="col-md-12 mb-3">
