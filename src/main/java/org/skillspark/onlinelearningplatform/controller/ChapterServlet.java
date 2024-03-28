@@ -150,7 +150,7 @@ public class ChapterServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
 
-            Part videopath = request.getPart("videoPath");
+            Part videopath = request.getPart("videopath");
 
             ChapterDao chapterDao = new ChapterDao(dbConnection);
             int chapter_id = chapterDao.store(course_id, chapter_title, chapter_name, null, null, chapter_description, chapter_status, chapter_level);
@@ -201,7 +201,7 @@ public class ChapterServlet extends HttpServlet {
 
         chapterDao.update(chapter);
 
-        Part videopath = request.getPart("videoPath");
+        Part videopath = request.getPart("videopath");
 
         if (videopath.getSize() > 0) {
             String filePath = request.getParameter("tempt_video");
@@ -240,6 +240,8 @@ public class ChapterServlet extends HttpServlet {
         String system_path = "/video/";
         String fileName = chapter_id + "_" + getFileName(videopath);
 
+        String targetPath = getServletContext().getRealPath("/") + "video" + File.separator + fileName;
+
         OutputStream otpStream = null;
         InputStream iptStream = null;
 
@@ -255,6 +257,9 @@ public class ChapterServlet extends HttpServlet {
             while ((read = iptStream.read(bytes)) != -1) {
                 otpStream.write(bytes, 0, read);
             }
+
+            Files.copy(videopath.getInputStream(), Paths.get(targetPath));
+
         } catch (FileNotFoundException fne) {
             System.err.println("Error file: " + fne.getMessage());
         } finally {
@@ -267,6 +272,7 @@ public class ChapterServlet extends HttpServlet {
         }
         return system_path + fileName;
     }
+
 
     private String getFileName(final Part part) {
 
