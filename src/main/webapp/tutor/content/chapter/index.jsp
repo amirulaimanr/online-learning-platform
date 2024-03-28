@@ -12,7 +12,7 @@
     </head>
     <body>
         <div class="topbar-sticky">
-           <%@ include file="/components/TopBarLoggedIn.jsp" %>
+            <%@ include file="/components/TopBarLoggedIn.jsp" %>
         </div>
         <div class="catalog-container">
             <div class="vertical-nav" id="sidebar">
@@ -21,9 +21,9 @@
             <div class="flex-column explore-catalog p-5 align-items-start" id="content">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="#">Home</a></li>
-                      <li class="breadcrumb-item " aria-current="page"><a href="/CourseServlet?route=index&tutor_id=<%= user_id %>">${course_name}</a></li>
-                       <li class="breadcrumb-item active" aria-current="page">Chapter</li>
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item " aria-current="page"><a href="/CourseServlet?route=index&tutor_id=<%= user_id%>">${course_name}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Chapter</li>
                     </ol>
                 </nav>
                 <div class="col-md-12 text-end">
@@ -54,7 +54,7 @@
                                     <td><c:out value="${chapter.name}" /></td>
                                     <td><c:out value="${chapter.status}" /></td>
                                     <td><c:out value="${chapter.level}" /></td>
-                                     <td><c:out value="${chapter.description}" /></td>
+                                    <td><c:out value="${chapter.description}" /></td>
                                     <td class="d-flex">
                                         <a href="/ChapterServlet?route=edit&id=<c:out value='${chapter.id}' />&name=<c:out value='${course_name}' />&course_id=${course_id}" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                                         <form action="/ChapterServlet?route=delete&id=<c:out value='${chapter.id}' />&course_id=${course_id}&name=${course_name}" method="post" id="delete-item-form-<c:out value='${count}' />"  >
@@ -67,24 +67,21 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="col-md-12 mt-2 mb-2 d-flex justify-content-end">
+                    <nav  aria-label="Page navigation">
+                        <ul class="pagination">
+                            <c:forEach var="i" begin="1" end="${totalPages}">
+                                <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                    <a class="page-link" href="/ChapterServlet?route=index&id=${course_id}&name=${course_name}&page=${i}">${i}</a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </nav>
+                </div>
                 <div class="col-md-12 mt-2 mb-2 text-end">
-                    <a href="/CourseServlet?route=index&tutor_id=<%= user_id %>" class="btn btn-danger" ><i class="fa-solid fa-arrow-left"></i> Back</a>
+                    <a href="/ChapterServlet?route=index&id=<%= user_id%>" class="btn btn-danger" ><i class="fa-solid fa-arrow-left"></i> Back</a>
                 </div>
-                <div>
-                    <%
-                        if (session.getAttribute("success") != null) {
-                    %>
-                    <script>
-                                Swal.fire({
-                                title: "Success!",
-                                        text: "  <%= session.getAttribute("success")%>",
-                                        icon: "success"
-                                });                    </script>
-                    <%
-                        }
-                        session.removeAttribute("success");
-                    %>
-                </div>
+                <%@ include file="/components/notification.jsp" %>
             </div>
         </div>
     </body>
@@ -93,14 +90,14 @@
     function deleteItem(index)
     {
         Swal.fire({
-        title: 'Are you sure?',
-                text: "This action cannot be revert!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes,Delete!'
-        }).then((result) => {
+            title: 'Are you sure?',
+                    text: "This action cannot be revert!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes,Delete!'
+            }).then((result) => {
             if (result.isConfirmed) {
                 $('#delete-item-form-' + index).submit();
             }

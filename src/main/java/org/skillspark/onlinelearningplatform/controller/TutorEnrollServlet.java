@@ -20,6 +20,7 @@ import org.skillspark.onlinelearningplatform.dao.DatabaseConnection;
 import org.skillspark.onlinelearningplatform.dao.EnrollDao;
 import org.skillspark.onlinelearningplatform.model.Course;
 import org.skillspark.onlinelearningplatform.model.Enroll;
+import org.skillspark.onlinelearningplatform.util.Pagination;
 
 /**
  *
@@ -61,9 +62,25 @@ public class TutorEnrollServlet extends HttpServlet {
 
             DatabaseConnection dbConnection = new DatabaseConnection();
             CourseDao courseDao = new CourseDao(dbConnection);
+            Pagination paginate = new Pagination();
 
             List<Course> listCourse = courseDao.listAllByCountStudent(id);
-            request.setAttribute("listCourse", listCourse);
+            
+            int page = 1; 
+            int recordsPerPage = 5; 
+            int totalRecords = paginate.getTotalRecordsCourse(listCourse);
+            int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
+
+            if (request.getParameter("page") != null) {
+                page = Integer.parseInt(request.getParameter("page"));
+            }
+
+            List<Course> paginateCor = paginate.coursePaginate(listCourse, (page - 1) * recordsPerPage, recordsPerPage);
+
+            request.setAttribute("listCourse", paginateCor);
+            request.setAttribute("totalPages", totalPages);
+            request.setAttribute("currentPage", page);
+
         } catch (SQLException ex) {
             System.err.println("Error sql: " + ex.getMessage());
         }
@@ -77,11 +94,27 @@ public class TutorEnrollServlet extends HttpServlet {
 
         DatabaseConnection dbConnection = new DatabaseConnection();
         EnrollDao enrollDao = new EnrollDao(dbConnection);
+        Pagination paginate = new Pagination();
 
         List<Enroll> listEnroll = enrollDao.listStudentByCourse(id);
-        request.setAttribute("listStudent", listEnroll);
+        
+        int page = 1; 
+        int recordsPerPage = 5; 
+        int totalRecords = paginate.getTotalRecordsEnroll(listEnroll);
+        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
+
+        if (request.getParameter("page") != null) {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+
+        List<Enroll> paginateEn = paginate.enrollPaginate(listEnroll, (page - 1) * recordsPerPage, recordsPerPage);
+
+        request.setAttribute("listStudent", paginateEn);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("currentPage", page);
         request.setAttribute("course_name", course_name);
-          
+        request.setAttribute("course_id", id);
+
         dispatcher.forward(request, response);
     }
 
@@ -89,13 +122,20 @@ public class TutorEnrollServlet extends HttpServlet {
         int course_id = Integer.parseInt(request.getParameter("id"));
         int student_id = Integer.parseInt(request.getParameter("student_id"));
         String course_name = request.getParameter("course_name");
-        
+
         DatabaseConnection dbConnection = new DatabaseConnection();
         EnrollDao enrollDao = new EnrollDao(dbConnection);
-        enrollDao.delete(student_id, course_id);
 
-        request.getSession().setAttribute("success", "Enrolled student successfully deleted");
-        response.sendRedirect("/TutorEnrollServlet?route=view&id="+course_id+"&course_name="+course_name);
+        try {
+            enrollDao.delete(student_id, course_id);
+
+            request.getSession().setAttribute("success", "Enrolled student successfully deleted");
+            response.sendRedirect("/TutorEnrollServlet?route=view&id=" + course_id + "&course_name=" + course_name);
+        } catch (SQLException e) {
+            e.printStackTrace();
+             request.getSession().setAttribute("failed", "Enrolled student failed deleted");
+            response.sendRedirect("/TutorEnrollServlet?route=view&id=" + course_id + "&course_name=" + course_name);
+        }
     }
 
 }
