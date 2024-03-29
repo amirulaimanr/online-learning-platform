@@ -56,21 +56,18 @@ public class TutorMainPageServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("tutor_id"));
 
         DatabaseConnection dbConnection = new DatabaseConnection();
-        CourseDao courseDao = new CourseDao(dbConnection);
-        Pagination paginate = new Pagination();
+        Pagination paginate = new Pagination(dbConnection);
             
-        List<Course> listCourse = courseDao.listAll(id);
-
         int page = 1; 
         int recordsPerPage = 6; 
-        int totalRecords = paginate.getTotalRecordsCourse(listCourse);
-        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
 
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
         }
         
-        List<Course> paginateCor = paginate.coursePaginateMoreData(listCourse, (page - 1) * recordsPerPage, recordsPerPage);
+        List<Course> paginateCor = paginate.getIndexPaginationCourse(id,0, page  * recordsPerPage);
+        int totalRecords = paginate.getCountRecordsCourse(id);
+        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
    
         request.setAttribute("listCourse",paginateCor);
         request.setAttribute("totalPages", totalPages);

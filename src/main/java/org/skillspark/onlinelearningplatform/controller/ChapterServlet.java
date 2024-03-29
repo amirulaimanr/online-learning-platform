@@ -94,21 +94,18 @@ public class ChapterServlet extends HttpServlet {
         String course_name = request.getParameter("name");
 
         DatabaseConnection dbConnection = new DatabaseConnection();
-        ChapterDao chapterDao = new ChapterDao(dbConnection);
-        Pagination paginate = new Pagination();
+        Pagination paginate = new Pagination(dbConnection);
 
-        List<Chapter> listChapter = chapterDao.listAll(id);
-        
         int page = 1; 
         int recordsPerPage = 5; 
-        int totalRecords = paginate.getTotalRecordsChapter(listChapter);
-        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
 
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
         }
         
-        List<Chapter> paginateChap = paginate.chapterPaginate(listChapter, (page - 1) * recordsPerPage, recordsPerPage);
+        List<Chapter> paginateChap = paginate.getIndexPaginationChapter(id, (page - 1) * recordsPerPage, recordsPerPage);
+        int totalRecords = paginate.getCountRecordsChapter(id);
+        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
         
         request.setAttribute("listChapter", paginateChap);
         request.setAttribute("course_name", course_name);

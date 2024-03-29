@@ -71,21 +71,19 @@ public class CategoryServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/tutor/content/categories/index.jsp");
 
         DatabaseConnection dbConnection = new DatabaseConnection();
-        CategoryDao catDao = new CategoryDao(dbConnection);
-        Pagination paginate = new Pagination();
-        
-        List<Category> listCat = catDao.listAll();
-
+        Pagination paginate = new Pagination(dbConnection);
+       
         int page = 1; 
         int recordsPerPage = 5; 
-        int totalRecords = paginate.getTotalRecordsCategory(listCat);
-        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
-
+        
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
         }
         
-        List<Category> paginateCat = paginate.categoryPaginate(listCat, (page - 1) * recordsPerPage, recordsPerPage);
+        List<Category> paginateCat = paginate.getIndexPaginationCategory((page - 1) * recordsPerPage, recordsPerPage);
+        
+        int totalRecords = paginate.getCountRecordsCategory();
+        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
    
         request.setAttribute("listCategory", paginateCat);
         request.setAttribute("totalPages", totalPages);
