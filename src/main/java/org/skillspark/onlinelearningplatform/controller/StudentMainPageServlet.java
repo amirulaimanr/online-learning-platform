@@ -6,7 +6,6 @@
 package org.skillspark.onlinelearningplatform.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -19,7 +18,6 @@ import org.skillspark.onlinelearningplatform.dao.ChapterDao;
 import org.skillspark.onlinelearningplatform.dao.CourseDao;
 import org.skillspark.onlinelearningplatform.dao.DatabaseConnection;
 import org.skillspark.onlinelearningplatform.dao.EnrollDao;
-import org.skillspark.onlinelearningplatform.model.Category;
 import org.skillspark.onlinelearningplatform.model.Chapter;
 import org.skillspark.onlinelearningplatform.model.Course;
 import org.skillspark.onlinelearningplatform.util.Pagination;
@@ -61,7 +59,7 @@ public class StudentMainPageServlet extends HttpServlet {
         List<Course> listCourse = courseDao.listAll();
    
         int page = 1; 
-        int recordsPerPage = 5; 
+        int recordsPerPage = 6; 
         int totalRecords = paginate.getTotalRecordsCourse(listCourse);
         int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
 

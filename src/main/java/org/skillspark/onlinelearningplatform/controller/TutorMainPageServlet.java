@@ -6,23 +6,20 @@
 package org.skillspark.onlinelearningplatform.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.skillspark.onlinelearningplatform.dao.CategoryDao;
 import org.skillspark.onlinelearningplatform.dao.ChapterDao;
 import org.skillspark.onlinelearningplatform.dao.CourseDao;
 import org.skillspark.onlinelearningplatform.dao.DatabaseConnection;
-import org.skillspark.onlinelearningplatform.model.Category;
 import org.skillspark.onlinelearningplatform.model.Chapter;
 import org.skillspark.onlinelearningplatform.model.Course;
+import org.skillspark.onlinelearningplatform.util.Pagination;
 
 /**
  *
@@ -60,9 +57,24 @@ public class TutorMainPageServlet extends HttpServlet {
 
         DatabaseConnection dbConnection = new DatabaseConnection();
         CourseDao courseDao = new CourseDao(dbConnection);
+        Pagination paginate = new Pagination();
             
         List<Course> listCourse = courseDao.listAll(id);
-        request.setAttribute("listCourse",listCourse);
+
+        int page = 1; 
+        int recordsPerPage = 6; 
+        int totalRecords = paginate.getTotalRecordsCourse(listCourse);
+        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
+
+        if (request.getParameter("page") != null) {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+        
+        List<Course> paginateCor = paginate.coursePaginateMoreData(listCourse, (page - 1) * recordsPerPage, recordsPerPage);
+   
+        request.setAttribute("listCourse",paginateCor);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("currentPage", page);
         
         dispatcher.forward(request,response);
     }

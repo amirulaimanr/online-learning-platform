@@ -30,13 +30,14 @@
             <div class="album album-width py-5">
                 <div class="container">
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                        <c:set var="count" value="0" scope="page" />
                         <c:forEach var="course" items="${listCourse}">
+                            <c:set var="count" value="${count + 1}" scope="page" />
                             <div class="col">
                                 <a href="/StudentMainPageServlet?route=view&id=${course.id}&student_id=<%= useruser_id %>">
                                     <div class="card shadow-sm card-box card-fix-size ">
                                         <div class="card-header d-flex justify-content-between">
-                                                ${course.category_name}
-
+                                            ${course.category_name}
                                         </div>
                                         <div class="card-body flex-column d-flex justify-content-between">
                                             <h5 class="card-title">${course.name}</h5>
@@ -52,18 +53,22 @@
                                         </div>
                                     </div>
                                 </a>
+                            
                             </div>
                         </c:forEach>
+                   
                     </div>
-                    <div class="col-md-12 mt-4 mb-2 d-flex justify-content-center">
-                        <nav  aria-label="Page navigation">
-                            <ul class="pagination">
-                                 <li class="page-item ${currentPage == totalPages ? "d-none" : ""}">
-                                    <a class="page-link" href="/StudentMainPageServlet?route=index&page=${currentPage + 1}">More Data...</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
+                    <c:if test="${count >= 6}">
+                        <div class="col-md-12 mt-4 mb-2 d-flex justify-content-center">
+                            <nav  aria-label="Page navigation">
+                                <ul class="pagination">
+                                     <li class="page-item ${currentPage == totalPages ? "d-none" : ""}">
+                                        <a class="page-link" href="/StudentMainPageServlet?route=index&page=${currentPage + 1}">More Data...</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </c:if>
                 </div>
             </div>
         </div>
