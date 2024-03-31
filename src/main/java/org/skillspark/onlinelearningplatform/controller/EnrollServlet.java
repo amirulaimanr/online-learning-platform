@@ -73,7 +73,8 @@ public class EnrollServlet extends HttpServlet {
                 boolean isEnroll = enrollDao.checkEnrollStudent(student_id, course_id);
 
                 if (isEnroll == true) {
-                    response.sendRedirect("/StudentMainPageServlet?route=index");
+                    request.getSession().setAttribute("warning", "Course already enrolled");
+                    response.sendRedirect("/EnrollServlet?route=index&student_id=" + student_id);
                 } else {
                     enrollDao.store(student_id, course_id);
 
