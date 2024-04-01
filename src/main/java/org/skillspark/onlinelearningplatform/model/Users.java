@@ -14,6 +14,13 @@ public class Users {
     public Users() {
     }
 
+    public Users(int id, String name, String email, String password) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+    
     public Users(String name, String email) {
         this.name = name;
         this.email = email;
@@ -25,7 +32,14 @@ public class Users {
         this.name = name;
         this.email = email;
     }
-
+    
+    public Users(int id,String name, String email, String password, int role_id) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role_id = role_id;
+    }
 
     public int getRole_id() {
         return role_id;

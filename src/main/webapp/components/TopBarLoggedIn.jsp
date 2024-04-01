@@ -32,9 +32,23 @@
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" >
                         <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
                     </form>
-                    <form id="logoutForm" action="/LogoutServlet" method="post">
-                        <button type="submit" class="btn btn-outline-success">Logout</button>
-                    </form>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#">
+                                            <form class="d-flex pe-2 login-btn" id="searchForm" action="/EditProfileServlet?route=edit&id=<%= search_user_id %>" method="post">
+                                                <button class="btn btn-outline-success" type="submit">Edit Profile</button>
+                                            </form>
+                                        </a>
+                                    </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form id="logoutForm" action="/LogoutServlet" method="post">
+                                    <button class="dropdown-item" type="submit"><a>Logout</a></button>
+                                </form>
+                            </li>
+                        </ul>
 
                 </div>
             </div>

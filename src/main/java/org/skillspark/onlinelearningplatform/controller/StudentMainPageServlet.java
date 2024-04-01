@@ -6,7 +6,6 @@
 package org.skillspark.onlinelearningplatform.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -21,6 +20,7 @@ import org.skillspark.onlinelearningplatform.dao.DatabaseConnection;
 import org.skillspark.onlinelearningplatform.dao.EnrollDao;
 import org.skillspark.onlinelearningplatform.model.Chapter;
 import org.skillspark.onlinelearningplatform.model.Course;
+import org.skillspark.onlinelearningplatform.util.Pagination;
 
 /**
  *
@@ -53,10 +53,22 @@ public class StudentMainPageServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/student/CatalogPage.jsp");
 
         DatabaseConnection dbConnection = new DatabaseConnection();
-        CourseDao courseDao = new CourseDao(dbConnection);
-            
-        List<Course> listCourse = courseDao.listAll();
-        request.setAttribute("listCourse",listCourse);
+        Pagination paginate = new Pagination(dbConnection);
+   
+        int page = 1; 
+        int recordsPerPage = 6; 
+
+        if (request.getParameter("page") != null) {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+        
+        List<Course> paginateCor = paginate.getIndexPaginationCourseAll(0, page * recordsPerPage);
+        int totalRecords = paginate.getCountRecordsCourseAll();
+        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
+   
+        request.setAttribute("listCourse",paginateCor);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("currentPage", page);
         
         dispatcher.forward(request,response);
     }

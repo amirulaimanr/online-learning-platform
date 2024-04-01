@@ -6,7 +6,6 @@
 package org.skillspark.onlinelearningplatform.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +21,6 @@ import org.skillspark.onlinelearningplatform.dao.CourseDao;
 import org.skillspark.onlinelearningplatform.dao.DatabaseConnection;
 import org.skillspark.onlinelearningplatform.model.Category;
 import org.skillspark.onlinelearningplatform.model.Course;
-import org.skillspark.onlinelearningplatform.model.Users;
 import org.skillspark.onlinelearningplatform.util.Pagination;
 
 /**
@@ -72,21 +70,18 @@ public class CourseServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("tutor_id"));
 
         DatabaseConnection dbConnection = new DatabaseConnection();
-        CourseDao courseDao = new CourseDao(dbConnection);
-        Pagination paginate = new Pagination();
+        Pagination paginate = new Pagination(dbConnection);
 
-        List<Course> listCourse = courseDao.listAll(id);
-        
         int page = 1; 
         int recordsPerPage = 5; 
-        int totalRecords = paginate.getTotalRecordsCourse(listCourse);
-        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
-
+      
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
         }
         
-        List<Course> paginateCor = paginate.coursePaginate(listCourse, (page - 1) * recordsPerPage, recordsPerPage);
+        List<Course> paginateCor = paginate.getIndexPaginationCourse(id, (page - 1) * recordsPerPage, recordsPerPage);
+        int totalRecords = paginate.getCountRecordsCourse(id);
+        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
    
         request.setAttribute("listCourse", paginateCor);
         request.setAttribute("totalPages", totalPages);
@@ -127,7 +122,8 @@ public class CourseServlet extends HttpServlet {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("error.jsp");
+            request.getSession().setAttribute("failed", "Category fail to store. Error "+e);
+            response.sendRedirect("/CourseServlet?route=index&tutor_id=" + tutor_id);
         }
     }
 
@@ -162,10 +158,16 @@ public class CourseServlet extends HttpServlet {
         Course course = new Course(course_id, course_category, tutor_id, course_name, course_duration, course_description, course_status, course_difficulties);
         DatabaseConnection dbConnection = new DatabaseConnection();
         CourseDao courseDao = new CourseDao(dbConnection);
-
-        courseDao.update(course);
-        request.getSession().setAttribute("success", "Course successfully updated");
-        response.sendRedirect("/CourseServlet?route=index&tutor_id=" + tutor_id);
+        
+        try {
+            courseDao.update(course);
+            request.getSession().setAttribute("success", "Course successfully updated");
+            response.sendRedirect("/CourseServlet?route=index&tutor_id=" + tutor_id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            request.getSession().setAttribute("failed", "Course fail to updated. Error "+e);
+            response.sendRedirect("/CourseServlet?route=index&tutor_id=" + tutor_id);
+        }
     }
 
     private void deleteCourse(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {

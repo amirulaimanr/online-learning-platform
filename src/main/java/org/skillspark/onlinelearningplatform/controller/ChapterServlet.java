@@ -11,14 +11,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
-import java.util.logging.Level;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -28,13 +26,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import org.skillspark.onlinelearningplatform.dao.CategoryDao;
 import org.skillspark.onlinelearningplatform.dao.ChapterDao;
-import org.skillspark.onlinelearningplatform.dao.CourseDao;
 import org.skillspark.onlinelearningplatform.dao.DatabaseConnection;
-import org.skillspark.onlinelearningplatform.model.Category;
 import org.skillspark.onlinelearningplatform.model.Chapter;
-import org.skillspark.onlinelearningplatform.model.Course;
 import org.skillspark.onlinelearningplatform.util.Pagination;
 
 @WebServlet(name = "ChapterServlet", value = "/ChapterServlet")
@@ -100,21 +94,18 @@ public class ChapterServlet extends HttpServlet {
         String course_name = request.getParameter("name");
 
         DatabaseConnection dbConnection = new DatabaseConnection();
-        ChapterDao chapterDao = new ChapterDao(dbConnection);
-        Pagination paginate = new Pagination();
+        Pagination paginate = new Pagination(dbConnection);
 
-        List<Chapter> listChapter = chapterDao.listAll(id);
-        
         int page = 1; 
         int recordsPerPage = 5; 
-        int totalRecords = paginate.getTotalRecordsChapter(listChapter);
-        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
 
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
         }
         
-        List<Chapter> paginateChap = paginate.chapterPaginate(listChapter, (page - 1) * recordsPerPage, recordsPerPage);
+        List<Chapter> paginateChap = paginate.getIndexPaginationChapter(id, (page - 1) * recordsPerPage, recordsPerPage);
+        int totalRecords = paginate.getCountRecordsChapter(id);
+        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
         
         request.setAttribute("listChapter", paginateChap);
         request.setAttribute("course_name", course_name);
@@ -158,13 +149,14 @@ public class ChapterServlet extends HttpServlet {
             String path = fileUpload(videopath, course_id, chapter_id);
             chapterDao.updateVideoPath(chapter_id, path);
 
-            request.getSession().setAttribute("success", "Category successfully added");
-
+            request.getSession().setAttribute("success", "Chapter successfully added");
             response.sendRedirect("/ChapterServlet?route=index&id=" + course_id + "&name=" + course_name);
 
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("error.jsp");
+            request.getSession().setAttribute("failed", "Chapter fail to store. Error :"+e);
+            response.sendRedirect("/ChapterServlet?route=index&id=" + course_id + "&name=" + course_name);
+            
         }
     }
 
@@ -199,19 +191,25 @@ public class ChapterServlet extends HttpServlet {
         DatabaseConnection dbConnection = new DatabaseConnection();
         ChapterDao chapterDao = new ChapterDao(dbConnection);
 
-        chapterDao.update(chapter);
+        try {
+            chapterDao.update(chapter);
 
-        Part videopath = request.getPart("videopath");
+            Part videopath = request.getPart("videopath");
 
-        if (videopath.getSize() > 0) {
-            String filePath = request.getParameter("tempt_video");
-            deleteVideo(globalPath + filePath);
-            String path = fileUpload(videopath, course_id, id);
-            chapterDao.updateVideoPath(id, path);
+            if (videopath.getSize() > 0) {
+                String filePath = request.getParameter("tempt_video");
+                deleteVideo(globalPath + filePath);
+                String path = fileUpload(videopath, course_id, id);
+                chapterDao.updateVideoPath(id, path);
+            }
+
+            request.getSession().setAttribute("success", "Chapter successfully updated");
+            response.sendRedirect("/ChapterServlet?route=index&id=" + course_id + "&name=" + course_name);
+         } catch (SQLException e) {
+            e.printStackTrace();
+            request.getSession().setAttribute("failed", "Chapter failed to update. Error :"+e);
+            response.sendRedirect("/ChapterServlet?route=index&id=" + course_id + "&name=" + course_name);
         }
-
-        request.getSession().setAttribute("success", "Category successfully updated");
-        response.sendRedirect("/ChapterServlet?route=index&id=" + course_id + "&name=" + course_name);
     }
 
     private void deleteChapter(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {

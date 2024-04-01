@@ -6,7 +6,6 @@
 package org.skillspark.onlinelearningplatform.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.skillspark.onlinelearningplatform.dao.CategoryDao;
 import org.skillspark.onlinelearningplatform.dao.ChapterDao;
 import org.skillspark.onlinelearningplatform.dao.CourseDao;
 import org.skillspark.onlinelearningplatform.dao.DatabaseConnection;
@@ -75,7 +73,8 @@ public class EnrollServlet extends HttpServlet {
                 boolean isEnroll = enrollDao.checkEnrollStudent(student_id, course_id);
 
                 if (isEnroll == true) {
-                    response.sendRedirect("/StudentMainPageServlet?route=index");
+                    request.getSession().setAttribute("warning", "Course already enrolled");
+                    response.sendRedirect("/EnrollServlet?route=index&student_id=" + student_id);
                 } else {
                     enrollDao.store(student_id, course_id);
 

@@ -52,8 +52,28 @@
                                     <th scope="row"><c:out value="${count}" /></th>
                                     <td><c:out value="${chapter.title}" /></td>
                                     <td><c:out value="${chapter.name}" /></td>
-                                    <td><c:out value="${chapter.status}" /></td>
-                                    <td><c:out value="${chapter.level}" /></td>
+                                    <td class="text-center">
+                                        <c:if test="${chapter.status == 1}">
+                                            <span class="badge bg-success"> <c:out value="Active" /></span>
+                                        </c:if>
+                                        <c:if test="${chapter.status == 0}">
+                                            <span class="badge bg-danger"> <c:out value="Not Active" /></span>
+                                        </c:if>
+                                    </td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${chapter.level.equals('Beginner')}">
+                                                <span class="badge bg-primary"><c:out value="${chapter.level}" /> </span>
+                                            </c:when>
+                                            <c:when test="${chapter.level.equals('Intermediate')}">
+                                                <span class="badge bg-warning"><c:out value="${chapter.level}" /> </span>
+                                            </c:when>
+                                             <c:when test="${chapter.level.equals('Advanced')}">
+                                                <span class="badge bg-danger"><c:out value="${chapter.level}" /> </span>
+                                            </c:when>
+                                         </c:choose>
+                                      
+                                    </td>
                                     <td><c:out value="${chapter.description}" /></td>
                                     <td class="d-flex">
                                         <a href="/ChapterServlet?route=edit&id=<c:out value='${chapter.id}' />&name=<c:out value='${course_name}' />&course_id=${course_id}" class="btn btn-sm btn-primary me-2"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
@@ -70,16 +90,22 @@
                 <div class="col-md-12 mt-2 mb-2 d-flex justify-content-end">
                     <nav  aria-label="Page navigation">
                         <ul class="pagination">
+                            <li class="page-item ${currentPage == 1 ? "disabled" : "" }">
+                                <a class="page-link" href="/ChapterServlet?route=index&id=${course_id}&name=${course_name}&page=${currentPage - 1}" tabindex="-1"><</a>
+                            </li>
                             <c:forEach var="i" begin="1" end="${totalPages}">
                                 <li class="page-item ${i == currentPage ? 'active' : ''}">
                                     <a class="page-link" href="/ChapterServlet?route=index&id=${course_id}&name=${course_name}&page=${i}">${i}</a>
                                 </li>
                             </c:forEach>
+                            <li class="page-item ${currentPage == totalPages ? "disabled" : ""}">
+                                <a class="page-link" href="/ChapterServlet?route=index&id=${course_id}&name=${course_name}&page=${currentPage + 1}">></a>
+                            </li>
                         </ul>
                     </nav>
                 </div>
                 <div class="col-md-12 mt-2 mb-2 text-end">
-                    <a href="/ChapterServlet?route=index&id=<%= user_id%>" class="btn btn-danger" ><i class="fa-solid fa-arrow-left"></i> Back</a>
+                    <a href="/CourseServlet?route=index&tutor_id=<%= user_id%>" class="btn btn-danger" ><i class="fa-solid fa-arrow-left"></i> Back</a>
                 </div>
                 <%@ include file="/components/notification.jsp" %>
             </div>

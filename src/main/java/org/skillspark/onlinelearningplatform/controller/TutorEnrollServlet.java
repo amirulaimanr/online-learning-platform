@@ -6,7 +6,6 @@
 package org.skillspark.onlinelearningplatform.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -61,21 +60,19 @@ public class TutorEnrollServlet extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("tutor_id"));
 
             DatabaseConnection dbConnection = new DatabaseConnection();
-            CourseDao courseDao = new CourseDao(dbConnection);
-            Pagination paginate = new Pagination();
+            Pagination paginate = new Pagination(dbConnection);
 
-            List<Course> listCourse = courseDao.listAllByCountStudent(id);
-            
             int page = 1; 
             int recordsPerPage = 5; 
-            int totalRecords = paginate.getTotalRecordsCourse(listCourse);
-            int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
-
+            
             if (request.getParameter("page") != null) {
                 page = Integer.parseInt(request.getParameter("page"));
             }
 
-            List<Course> paginateCor = paginate.coursePaginate(listCourse, (page - 1) * recordsPerPage, recordsPerPage);
+            List<Course> paginateCor = paginate.getIndexCountByStudent(id, (page - 1) * recordsPerPage, recordsPerPage);
+            
+            int totalRecords = paginate.getCountRecordsCourse(id);
+            int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
 
             request.setAttribute("listCourse", paginateCor);
             request.setAttribute("totalPages", totalPages);
@@ -93,21 +90,18 @@ public class TutorEnrollServlet extends HttpServlet {
         String course_name = request.getParameter("course_name");
 
         DatabaseConnection dbConnection = new DatabaseConnection();
-        EnrollDao enrollDao = new EnrollDao(dbConnection);
-        Pagination paginate = new Pagination();
+        Pagination paginate = new Pagination(dbConnection);
 
-        List<Enroll> listEnroll = enrollDao.listStudentByCourse(id);
-        
         int page = 1; 
         int recordsPerPage = 5; 
-        int totalRecords = paginate.getTotalRecordsEnroll(listEnroll);
-        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
-
+    
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
         }
 
-        List<Enroll> paginateEn = paginate.enrollPaginate(listEnroll, (page - 1) * recordsPerPage, recordsPerPage);
+        List<Enroll> paginateEn = paginate.getIndexStudentByCourse(id, (page - 1) * recordsPerPage, recordsPerPage);
+        int totalRecords = paginate.getCountRecordsEnroll(id);
+        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
 
         request.setAttribute("listStudent", paginateEn);
         request.setAttribute("totalPages", totalPages);

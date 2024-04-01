@@ -6,7 +6,6 @@
 package org.skillspark.onlinelearningplatform.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.skillspark.onlinelearningplatform.dao.CategoryDao;
 import org.skillspark.onlinelearningplatform.dao.DatabaseConnection;
-import org.skillspark.onlinelearningplatform.dao.UsersDao;
 import org.skillspark.onlinelearningplatform.model.Category;
 import org.skillspark.onlinelearningplatform.util.Pagination;
 
@@ -73,21 +71,19 @@ public class CategoryServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/tutor/content/categories/index.jsp");
 
         DatabaseConnection dbConnection = new DatabaseConnection();
-        CategoryDao catDao = new CategoryDao(dbConnection);
-        Pagination paginate = new Pagination();
-        
-        List<Category> listCat = catDao.listAll();
-
+        Pagination paginate = new Pagination(dbConnection);
+       
         int page = 1; 
         int recordsPerPage = 5; 
-        int totalRecords = paginate.getTotalRecordsCategory(listCat);
-        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
-
+        
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
         }
         
-        List<Category> paginateCat = paginate.categoryPaginate(listCat, (page - 1) * recordsPerPage, recordsPerPage);
+        List<Category> paginateCat = paginate.getIndexPaginationCategory((page - 1) * recordsPerPage, recordsPerPage);
+        
+        int totalRecords = paginate.getCountRecordsCategory();
+        int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
    
         request.setAttribute("listCategory", paginateCat);
         request.setAttribute("totalPages", totalPages);
@@ -111,7 +107,8 @@ public class CategoryServlet extends HttpServlet {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("error.jsp");
+            request.getSession().setAttribute("failed", "Category fail to store. Error :"+e);
+            response.sendRedirect("/CategoryServlet?route=index");
         }
     }
 
@@ -134,10 +131,16 @@ public class CategoryServlet extends HttpServlet {
         Category cat = new Category(cat_id, cat_name, cat_description);
         DatabaseConnection dbConnection = new DatabaseConnection();
         CategoryDao catDao = new CategoryDao(dbConnection);
-
-        catDao.update(cat);
-        request.getSession().setAttribute("success", "Category successfully updated");
-        response.sendRedirect("/CategoryServlet?route=index");
+        
+        try {
+            catDao.update(cat);
+            request.getSession().setAttribute("success", "Category successfully updated");
+            response.sendRedirect("/CategoryServlet?route=index");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            request.getSession().setAttribute("failed", "Category fail to updated. Error :"+e);
+            response.sendRedirect("/CategoryServlet?route=index");
+        }
     }
 
     private void deleteCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {

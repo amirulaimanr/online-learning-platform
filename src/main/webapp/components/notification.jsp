@@ -27,4 +27,18 @@
         }
         session.removeAttribute("failed");
     %>
+    <%
+        if (session.getAttribute("warning") != null) {
+    %>
+    <script>
+        Swal.fire({
+            title: "Warning!",
+            text: "  <%= session.getAttribute("warning")%>",
+            icon: "warning"
+        });
+    </script>
+    <%
+        }
+        session.removeAttribute("warning");
+    %>
 </div>
