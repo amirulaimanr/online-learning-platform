@@ -198,7 +198,7 @@ public class ChapterServlet extends HttpServlet {
 
             if (videopath.getSize() > 0) {
                 String filePath = request.getParameter("tempt_video");
-                deleteVideo(globalPath + filePath);
+                deleteVideo(globalPath.replace("video", "") + filePath);
                 String path = fileUpload(videopath, course_id, id);
                 chapterDao.updateVideoPath(id, path);
             }
@@ -219,10 +219,17 @@ public class ChapterServlet extends HttpServlet {
 
         DatabaseConnection dbConnection = new DatabaseConnection();
         ChapterDao chapterDao = new ChapterDao(dbConnection);
-
+        
+        Optional<Chapter> chapterData = chapterDao.find(id);
+        Chapter chp = new Chapter();
         Chapter chapter = new Chapter(id);
+        
+        if (chapterData.isPresent()) {
+            chp = chapterData.get();
+        } 
 
         try {
+            deleteVideo(globalPath.replace("video", "") + chp.getVideopath());
             chapterDao.delete(chapter);
             request.getSession().setAttribute("success", "Chapter successfully deleted");
             response.sendRedirect("/ChapterServlet?route=index&id=" + course_id + "&name=" + course_name);
