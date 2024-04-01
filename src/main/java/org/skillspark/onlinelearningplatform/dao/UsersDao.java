@@ -75,4 +75,36 @@ public class UsersDao {
         
         return str;
     }
+    public Users find(int id) throws SQLException {
+        String sql = "SELECT * FROM users WHERE id=?";
+        int id_user = 0, role_id = 0;
+        String name = "", email_user = "", password = "";
+
+        PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            role_id = resultSet.getInt("role_id");
+            id_user = resultSet.getInt("id");
+            name = resultSet.getString("name");
+            email_user = resultSet.getString("email");
+            password = resultSet.getString("password");
+        }
+
+        return new Users(id_user, name, email_user, password, role_id);
+    }
+    public boolean update(Users user) throws SQLException {
+        boolean rowupdate = false;
+        String sql = "UPDATE users SET name=?,email=?,password=? WHERE id=?";
+
+        PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);
+        statement.setString(1, user.getName());
+        statement.setString(2, user.getEmail());
+        statement.setString(3, user.getPassword());
+        statement.setInt(4, user.getId());
+        rowupdate = statement.executeUpdate() > 0;
+
+        return rowupdate;
+    }
 }
